@@ -1,5 +1,5 @@
 {
-  "name": "github-fetcher-fullstack-v2",
+  "name": "NEWS-MAPPER",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,8 +7,7 @@
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js"
   },
-  "author": "Beth Johnson",
-  "license": "ISC",
+  "author": "Fantastic Frogs",
   "devDependencies": {
     "babel-core": "^6.23.1",
     "babel-loader": "^6.3.2",
@@ -18,12 +17,10 @@
     "webpack": "^2.2.1"
   },
   "dependencies": {
-    "angular": "^1.6.3",
     "express": "^4.15.0",
     "jquery": "^3.1.1",
     "mapbox-gl": "^0.38.0",
     "mongoose": "^4.8.6",
-    "mysql": "^2.13.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
   }
