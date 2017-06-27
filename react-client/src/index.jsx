@@ -16,13 +16,14 @@ class App extends React.Component {
     var map = new mapboxgl.Map({
       container: 'map', // container id
       style: 'mapbox://styles/mapbox/dark-v9', //hosted style id
-      center: [-77.38, 39], // starting position
-      zoom: 3 // starting zoom
+      center: [-95.38, 39], // starting position
+      zoom: 4 // starting zoom
     });
   }
-  render () {
+  render() {
     return (
       <div>
+        <h1>THIS IS A TITLE</h1>
       </div>
     )}
 }
