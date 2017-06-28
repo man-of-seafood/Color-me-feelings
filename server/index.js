@@ -24,9 +24,10 @@ var params = {
   sentences: false
 };
 
-toneAnalyzer.tone(params, function(error, response) {
-  error ? console.log('error:', error) : console.log(JSON.stringify(response, null, 2));
-});
+// UNCOMMENT FOR Watson call
+// toneAnalyzer.tone(params, function(error, response) {
+//   error ? console.log('error:', error) : console.log(JSON.stringify(response, null, 2));
+// });
 
 
 app.get('/items', function (req, res) {
@@ -38,37 +39,6 @@ app.get('/items', function (req, res) {
     }
   });
 });
-
-
-// req.body.params.tone > 
-// app.get('/tones', function (req, res) {
-//   axios({
-//     method: 'post',
-//     url: 'https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2016-05-19&senetences=false',
-//     data: {
-//       user: 'b3e055a0-d5f2-4d3a-ad28-9493a6dfe847:hELQjqCGqz1s',
-//       data: '{\'text\': \'Hi Team, I know the times are difficult! Our sales have been disappointing for the past three quarters for our data analytics product suite. We have a competitive data analytics product suite in the industry. But we need to do our job selling it! \'}'   
-//     }
-//   })
-//     .then( (result) => { 
-//       console.log('Watson: Saved tone analysis');
-//       res.send(result); 
-//     })
-//     .catch( (err) => { console.log('Watson: Error ', err); });
-// });
-
-
-// API request to Watson
-// axios({
-//   method: 'post',
-//   url: 'https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2016-05-19&senetences=false',
-//   data: {
-//     user: 'b3e055a0-d5f2-4d3a-ad28-9493a6dfe847:hELQjqCGqz1s',
-//     data: '{\'text\': \'Hi Team, I know the times are difficult! Our sales have been disappointing for the past three quarters for our data analytics product suite. We have a competitive data analytics product suite in the industry. But we need to do our job selling it! \'}'   
-//   }
-// })
-//   .then( (res) => { console.log('Watson: Saved tone analysis'); })
-//   .catch( (err) => { console.log('Watson: Error ', err); });
 
 
 
