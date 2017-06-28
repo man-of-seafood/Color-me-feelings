@@ -14,7 +14,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    mapboxgl.accessToken = "pk.eyJ1IjoiYmh1YW5nIiwiYSI6ImNqNDhxZWF6ZzBibjIycXBjaXN2Ymx3aHcifQ.MKQaPh3n3c94mcs0s2IfHw";
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYmh1YW5nIiwiYSI6ImNqNDhxZWF6ZzBibjIycXBjaXN2Ymx3aHcifQ.MKQaPh3n3c94mcs0s2IfHw';
     var map = new mapboxgl.Map({
       container: 'map', // container id
       style: 'mapbox://styles/mapbox/dark-v9', //hosted style id
@@ -34,14 +34,24 @@ class App extends React.Component {
       data: {tone: tone}, // from news
       success: (data) => {},
       error: (err) => { console.log('Watson: Failed to get tone data from server ', err); }
-    }); 
+    });
   }
 
 
   render() {
     return (
       <div>
-        <h1>THIS IS A TITLE</h1>
+        <p className='title'>News Mapper</p>
+        <div className='col-md-1'>
+          <select className='form-control selector'>
+            <option>Joy</option>
+            <option>Anger</option>
+            <option>Disgust</option>
+            <option>Fear</option>
+            <option>Sadness</option>
+          </select>
+        </div>
+        <List />
       </div>
     );
   }
