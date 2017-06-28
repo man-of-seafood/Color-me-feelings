@@ -1,19 +1,19 @@
 var express = require('express');
+  var app = express();
 var bodyParser = require('body-parser');
 var axios = require('axios');
-var items = require('../database-mongo');
+var configFile = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
+    var secret = configFile.keys;
 var ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
 
-var app = express();
+var items = require('../database-mongo');
 
-// UNCOMMENT FOR REACT
 app.use(express.static(__dirname + '/../react-client/dist'));
-
 
 // create instance of Tone Analyzer service
 var toneAnalyzer = new ToneAnalyzerV3({
-  username: 'b3e055a0-d5f2-4d3a-ad28-9493a6dfe847',
-  password: 'hELQjqCGqz1s',
+  username: secret.WATSON_API_USERNAME,
+  password: secret.WATSON_API_PASS,
   version_date: '2016-05-19'
 });
 
@@ -41,8 +41,7 @@ app.get('/items', function (req, res) {
 });
 
 
-
+/*~~~~~~~~~~~~~~~~~~~~~~~ STARTUP SERVER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 app.listen(3000, function() {
   console.log('listening on port 3000!');
 });
-
