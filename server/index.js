@@ -1,9 +1,9 @@
 var express = require('express');
-  var app = express();
+var app = express();
 var bodyParser = require('body-parser');
 var axios = require('axios');
 var configFile = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
-    var secret = configFile.keys;
+var secret = configFile.keys;
 
 var db = require('../database-mongo');
 var refill = require('./addArticles');
