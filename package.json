@@ -17,11 +17,14 @@
     "webpack": "^2.2.1"
   },
   "dependencies": {
+    "axios": "^0.16.2",
+    "body-parser": "^1.17.2",
     "express": "^4.15.0",
     "jquery": "^3.1.1",
     "mapbox-gl": "^0.38.0",
     "mongoose": "^4.8.6",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.4.2",
+    "watson-developer-cloud": "^2.32.1"
   }
 }

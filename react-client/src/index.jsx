@@ -9,8 +9,10 @@ class App extends React.Component {
     super(props);
     this.state = {
       items: []
-    }
+    };
+    this.handleToneSelection = this.handleToneSelection.bind(this);
   }
+
   componentDidMount() {
     mapboxgl.accessToken = "pk.eyJ1IjoiYmh1YW5nIiwiYSI6ImNqNDhxZWF6ZzBibjIycXBjaXN2Ymx3aHcifQ.MKQaPh3n3c94mcs0s2IfHw";
     var map = new mapboxgl.Map({
@@ -20,12 +22,29 @@ class App extends React.Component {
       zoom: 4 // starting zoom
     });
   }
+
+  // TODO: News get request
+
+
+  // when user selects tone
+  handleToneSelection(tone) {
+    $.ajax({
+      type: 'GET',
+      url: '/tones/' + tone + '/emotion',
+      data: {tone: tone}, // from news
+      success: (data) => {},
+      error: (err) => { console.log('Watson: Failed to get tone data from server ', err); }
+    }); 
+  }
+
+
   render() {
     return (
       <div>
         <h1>THIS IS A TITLE</h1>
       </div>
-    )}
+    );
+  }
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
