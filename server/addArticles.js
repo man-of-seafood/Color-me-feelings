@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var article = require('../database-mongo/index');
+var Article = require('../database-mongo/index');
 var reference = require('../database-mongo/dictionary');
 var configFile = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
 var WEBHOSE_API_KEY = configFile['WEBHOSE_API_KEY'];
