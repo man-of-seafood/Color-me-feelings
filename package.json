@@ -8,6 +8,9 @@
     "server-dev": "nodemon server/index.js",
     "heroku-postbuild": "webpack"
   },
+  "engines": {
+    "node": "4.4.7"
+  },
   "author": "Fantastic Frogs",
   "devDependencies": {
     "babel-core": "^6.23.1",
