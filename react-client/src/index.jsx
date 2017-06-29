@@ -10,44 +10,49 @@ class App extends React.Component {
     this.state = {
       data: {
         joy: [
-        {
-          "name": "California",
-          "score": Math.random()
-        }
+          {
+            'name': 'California',
+            'score': Math.random()
+          }
         ],
         anger: [
-        {
-          "name": "California",
-          "score": Math.random()
-        }
+          {
+            'name': 'California',
+            'score': Math.random()
+          }
         ],
         disgust: [
-        {
-          "name": "California",
-          "score": Math.random()
-        }
+          {
+            'name': 'California',
+            'score': Math.random()
+          }
         ],
         fear: [
-        {
-          "name": "California",
-          "score": Math.random()
-        }
+          {
+            'name': 'California',
+            'score': Math.random()
+          }
         ],
         sadness: [
-        {
-          "name": "California",
-          "score": Math.random()
-        }
+          {
+            'name': 'California',
+            'score': Math.random()
+          }
         ]
       },
       currentEmotion: 'joy',
       map: null,
       colors: {
-        joy: ['hsl(0, 100%, 0%)', 'hsl(0, 100%, 25%)', 'hsl(0, 100%, 50%)', 'hsl(0, 100%, 75%)', 'hsl(0, 100%, 100%)'],
-        anger: ['hsl(0, 100%, 0%)', 'hsl(0, 100%, 25%)', 'hsl(0, 100%, 50%)', 'hsl(0, 100%, 75%)', 'hsl(0, 100%, 100%)'],
-        disgust: ['hsl(0, 100%, 0%)', 'hsl(0, 100%, 25%)', 'hsl(0, 100%, 50%)', 'hsl(0, 100%, 75%)', 'hsl(0, 100%, 100%)'],
-        fear: ['hsl(0, 100%, 0%)', 'hsl(0, 100%, 25%)', 'hsl(0, 100%, 50%)', 'hsl(0, 100%, 75%)', 'hsl(0, 100%, 100%)'],
-        sadness: ['hsl(0, 100%, 0%)', 'hsl(0, 100%, 25%)', 'hsl(0, 100%, 50%)', 'hsl(0, 100%, 75%)', 'hsl(0, 100%, 100%)']
+        //purple
+        joy: ['hsl(300, 100%, 0%)', 'hsl(300, 100%, 25%)', 'hsl(300, 100%, 50%)', 'hsl(300, 100%, 75%)', 'hsl(300, 100%, 100%)'],
+        //yellow
+        anger: ['hsl(60, 100%, 10%)', 'hsl(60, 100%, 25%)', 'hsl(60, 100%, 50%)', 'hsl(60, 100%, 75%)', 'hsl(60, 100%, 100%)'],
+        //blue
+        disgust: ['hsl(250, 100%, 10%)', 'hsl(250, 100%, 25%)', 'hsl(250, 100%, 50%)', 'hsl(250, 100%, 75%)', 'hsl(250, 100%, 90%)'],
+        //green
+        fear: ['hsl(120, 100%, 10%)', 'hsl(120, 100%, 25%)', 'hsl(120, 100%, 50%)', 'hsl(120, 100%, 75%)', 'hsl(120, 100%, 90%)'],
+        //red
+        sadness: ['hsl(0, 50%, 10%)', 'hsl(0, 50%, 25%)', 'hsl(0, 50%, 50%)', 'hsl(0, 50%, 75%)', 'hsl(0, 50%, 90%)']
       }
     };
     this.handleToneSelection = this.handleToneSelection.bind(this);
@@ -67,11 +72,11 @@ class App extends React.Component {
     });
 
     map.on('load', function () {
-      map.addSource("states", {
-        "type": "geojson",
-        "data": "https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_1_states_provinces.geojson"
+      map.addSource('states', {
+        'type': 'geojson',
+        'data': 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_1_states_provinces.geojson'
       });
-      
+
       that.refreshMap(map, currentEmotionData, currentEmotion);
     });
 
@@ -82,19 +87,19 @@ class App extends React.Component {
 
   refreshMap(map, currentEmotionData, currentEmotion) {
     for (var i = 0; i < currentEmotionData.length; i++) {
-        var color = this.getColor(currentEmotionData[i].score, currentEmotion);
-        map.addLayer({
-          "id": currentEmotionData[i].name + "-fill",
-          "type": "fill",
-          "source": "states",
-          "layout": {},
-          "paint": {
-            "fill-color": color,
-            "fill-opacity": 0.3
-          },
-          "filter": ["==", "name", currentEmotionData[i].name]
-        });
-      }
+      var color = this.getColor(currentEmotionData[i].score, currentEmotion);
+      map.addLayer({
+        'id': currentEmotionData[i].name + '-fill',
+        'type': 'fill',
+        'source': 'states',
+        'layout': {},
+        'paint': {
+          'fill-color': color,
+          'fill-opacity': 0.3
+        },
+        'filter': ['==', 'name', currentEmotionData[i].name]
+      });
+    }
   }
 
   getColor(score, currentEmotion) {
@@ -137,7 +142,10 @@ class App extends React.Component {
             <option>Sadness</option>
           </select>
         </div>
-        <List colorCode={this.state.colors[this.state.currentEmotion]}/>
+        <div className='col-md-10'></div>
+        <div className='col-md-1'>
+          <List colorCode={this.state.colors[this.state.currentEmotion]}/>
+        </div>
       </div>
     );
   }
