@@ -12,31 +12,31 @@ class App extends React.Component {
         joy: [
           {
             'name': 'California',
-            'score': Math.random()
+            'score': Math.random() * 100
           }
         ],
         anger: [
           {
             'name': 'California',
-            'score': Math.random()
+            'score': Math.random() * 100
           }
         ],
         disgust: [
           {
             'name': 'California',
-            'score': Math.random()
+            'score': Math.random() * 100
           }
         ],
         fear: [
           {
             'name': 'California',
-            'score': Math.random()
+            'score': Math.random() * 100
           }
         ],
         sadness: [
           {
             'name': 'California',
-            'score': Math.random()
+            'score': Math.random() * 100
           }
         ]
       },
@@ -56,6 +56,20 @@ class App extends React.Component {
       }
     };
     this.handleToneSelection = this.handleToneSelection.bind(this);
+  }
+
+  getColor(score, currentEmotion) {
+    if (currentEmotion === 'joy') {
+      return 'hsl(300, 100%, ' + score + '%)';
+    } else if (currentEmotion === 'anger') {
+      return 'hsl(60, 100%, ' + (score * 0.9 + 10) + '%)';
+    } else if (currentEmotion === 'disgust') {
+      return 'hsl(250, 100%, ' + (score * 0.8 + 10) + '%)';
+    } else if (currentEmotion === 'fear') {
+      return 'hsl(120, 100%, ' + (score * 0.8 + 10) + '%)';
+    } else {
+      return 'hsl(0, 50%, ' + (score * 0.8 + 10) + '%)';
+    }
   }
 
   componentDidMount() {
@@ -102,9 +116,7 @@ class App extends React.Component {
     }
   }
 
-  getColor(score, currentEmotion) {
-    return 'hsl(0, 100%, ' + score * 100 + '%)';
-  }
+  
   // TODO: News get request
 
 
