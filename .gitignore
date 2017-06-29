@@ -57,3 +57,5 @@ typings/
 .env
 
 react-client/dist/bundle.js
+
+database-mongo/data/
