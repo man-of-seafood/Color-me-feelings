@@ -14,7 +14,6 @@ var articleSchema = new Schema({
   date: { type: Date, default: Date.now },
   stateCode: { type: String, uppercase: true, minlength: 2, maxlength: 2 },
   text: String,
-  processed: { type: Boolean, default: false },
   scores: {
     joy: { type: Number, default: null },
     anger: { type: Number, default: null },
