@@ -26,8 +26,8 @@ body {
     font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
     padding: 10px;
     position: fixed;
-    bottom: 200px;
-    right: 200px;
+    bottom: 150px;
+    right: 150px;
     z-index: 1;
 }
 
