@@ -44,10 +44,10 @@ class App extends React.Component {
       map: null,
       colors: {
         joy: ['hsl(0, 100%, 0%)', 'hsl(0, 100%, 25%)', 'hsl(0, 100%, 50%)', 'hsl(0, 100%, 75%)', 'hsl(0, 100%, 100%)'],
-        anger: [],
-        disgust: [],
-        fear: [],
-        sadness: []
+        anger: ['hsl(0, 100%, 0%)', 'hsl(0, 100%, 25%)', 'hsl(0, 100%, 50%)', 'hsl(0, 100%, 75%)', 'hsl(0, 100%, 100%)'],
+        disgust: ['hsl(0, 100%, 0%)', 'hsl(0, 100%, 25%)', 'hsl(0, 100%, 50%)', 'hsl(0, 100%, 75%)', 'hsl(0, 100%, 100%)'],
+        fear: ['hsl(0, 100%, 0%)', 'hsl(0, 100%, 25%)', 'hsl(0, 100%, 50%)', 'hsl(0, 100%, 75%)', 'hsl(0, 100%, 100%)'],
+        sadness: ['hsl(0, 100%, 0%)', 'hsl(0, 100%, 25%)', 'hsl(0, 100%, 50%)', 'hsl(0, 100%, 75%)', 'hsl(0, 100%, 100%)']
       }
     };
     this.handleToneSelection = this.handleToneSelection.bind(this);
@@ -55,6 +55,7 @@ class App extends React.Component {
 
   componentDidMount() {
     var currentEmotionData = this.state.data[this.state.currentEmotion];
+    var currentEmotion = this.state.currentEmotion;
     var that = this;
 
     mapboxgl.accessToken = 'pk.eyJ1IjoiYmh1YW5nIiwiYSI6ImNqNDhxZWF6ZzBibjIycXBjaXN2Ymx3aHcifQ.MKQaPh3n3c94mcs0s2IfHw';
@@ -71,7 +72,7 @@ class App extends React.Component {
         "data": "https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_1_states_provinces.geojson"
       });
       
-      that.refreshMap(map, currentEmotionData);
+      that.refreshMap(map, currentEmotionData, currentEmotion);
     });
 
     this.setState({
@@ -79,9 +80,9 @@ class App extends React.Component {
     });
   }
 
-  refreshMap(map, currentEmotionData) {
+  refreshMap(map, currentEmotionData, currentEmotion) {
     for (var i = 0; i < currentEmotionData.length; i++) {
-        var color = this.colorCode(currentEmotionData[i].score);
+        var color = this.getColor(currentEmotionData[i].score, currentEmotion);
         map.addLayer({
           "id": currentEmotionData[i].name + "-fill",
           "type": "fill",
@@ -96,26 +97,8 @@ class App extends React.Component {
       }
   }
 
-  colorCode(score) {
-    if (score === 0) {
-      return '#CC3333';
-    } else if (score <= 0.125) {
-      return '#FF6600';
-    } else if (score <= 0.25) {
-      return '#FFFF33';
-    } else if (score <= 0.375) {
-      return '#00FF00';
-    } else if (score <= 0.5) {
-      return '#00CCCC';
-    } else if (score <= 0.675) {
-      return '#00CCFF';
-    } else if (score <= 0.75) {
-      return '#3366FF';
-    } else if (score <= 0.875) {
-      return '#9933FF';
-    } else {
-      return '#FF00FF';
-    }
+  getColor(score, currentEmotion) {
+    return 'hsl(0, 100%, ' + score * 100 + '%)';
   }
   // TODO: News get request
 
@@ -123,11 +106,14 @@ class App extends React.Component {
   // when user selects tone
   handleToneSelection(event) {
     var newSelection = event.target.value[0].toLowerCase() + event.target.value.slice(1);
-    console.log(newSelection);
+
     this.setState({
       currentEmotion: newSelection
     });
-    this.refreshMap(this.state.map, this.state.data[newSelection]);
+
+    this.refreshMap(this.state.map, this.state.data[newSelection], newSelection);
+
+
     // $.ajax({
     //   type: 'GET',
     //   url: '/tones/' + tone + '/emotion',
@@ -151,7 +137,7 @@ class App extends React.Component {
             <option>Sadness</option>
           </select>
         </div>
-        <List />
+        <List colorCode={this.state.colors[this.state.currentEmotion]}/>
       </div>
     );
   }
