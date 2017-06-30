@@ -1,0 +1,34 @@
+<Reference>
+11:00am on Jun 30 Fri  = 1498845600000 <~~~ milliseconds!
+11:00am on Jun 29 Thurs= 1498759200000
+MIDNIGHT 0:0:0 Jun 29  = 1498719600000
+11:00am on Jun 30 Wed  = 1498672800000
+MIDNIGHT 0:0:0 Jun 28  = 1498633200000
+
+&ts=1498719600000 <--- Data was crawled since MIDNIGHT 00:00:00 Jun 29
+published%3A1498719600000%20 <~~~~~Published ON Thurs 29
+location%3A%22West%20Virginia%22
+</Ref>
+
+
+First Try:  http://webhose.io/filterWebContent?token=e6d255ff-1622-4b08-9098-81186a9ca40e&format=json&ts=1498719600000&sort=published&q=is_first%3Atrue%20language%3Aenglish%20published%3A1498719600000%20site_type%3Anews%20thread.country%3AUS%20performance_score%3A%3E5%20location%3A%22West%20Virginia%22
+<--- OK BUT Returned NO Results
+
+Change Location Format: http://webhose.io/filterWebContent?token=e6d255ff-1622-4b08-9098-81186a9ca40e&format=json&ts=1498719600000&sort=published&q=is_first%3Atrue%20language%3Aenglish%20published%3A1498719600000%20site_type%3Anews%20thread.country%3AUS%20performance_score%3A%3E5%20location%3A(West%20Virginia)
+<--- OK BUT Returned NO Results
+
+Change Crawled since to Wed (ts=1498633200000):
+http://webhose.io/filterWebContent?token=e6d255ff-1622-4b08-9098-81186a9ca40e&format=json&ts=1498633200000&sort=published&q=is_first%3Atrue%20language%3Aenglish%20published%3A1498719600000%20site_type%3Anews%20thread.country%3AUS%20performance_score%3A%3E5%20location%3A(West%20Virginia)
+  <--- OK BUT Returned NO Results
+
+Change Published from ON Thurs to >Wed (%3E1498633200000)
+http://webhose.io/filterWebContent?token=e6d255ff-1622-4b08-9098-81186a9ca40e&format=json&ts=1498633200000&sort=published&q=is_first%3Atrue%20language%3Aenglish%20published%3A%3E1498633200000%20site_type%3Anews%20thread.country%3AUS%20performance_score%3A%3E5%20location%3A(West%20Virginia)
+  <--- Returns a single result which DOES NOT MENTION WV!!!
+
+Change Location Format back to location%3A%22West%20Virginia%22
+http://webhose.io/filterWebContent?token=e6d255ff-1622-4b08-9098-81186a9ca40e&format=json&ts=1498633200000&sort=published&q=is_first%3Atrue%20language%3Aenglish%20published%3A%3E1498633200000%20site_type%3Anews%20thread.country%3AUS%20performance_score%3A%3E5%20location%3A%22West%20Virginia%22
+  <--- Returns 22 Results!!!
+
+Change Performance Score to >7
+http://webhose.io/filterWebContent?token=e6d255ff-1622-4b08-9098-81186a9ca40e&format=json&ts=1498633200000&sort=published&q=is_first%3Atrue%20language%3Aenglish%20published%3A%3E1498633200000%20site_type%3Anews%20thread.country%3AUS%20performance_score%3A%3E7%20location%3A%22West%20Virginia%22
+  <--- Returns only 13 results

@@ -1,12 +1,12 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-const dbURI = 'mongodb://localhost/NewsDB';
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+var dbURI = 'mongodb://localhost:27017/NewsDB';
 mongoose.connect(dbURI);
 var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'db connection error!'));
-db.once('open', function() { console.log('mongoose connected successfully'); });
+    db.on('error', console.error.bind(console, 'db connection error!'));
+    db.once('open', function() { console.log('mongoose connected successfully'); });
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 var articleSchema = new Schema({
@@ -14,15 +14,15 @@ var articleSchema = new Schema({
   date: { type: Date, default: Date.now },
   stateCode: { type: String, uppercase: true, minlength: 2, maxlength: 2 },
   text: String
-}, {minimize: false});
+});
 
 var stateTones = new Schema({
   state: String,
   tones: {
-    anger: Number, 
-    disgust: Number, 
-    fear: Number, 
-    fear: Number, 
+    anger: Number,
+    disgust: Number,
+    fear: Number,
+    sadness: Number,
     joy: Number
   }
 });
@@ -34,16 +34,3 @@ module.exports = {
   StateTone: StateTone,
   Article: Article
 };
-
-
-// var selectAll = function(callback) {
-//   Item.find({}, function(err, items) {
-//     if(err) {
-//       callback(err, null);
-//     } else {
-//       callback(null, items);
-//     }
-//   });
-// };
-
-// module.exports.selectAll = selectAll;
