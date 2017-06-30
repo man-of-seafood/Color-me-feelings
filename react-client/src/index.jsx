@@ -3,43 +3,24 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import List from './components/List.jsx';
 import mapboxgl from 'mapbox-gl';
+var dictionary = require('../../database-mongo/dictionary.js').dictionary;
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: {
-        joy: [
-          {
-            'name': 'California',
-            'score': Math.random() * 100
+      data: [
+        {
+          state: 'CA',
+          tones: {
+            joy: Math.random() * 100,
+            anger: Math.random() * 100,
+            disgust: Math.random() * 100,
+            fear: Math.random() * 100,
+            sadness: Math.random() * 100
           }
-        ],
-        anger: [
-          {
-            'name': 'California',
-            'score': Math.random() * 100
-          }
-        ],
-        disgust: [
-          {
-            'name': 'California',
-            'score': Math.random() * 100
-          }
-        ],
-        fear: [
-          {
-            'name': 'California',
-            'score': Math.random() * 100
-          }
-        ],
-        sadness: [
-          {
-            'name': 'California',
-            'score': Math.random() * 100
-          }
-        ]
-      },
+        }
+      ],
       currentEmotion: 'joy',
       map: null,
       colors: {
@@ -73,7 +54,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    var currentEmotionData = this.state.data[this.state.currentEmotion];
+    var data = this.state.data;
     var currentEmotion = this.state.currentEmotion;
     var that = this;
 
@@ -91,7 +72,7 @@ class App extends React.Component {
         'data': 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_1_states_provinces.geojson'
       });
 
-      that.refreshMap(map, currentEmotionData, currentEmotion);
+      that.refreshMap(map, data, currentEmotion);
     });
 
     this.setState({
@@ -99,11 +80,11 @@ class App extends React.Component {
     });
   }
 
-  refreshMap(map, currentEmotionData, currentEmotion) {
-    for (var i = 0; i < currentEmotionData.length; i++) {
-      var color = this.getColor(currentEmotionData[i].score, currentEmotion);
+  refreshMap(map, data, currentEmotion) {
+    for (var i = 0; i < data.length; i++) {
+      var color = this.getColor(data[i].tones[currentEmotion], currentEmotion);
       map.addLayer({
-        'id': currentEmotionData[i].name + '-fill',
+        'id': data[i].state + '-fill',
         'type': 'fill',
         'source': 'states',
         'layout': {},
@@ -111,7 +92,7 @@ class App extends React.Component {
           'fill-color': color,
           'fill-opacity': 0.3
         },
-        'filter': ['==', 'name', currentEmotionData[i].name]
+        'filter': ['==', 'name', dictionary[data[i].state]]
       });
     }
   }
@@ -128,7 +109,7 @@ class App extends React.Component {
       currentEmotion: newSelection
     });
 
-    this.refreshMap(this.state.map, this.state.data[newSelection], newSelection);
+    this.refreshMap(this.state.map, this.state.data, newSelection);
 
 
     // $.ajax({
