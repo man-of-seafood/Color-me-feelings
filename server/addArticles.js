@@ -52,12 +52,12 @@ var configFile = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
   };
 
   var dailyRefresh = function(){
-    db.getCollection('articles').remove({})
-    getStateData(statesList[1]);
-    // var smallSample = statesList.slice(0,3);
-    // smallSample.forEach(stateCode)
-    //   getStateData(stateCode);
-    // });
+    Article.find({}).remove(function(){console.log('DB Cleared');});
+
+    var smallSample = statesList.slice(0,5);
+    smallSample.forEach( (stateCode) => {
+      getStateData(stateCode);
+    });
   };
 
 module.exports = dailyRefresh;
