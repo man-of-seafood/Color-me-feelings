@@ -19,6 +19,26 @@ class App extends React.Component {
             fear: Math.random() * 100,
             sadness: Math.random() * 100
           }
+        },
+        {
+          state: 'NV',
+          tones: {
+            joy: null,
+            anger: null,
+            disgust: null,
+            fear: null,
+            sadness: null
+          }
+        },
+        {
+          state: 'AZ',
+          tones: {
+            joy: Math.random() * 100,
+            anger: Math.random() * 100,
+            disgust: Math.random() * 100,
+            fear: Math.random() * 100,
+            sadness: Math.random() * 100
+          }
         }
       ],
       currentEmotion: 'joy',
@@ -82,18 +102,20 @@ class App extends React.Component {
 
   refreshMap(map, data, currentEmotion) {
     for (var i = 0; i < data.length; i++) {
-      var color = this.getColor(data[i].tones[currentEmotion], currentEmotion);
-      map.addLayer({
-        'id': data[i].state + '-fill',
-        'type': 'fill',
-        'source': 'states',
-        'layout': {},
-        'paint': {
-          'fill-color': color,
-          'fill-opacity': 0.3
-        },
-        'filter': ['==', 'name', dictionary[data[i].state]]
-      });
+      if (data[i].tones[currentEmotion] !== null) {
+        var color = this.getColor(data[i].tones[currentEmotion], currentEmotion);
+        map.addLayer({
+          'id': data[i].state + '-fill',
+          'type': 'fill',
+          'source': 'states',
+          'layout': {},
+          'paint': {
+            'fill-color': color,
+            'fill-opacity': 0.3
+          },
+          'filter': ['==', 'name', dictionary[data[i].state]]
+        });
+      }
     }
   }
 
