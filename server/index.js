@@ -1,15 +1,10 @@
 var express = require('express');
 var app = express();
-var bodyParser = require('body-parser');
 var axios = require('axios');
-var configFile = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
-var secret = configFile.keys;
-
+var CronJob = require('cron').CronJob;
 var db = require('../database-mongo');
 var refill = require('./addArticles');
 var watson = require('./callWatson');
-var CronJob = require('cron').CronJob;
-
 
 
 app.use(express.static(__dirname + '/../react-client/dist'));
@@ -31,7 +26,7 @@ var job = new CronJob({
   onTick: function() {
     /* run whatever you want scheduled in here.
      * Runs every weekday (Monday and Friday)
-     * at 11:30:00 AM. 
+     * at 11:30:00 AM.
      */
 
      // run news api call
