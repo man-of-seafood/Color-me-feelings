@@ -148,7 +148,7 @@ class App extends React.Component {
     return (
       <div>
         <p className='title'>News Mapper</p>
-        <div className='col-md-2'>
+        <div className='col-md-2 col-sm-2 col-lg-2'>
           <select className='form-control selector' onChange={this.handleToneSelection} value={this.state.currentEmotion[0].toUpperCase() + this.state.currentEmotion.slice(1)}>
             <option>Joy</option>
             <option>Anger</option>
@@ -157,8 +157,8 @@ class App extends React.Component {
             <option>Sadness</option>
           </select>
         </div>
-        <div className='col-md-9'></div>
-        <div className='col-md-1'>
+        <div className='col-md-9 col-sm-9 col-lg-9'></div>
+        <div className='col-md-1 col-sm-1 col-lg-1'>
           <List colorCode={this.state.colors[this.state.currentEmotion]}/>
         </div>
       </div>
