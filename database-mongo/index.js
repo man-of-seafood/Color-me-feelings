@@ -6,7 +6,7 @@ const dbURI = 'mongodb://localhost/NewsDB';
 mongoose.connect(dbURI);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'db connection error!'));
-db.once('open', function(){ console.log('mongoose connected successfully'); });
+db.once('open', function() { console.log('mongoose connected successfully'); });
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 var articleSchema = new Schema({
@@ -27,9 +27,14 @@ var stateTones = new Schema({
   }
 });
 
-
+var StateTone = mongoose.model('StateTone', stateTones);
 var Article = mongoose.model('Article', articleSchema);
-module.exports = Article;
+
+module.exports = {
+  StateTone: StateTone,
+  Article: Article
+};
+
 
 // var selectAll = function(callback) {
 //   Item.find({}, function(err, items) {
