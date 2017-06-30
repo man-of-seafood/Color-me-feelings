@@ -13,15 +13,17 @@ var CronJob = require('cron').CronJob;
 
 app.use(express.static(__dirname + '/../react-client/dist'));
 
-app.get('/items', function (req, res) {
-  items.selectAll(function(err, data) {
+app.get('/tones', function (req, res) {
+  db.StateTone.find({}, function(err, stateTones) {
     if (err) {
       res.sendStatus(500);
     } else {
-      res.json(data);
+      res.sendStatus(200);
+      res.json(stateTones);
     }
   });
 });
+
 //just require anywhere you want to start a job and change crontime based on what you want
 var job = new CronJob({
   cronTime: '00 30 11 * * 1,5',
@@ -30,8 +32,10 @@ var job = new CronJob({
      * Runs every weekday (Monday and Friday)
      * at 11:30:00 AM. 
      */
+     // run news api call
   }, function() {
     //can remove, but runs when job is finihsed
+    // run watson
   },
   start: false,
   timeZone: 'America/Los_Angeles'
