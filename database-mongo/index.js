@@ -5,8 +5,8 @@ var Schema = mongoose.Schema;
 var dbURI = 'mongodb://localhost:27017/NewsDB';
 mongoose.connect(dbURI);
 var db = mongoose.connection;
-    db.on('error', console.error.bind(console, 'db connection error!'));
-    db.once('open', function() { console.log('mongoose connected successfully'); });
+db.on('error', console.error.bind(console, 'db connection error!'));
+db.once('open', function() { console.log('mongoose connected successfully'); });
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 var articleSchema = new Schema({
