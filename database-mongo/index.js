@@ -14,15 +14,15 @@ var articleSchema = new Schema({
   date: { type: Date, default: Date.now },
   stateCode: { type: String, uppercase: true, minlength: 2, maxlength: 2 },
   text: String
-}, {minimize: false});
+});
 
 var stateTones = new Schema({
   state: String,
   tones: {
-    anger: Number, 
-    disgust: Number, 
-    fear: Number, 
-    fear: Number, 
+    anger: Number,
+    disgust: Number,
+    fear: Number,
+    sadness: Number,
     joy: Number
   }
 });
