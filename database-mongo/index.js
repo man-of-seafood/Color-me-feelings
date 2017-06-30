@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
+var Promise = require('bluebird');
 var Schema = mongoose.Schema;
-
+mongoose.Promise = Promise;
+  //?? assert.equal(query.exec().constructor, require('bluebird'));
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 var dbURI = 'mongodb://localhost:27017/NewsDB';
 mongoose.connect(dbURI);

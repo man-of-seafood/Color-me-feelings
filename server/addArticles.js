@@ -1,3 +1,4 @@
+var Promise = require('bluebird');
 var mongoose = require('mongoose');
 var dbSetup = require('../database-mongo/index');
     var Article = dbSetup.Article;
@@ -31,8 +32,8 @@ var configFile = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
     axios.get(queryString)
     .then( (result) => {
       var respObj = result.data;
-      var totalResults = respObj.totalResults
-      console.log( totalResults+' total articles in response from hose rec\'d');
+      var totalResults = respObj.totalResults;
+      console.log( totalResults+' total articles for '+ stateCode+' in rec\'d hose-response');
 
       var arrOfArticleObj = respObj.posts;
       arrOfArticleObj.forEach( (articleObj) => {
@@ -45,16 +46,15 @@ var configFile = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
           if (err){ console.error(err); }  //otherwise...
           console.log('uuid saved...', artuuid);
         });
-
       });
     })
     .catch( (error) => { console.error(" UH OH!!! -->", error); } );
   };
 
   var dailyRefresh = function(){
-    Article.find({}).remove(function(){console.log('DB Cleared');});
+    Article.find({}).remove(() => {console.log('DB Cleared');});
 
-    var smallSample = statesList.slice(0,5);
+    var smallSample = statesList.slice(0,2);
     smallSample.forEach( (stateCode) => {
       getStateData(stateCode);
     });
