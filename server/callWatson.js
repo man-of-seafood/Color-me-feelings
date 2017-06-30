@@ -18,13 +18,9 @@ var params = {
   sentences: false
 };
 
-// Get each article from db >>> Call to Watson >>> Update each article with 5-scores based on the response...
-
-// UNCOMMENT FOR Watson call
-
-exports.finalObj = {};
-
-// eg {az: {joy: 0, fear: 0}, bx: joy}
+// stores state and tone data
+var finalObj = {};
+// eg {az: {joy: 0, fear: 0, disgust: 0}, ca: {joy...}}
 
 
 var makeAvg = (obj, divisor) => {
@@ -74,7 +70,7 @@ exports.addTones = () => {
           callWatsonForScores(allArticles, finalObj);
 
           // avg scores for az
-          makeAvg(finalObj, allArticles.length);
+          makeAvg(finalObj[state], allArticles.length);
 
           // create document
           var stateTone = new db.StateTone({
