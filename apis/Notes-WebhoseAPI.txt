@@ -1,0 +1,2302 @@
+// URL Encodings -   > is %3E || < is %3C || = is %3D ||  : is %3A  || " is %22
+/* Time info
+11:00am on Jun 30 Fri  = 1498845600000 <~~~ milliseconds!
+11:00am on Jun 29 Thurs= 1498759200000
+00:00 Midnight Jun 29  = 1498719600000
+11:00am on Jun 38 Wed  = 1498672800000
+00:00 Midnight Jun 28  = 1498633200000
+
+FOR REQUEST: http://webhose.io/filterWebContent?token=e6d255ff-1622-4b08-9098-81186a9ca40e&format=json&ts=1498633200000&sort=published&q=is_first%3Atrue%20language%3Aenglish%20published%3A%3E1498633200000%20site_type%3Anews%20thread.country%3AUS%20performance_score%3A%3E7%20location%3A%22West%20Virginia%22
+
+Definition:
+http://webhose.io/filterWebContent?token=e6d255ff-1622-4b08-9098-81186a9ca40e&format=json
+&ts=1498633200000 <<--- Data was crawled since MIDNIGHT 00:00:00 Jun 28
+&sort=published <<-- sort by published date (most recent are first)
+&q=
+is_first%3Atrue%20 <<--- Has to do with making sure it is not a comment
+language%3Aenglish%20
+published%3A%3E1498633200000%20 <<--Publish Date is > MIDNIGHT 00:00:00 Jun 28
+site_type%3Anews%20
+thread.country%3AUS%20
+performance_score%3A%3E7%20  <<-- Social performance is >7  (10 is best)
+location%3A%22West%20Virginia%22  <<--- location:"West Virginia"  Do NOT use the () version
+
+
+RESULT:  // Total # of results are at the bottom
+{
+    "posts": [
+        {
+            "thread": {
+                "uuid": "4383a43933091718ec842a420f62b92d7dfaaa72",
+                "url": "http://omgili.com/ri/jHIAmI4hxg8kBMzlsF_JTjQdlO8_P5DHS7vvZzrbDOjwIGMdS_.vlKg7hpS92xxDpQgH5NyoOeZUg6bZaiC1Dva0NkScfTvXg87rppLXOtvs0H2rufPP8w--",
+                "site_full": "www.huffingtonpost.com",
+                "site": "huffingtonpost.com",
+                "site_section": "http://www.huffingtonpost.com/feeds/index.xml",
+                "site_categories": [],
+                "section_title": "HuffPost - Breaking News, U.S. and World News",
+                "title": "States Give Trump An Ultimatum: End Dreamers' Protection Or See Us In Court",
+                "title_full": "States Give Trump An Ultimatum: End Dreamers' Protection Or See Us In Court",
+                "published": "2017-06-30T01:40:00.000+03:00",
+                "replies_count": 0,
+                "participants_count": 0,
+                "site_type": "news",
+                "country": "US",
+                "spam_score": 0,
+                "main_image": "http://img.huffingtonpost.com/asset/1910_1000/5955772418000038006722df.jpeg?cache=gwl17tiybr",
+                "performance_score": 8,
+                "domain_rank": 139,
+                "social": {
+                    "facebook": {
+                        "likes": 810,
+                        "comments": 19,
+                        "shares": 810
+                    },
+                    "gplus": {
+                        "shares": 1
+                    },
+                    "pinterest": {
+                        "shares": 0
+                    },
+                    "linkedin": {
+                        "shares": 0
+                    },
+                    "stumbledupon": {
+                        "shares": 0
+                    },
+                    "vk": {
+                        "shares": 0
+                    }
+                }
+            },
+            "uuid": "4383a43933091718ec842a420f62b92d7dfaaa72",
+            "url": "http://omgili.com/ri/jHIAmI4hxg8kBMzlsF_JTjQdlO8_P5DHS7vvZzrbDOjwIGMdS_.vlKg7hpS92xxDpQgH5NyoOeZUg6bZaiC1Dva0NkScfTvXg87rppLXOtvs0H2rufPP8w--",
+            "ord_in_thread": 0,
+            "author": "",
+            "published": "2017-06-30T01:40:00.000+03:00",
+            "title": "States Give Trump An Ultimatum: End Dreamers' Protection Or See Us In Court",
+            "text": "States Give Trump An Ultimatum: End Dreamers' Protection Or See Us In Court The president has kept the Deferred Action for Childhood Arrivals program in place, so far. By Elise Foley \nTen state attorneys general and a governor demanded on Thursday that the Trump administration start winding down protections for hundreds of thousands of young undocumented immigrants who came to the U.S. as children. If the government doesn’t act by Sept. 5, they said they’ll see President Donald Trump in court. \nTrump campaigned on a promise to stop the Deferred Action for Childhood Arrivals program, or DACA, but he hasn’t done so yet ― although his administration has officially rescinded a similar program meant to protect undocumented parents of U.S. citizens and lawful permanent residents. \nThe latter program never went into effect, thanks to a lawsuit led by Texas officials. Now the same state is heading the charge against DACA, which has been operating since 2012 and provides two-year permits for undocumented immigrants who arrived in the U.S. as kids. If Texas and the nine other states sue or otherwise convince Trump to end DACA, nearly 800,000 of these immigrants, often called Dreamers, could end up unable to work legally and at greater risk of deportation. \nTexas Attorney General Ken Paxton was joined by the attorneys general from Alabama, Arkansas, Idaho, Kansas, Louisiana, Nebraska, South Carolina, Tennessee and West Virginia, along with Idaho Gov. C.L. “Butch” Otter, in sending a warning letter to Attorney General Jeff Sessions . \nIn their letter, they asked the administration to phase out DACA by ending the distribution of new permits and the renewal of current permits. They said this would not require the federal government to rescind any permits or deport anyone. \nStill, it would eventually cost all DACA recipients their protected status, which has allowed them to work legally, obtain driver’s licenses and, in some cases, travel outside the U.S. for the first time since entering as minors. They would be back in the same precarious state they were before ― and at potentially greater risk of deportation as Trump ramps up enforcement efforts. \nThe White House did not respond to a request for comment on the letter or the president’s plans for DACA. The Department of Homeland Security referred questions to the Department of Justice, which did not immediately provide comment. Do you have information you want to share with HuffPost? Here’s how. ALSO ON HUFFPOST How Donald Trump Talks About Undocumented Immigrants How Donald Trump Talks About Undocumented Immigrants How Donald Trump Talks About Undocumented Immigrants 1 11 April 2015 At an event hosted by Texas Patriots PAC: “Everything’s coming across the border: the illegals, the cars, the whole thing. It’s like a big mess. Blah. It’s like vomit.” Share this slide:",
+            "highlightText": "",
+            "highlightTitle": "",
+            "language": "english",
+            "external_links": [],
+            "entities": {
+                "persons": [
+                    {
+                        "name": "jeff sessions",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "donald trump",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "elise foley  ten",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "ken paxton",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "c.l. “butch",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "trump",
+                        "sentiment": "none"
+                    }
+                ],
+                "organizations": [
+                    {
+                        "name": "end dreamers' protection or see us in court",
+                        "sentiment": "neutral"
+                    },
+                    {
+                        "name": "deferred action for childhood arrivals",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "department of homeland security",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "daca",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "white house",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "department of justice",
+                        "sentiment": "none"
+                    }
+                ],
+                "locations": [
+                    {
+                        "name": "west virginia",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "u.s.",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "texas",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "tennessee",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "louisiana",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "kansas",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "alabama",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "arkansas",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "idaho",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "south carolina",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "nebraska",
+                        "sentiment": "none"
+                    }
+                ]
+            },
+            "rating": null,
+            "crawled": "2017-06-30T02:22:01.005+03:00"
+        },
+        {
+            "thread": {
+                "uuid": "d042f47b828e478211bc851a71de22abf595d654",
+                "url": "http://omgili.com/ri/rPCDLkAl21SkQXgiy_6lziw4nStMis.uR8gprk4IaC8Xxeg8b310fA1P0ac8du3K5rlvD6k5_HuJVeY.PJNAOq3c1W1BxiOG85zk4Se1lJe_kjLJ9_Ri33CKRYK4Sofj",
+                "site_full": "abcnews.go.com",
+                "site": "go.com",
+                "site_section": "http://feeds.abcnews.com/abcnews/healthheadlines",
+                "site_categories": [],
+                "section_title": "ABC News: Health",
+                "title": "The Latest: Senate GOP mulling not repealing tax increase",
+                "title_full": "The Latest: Senate GOP mulling not repealing tax increase",
+                "published": "2017-06-29T20:43:00.000+03:00",
+                "replies_count": 0,
+                "participants_count": 0,
+                "site_type": "news",
+                "country": "US",
+                "spam_score": 0,
+                "main_image": "http://a.abcnews.com/images/Health/WireAP_95eade3b51434d3d80e1eea75ff64a13_16x9_992.jpg",
+                "performance_score": 9,
+                "domain_rank": 72,
+                "social": {
+                    "facebook": {
+                        "likes": 934,
+                        "comments": 0,
+                        "shares": 934
+                    },
+                    "gplus": {
+                        "shares": 0
+                    },
+                    "pinterest": {
+                        "shares": 0
+                    },
+                    "linkedin": {
+                        "shares": 0
+                    },
+                    "stumbledupon": {
+                        "shares": 0
+                    },
+                    "vk": {
+                        "shares": 0
+                    }
+                }
+            },
+            "uuid": "d042f47b828e478211bc851a71de22abf595d654",
+            "url": "http://omgili.com/ri/rPCDLkAl21SkQXgiy_6lziw4nStMis.uR8gprk4IaC8Xxeg8b310fA1P0ac8du3K5rlvD6k5_HuJVeY.PJNAOq3c1W1BxiOG85zk4Se1lJe_kjLJ9_Ri33CKRYK4Sofj",
+            "ord_in_thread": 0,
+            "author": "",
+            "published": "2017-06-29T20:43:00.000+03:00",
+            "title": "The Latest: Senate GOP mulling not repealing tax increase",
+            "text": "WATCH Senate Republicans try to revise health care bill 0 Shares The Latest on Senate Republicans' effort to pass a health care overhaul and keep the party's promise to repeal President Barack Obama's health care law (all times local): 4:35 p.m. The Congressional Budget Office says Medicaid cuts in the Senate Republican health care bill would take a 35 percent bite off the program's projected spending by 2036. That's a deeper cut than the nonpartisan office has projected for 2026. That year's reduction would be 26 percent below projections under current law. The report released Thursday does not quantify how many fewer people the health care program for the poor and disabled would cover in 2036 due to proposed GOP cuts. It says enrollment \"would continue to fall\" compared to current law. CBO has estimated the Republican bill would mean 15 million fewer Medicaid recipients by 2026. It now covers over 70 million. The Senate bill would impose several cuts on Medicaid, including a slower annual growth rate starting in 2025. —— 1:35 p.m. Senate Republicans trying to salvage their bill repealing much of President Barack Obama's health care law are considering keeping the biggest tax increase he enacted to pay for his statute's expansion. The GOP bill would repeal most of the tax boosts in Obama's law. Leaders are considering retaining Obama's 3.8 percent tax increase on investments by higher earners. That tax boost is expected to raise $172 billion over 10 years. Some Republicans want to use the money instead to make their federal health care subsidies more generous. They're also considering a proposal from conservatives to let insurers offer policies with whatever premiums and benefits they'd like — as long as they also offer a plan providihg all the coverage Obama's law requires. It's unclear whether either proposal will survive. ——— 12:55 p.m. Top Republicans have agreed to add $45 billion for battling opioid abuse to their struggling health care bill. But the measure's fate is still uncertain, as leaders confront an expanding chorus of GOP detractors. Senate Majority Leader Mitch McConnell is hoping the added money will help win over moderate GOP senators like Rob Portman of Ohio and Shelley Moore Capito of West Virginia. Their states are among many battered by rising death tolls from illegal drug use and they've been pushing for the funds. Those same senators are also insisting on easing cuts the GOP legislation would impose on Medicaid, the health insurance program for low-income and disabled people that their states also rely upon. There's no indication an agreement has been reached to pull back on those reductions. ——— 4:10 a.m. Senate Majority Leader Mitch McConnell is exploring options for salvaging the Republican health care bill. But he's confronting an expanding chorus of GOP critics. And that is deepening the uncertainty over whether the party can keep its promise to repeal President Barack Obama's overhaul. A day after McConnell, short of votes, unexpectedly abandoned plans to whisk the measure through his chamber this week, fresh GOP critics came forward. While this week's retreat on a measure McConnell wrote behind closed doors dented his reputation as a consummate legislative dealmaker, no one was counting him out. 0 Shares ",
+            "highlightText": "",
+            "highlightTitle": "",
+            "language": "english",
+            "external_links": [],
+            "entities": {
+                "persons": [
+                    {
+                        "name": "barack obama",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "shelley moore capito",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "rob portman",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "obama",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "mcconnell",
+                        "sentiment": "none"
+                    }
+                ],
+                "organizations": [
+                    {
+                        "name": "senate gop",
+                        "sentiment": "negative"
+                    },
+                    {
+                        "name": "senate",
+                        "sentiment": "negative"
+                    },
+                    {
+                        "name": "gop",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "medicaid",
+                        "sentiment": "none"
+                    }
+                ],
+                "locations": [
+                    {
+                        "name": "west virginia",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "ohio",
+                        "sentiment": "none"
+                    }
+                ]
+            },
+            "rating": null,
+            "crawled": "2017-06-29T21:06:35.002+03:00"
+        },
+        {
+            "thread": {
+                "uuid": "24b4f66077e2a2416e8cda044c3d146cf6f9222d",
+                "url": "http://omgili.com/ri/.wHSUbtEfZRsEAbESvBgTLZ9ttgu9qB0YojfbcsL7X8mdbNC4tGQ2Q2aK6fV2SmTVQ2JfzD8J58_1NgEpfM_TY5_ZogjMctL6PLVQnS4nj8rJxmb1HgdjALg6U3WozE7",
+                "site_full": "www.vox.com",
+                "site": "vox.com",
+                "site_section": "http://www.vox.com/rss/index.xml",
+                "site_categories": [],
+                "section_title": "Vox -  All",
+                "title": "“The dam has massive cracks in it”: the resistance sees signs of victory over GOP health bill",
+                "title_full": "“The dam has massive cracks in it”: the resistance sees signs of victory over GOP health bill",
+                "published": "2017-06-29T15:20:00.000+03:00",
+                "replies_count": 0,
+                "participants_count": 1,
+                "site_type": "news",
+                "country": "US",
+                "spam_score": 0,
+                "main_image": "https://cdn.vox-cdn.com/thumbor/M2Fzq-i5KjG_CpzfH9ABnEbWJe4=/0x295:5307x3243/1080x600/cdn.vox-cdn.com/uploads/chorus_image/image/55496557/802872350.0.jpg",
+                "performance_score": 9,
+                "domain_rank": 902,
+                "social": {
+                    "facebook": {
+                        "likes": 919,
+                        "comments": 0,
+                        "shares": 919
+                    },
+                    "gplus": {
+                        "shares": 3
+                    },
+                    "pinterest": {
+                        "shares": 0
+                    },
+                    "linkedin": {
+                        "shares": 1
+                    },
+                    "stumbledupon": {
+                        "shares": 0
+                    },
+                    "vk": {
+                        "shares": 0
+                    }
+                }
+            },
+            "uuid": "24b4f66077e2a2416e8cda044c3d146cf6f9222d",
+            "url": "http://omgili.com/ri/.wHSUbtEfZRsEAbESvBgTLZ9ttgu9qB0YojfbcsL7X8mdbNC4tGQ2Q2aK6fV2SmTVQ2JfzD8J58_1NgEpfM_TY5_ZogjMctL6PLVQnS4nj8rJxmb1HgdjALg6U3WozE7",
+            "ord_in_thread": 0,
+            "author": "Jeff Stein",
+            "published": "2017-06-29T15:20:00.000+03:00",
+            "title": "“The dam has massive cracks in it”: the resistance sees signs of victory over GOP health bill",
+            "text": "share Photo by Drew Angerer/Getty Images Less than two weeks ago, it looked like Senate Majority Leader Mitch McConnell had figured out how to cripple the resistance. Republican senators were advancing their health care bill in secret, making it difficult to mobilize opposition to the bill. The media was shrugging at the story. Resistance leaders openly worried that the public would only wake up to the dangers of the bill after it passed. Then McConnell released the text of the bill to the public. With a boost from Senate Democrats, resistance leaders punched back — hard. Activists unleashed a wave of protests, civil disobedience, phone calls, and demonstrations over the bill that reached a scale not seen in the country since March. By Tuesday, McConnell was forced to postpone the health care vote until after the July 4 recess. “The lion’s share of the credit for postponing this vote goes to all those grassroots organizations mobilized around the country,” said Sen. Chris Van Hollen (D-MD) in an interview. “That has made all the difference.” Republicans have hit pause on their biggest policy priority, to repeal and replace Obamacare, in part because the left set aside their differences to unite behind opposition to the bill. The grassroots had been stalling out amid Republicans’ secretive talks about health care, but once the bill was public, the left and Democratic leadership united behind its opposition. Whatever unresolved disagreements there are about the party, it shows than when grassroots and elected officials unify in lockstep, they are a formidable force to be reckoned with. Crucial step: Senate Democrats waged all-out health care war Between the unfolding Russia scandals and the secrecy of McConnell’s bill, Senate Democrats hadn’t turned their full attention to the health care fight until this week. The mainstream media, perhaps for the same reasons, had dropped the ball too — almost none of the biggest national media publications put the health care bill on its front page while the bill was being debated in secret. “It was maddening: The train was hurtling down the track and nobody was even glancing up to see if that was more than a sound effect,” recalled Ben Wikler, legislative director of MoveOn.org. Something changed the following week. Sen. Ron Wyden (D-OR) announced that he’d begin responding to reporters’ questions about Russia by talking about health care instead. “We’re in the red zone,” Sen. Patty Murray (D-WA) told me. As Attorney General Jeff Sessions headed to the hill to testify, Sen. Chris Murphy (D-CT) urged the country to keep its eye on the health care ball: My advice today: focus 10% of your attention/outrage on Sessions testimony, 90% on the secret health care bill that is speeding to a vote. — Chris Murphy (@ChrisMurphyCT) June 13, 2017 Senate Democrats announced that they’d be withholding consent on unrelated legislation and invoking the “two-hour rule” to limit committee hearings, grinding the body to a halt. It worked. The tactics of obstruction forced the health care story into the newspapers and onto cable television, which in turn made it easier for resistance leaders to organize protests, Wikler said. It was the first time, activists say, that they were beginning to strike back at McConnell’s strategy of “stealth and speed.” “Democrats saying they were seriously going to fight unleashed the news cycle, that helped feed the resistance energy, that was then kicked into higher gear,” Wikler said. “That really made a huge difference.” Activism, civil disobedience, phone calls hit GOP senators all at once Buoyed by Senate Democrats, activists across the country ramped up the pressure through a blitz of phone calls, protests, and acts of civil disobedience over the past 10 days. Revolution Messaging reported that it connected 90,000 calls to the Senate to express opposition to the Republican health bill. Politico reported that Sen. Thad Cochran (R-MS) received 224 phone calls opposed to the bill and only two in support since Thursday. Sen. Murphy reported hundreds of calls against and not a single one in favor. Across the country, chapters of the anti-Trump resistance group Indivisible have sprung into action to try to alert the broader public to the bill. In Phoenix, protesters started a campaign called “Until You Walk a Mile in My Panties, You Can't Tell Me What to Do With My Body.” Targeting Sen. Jeff Flake (R-AZ), a possible swing vote on the bill, activists hung dozens of panties on Camelback Road in front of his office, according to organizer Patricia Thomas. On Thursday night, close to 50 people rushed out in a hastily staged rally at Reagan National Airport in a desperate attempt to catch Senate Republicans who were flying back to their home states for the weekend. The most high-profile series of protests were waged by Adapt, a national disabilities rights organization. On Thursday, close to 50 disability activists were arrested in a dramatic sit-in at McConnell’s office and dangerously carried out, leading to national news coverage. “The American people from coast-to-coast said that this is absolutely unacceptable,” Sen. Bernie Sanders (I-VT) said at a rally outside the Capitol. “We have won a temporary — let me underline, temporary — victory. But because of your efforts, the American people are catching on.” Over the weekend, Sen. Sanders held health care rallies with more than 1,000 attendees in Ohio, Western Pennsylvania, and West Virginia to demonstrate the breadth of opposition to those state’s Republican senators. And that wasn’t all the pressure those GOP senators faced: On Monday, six activists were arrested in a protest in the West Virginia offices of Republican Sen. Shelley Moore Capito. In DC, another woman confronted Capito in her Capitol office, pressing her on the medication her daughter would lose should her insurance fall through. “She’s been confronted with the human reality of this,” and now she’s a no, Wikler said of Capito. Senate Democrats and progressive activists are quick to say that they’re not celebrating too soon, emphasizing that the House vote on health care failed before Speaker Paul Ryan managed to secure the votes. But in a fight where they so recently looked sidelined, resistance leaders say they’ve at least regained their footing. “The danger is so far from over. But the dam has massive cracks in it,” Wikler said. “The momentum is now on the side of the resistance.” Was this article helpful?",
+            "highlightText": "",
+            "highlightTitle": "",
+            "language": "english",
+            "external_links": [],
+            "entities": {
+                "persons": [
+                    {
+                        "name": "lea",
+                        "sentiment": "negative"
+                    },
+                    {
+                        "name": "obamacare",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "jeff sessions",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "ron wyden",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "chris murphy",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "jeff flake",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "sanders",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "patty murray",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "wikler",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "paul ryan",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "bernie sanders",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "shelley moore capito",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "ben wikler",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "thad cochran",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "capito",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "mcconnell",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "chris van hollen",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "mitch mcconnell",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "patricia thomas",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "murphy",
+                        "sentiment": "none"
+                    }
+                ],
+                "organizations": [
+                    {
+                        "name": "senate",
+                        "sentiment": "negative"
+                    },
+                    {
+                        "name": "gop",
+                        "sentiment": "negative"
+                    },
+                    {
+                        "name": "moveon.org",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "politico",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "house",
+                        "sentiment": "none"
+                    }
+                ],
+                "locations": [
+                    {
+                        "name": "west virginia",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "reagan national airport",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "western pennsylvania",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "phoenix",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "capitol",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "ohio",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "camelback road",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "russia",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "dc",
+                        "sentiment": "none"
+                    }
+                ]
+            },
+            "rating": null,
+            "crawled": "2017-06-29T18:45:03.000+03:00"
+        },
+        {
+            "thread": {
+                "uuid": "6939faffe82bf8292539c7c292687412294fe9d2",
+                "url": "http://omgili.com/ri/2wGaacqxApsw5GGC2pSnC7lLDLzSw7BGkKP2PR05E62_kGJlMZrUhh4HANUidVvJMbGCktCH6NO33dYrMs_rNUUNVZlIFdAdxtEg7i8EDfrbNLFBtunjpQIQOZZOufXy",
+                "site_full": "money.cnn.com",
+                "site": "cnn.com",
+                "site_section": "http://rss.cnn.com/rss/cnn_topstories",
+                "site_categories": [],
+                "section_title": "CNN.com - RSS Channel - HP Hero",
+                "title": "Senate bill would mean big losses in these states",
+                "title_full": "Senate bill would mean big losses in these states",
+                "published": "2017-06-29T13:23:00.000+03:00",
+                "replies_count": 0,
+                "participants_count": 0,
+                "site_type": "news",
+                "country": "US",
+                "spam_score": 0,
+                "main_image": "http://i2.cdn.turner.com/money/dam/assets/170628190939-state-uninsured-rates-senate-obamacare-main-780x439.jpg",
+                "performance_score": 9,
+                "domain_rank": 81,
+                "social": {
+                    "facebook": {
+                        "likes": 984,
+                        "comments": 0,
+                        "shares": 984
+                    },
+                    "gplus": {
+                        "shares": 6
+                    },
+                    "pinterest": {
+                        "shares": 6
+                    },
+                    "linkedin": {
+                        "shares": 6
+                    },
+                    "stumbledupon": {
+                        "shares": 0
+                    },
+                    "vk": {
+                        "shares": 0
+                    }
+                }
+            },
+            "uuid": "6939faffe82bf8292539c7c292687412294fe9d2",
+            "url": "http://omgili.com/ri/2wGaacqxApsw5GGC2pSnC7lLDLzSw7BGkKP2PR05E62_kGJlMZrUhh4HANUidVvJMbGCktCH6NO33dYrMs_rNUUNVZlIFdAdxtEg7i8EDfrbNLFBtunjpQIQOZZOufXy",
+            "ord_in_thread": 0,
+            "author": "",
+            "published": "2017-06-29T13:23:00.000+03:00",
+            "title": "Senate bill would mean big losses in these states",
+            "text": "Senate health care bill would mean big coverage losses in these states by Tami Luhby @Luhby June 29, 2017: 6:23 AM ET The Senate GOP health care bill explained States that saw major coverage gains under Obamacare would suffer the biggest losses under the Senate health care bill, a new report has found. The states that did not expand Medicaid and didn't have many people enrolled in the individual market would feel less of an impact, according to the Urban Institute analysis . The researchers from the left-leaning think tank estimated that a total of 24.7 million more people would be uninsured in 2022, compared to current law.About 57% of the uninsured would be whites, while more than half would have a high school education or less. Also, 72% would be in families with at least one full-time worker. \nRelated: 22 million fewer Americans insured under Senate GOP bill \nUrban researchers estimate more people would wind up uninsured than the Congressional Budget Office does. The CBO's score of the Senate's health care bill projects there would be 22 million more uninsured by 2026. The Urban Institute's conclusions are a little different than CBO's because Urban uses a different data set and projects the impact of the bill in each state, rather than looking nationally, as CBO does. Urban researchers also expect states to drop out of Medicaid expansion more quickly.) \nRelated: Senate GOP health bill would slash Medicaid. Here's how. \nMost of the losses would come from the Senate eliminating enhanced federal funding for Medicaid expansion and curtailing federal support for the overall program. Also, the legislation would reduce the generosity of the federal premium tax credits, rending coverage unaffordable for millions. \nCalifornia and Ohio would be among those with the biggest increases in uninsured rates under the Senate health plan. California officials are among the biggest supporters of Obamacare, creating a state exchange and expanding Medicaid. \nThe nation's uninsured rate has fallen to a historic low of 10.4% for non-elderly adults under Obamacare, according to the Centers for Disease Control and Prevention. \nOhio Governor John Kasich, a Republican, is among the leading opponents of the effort to repeal Obamacare in Congress. He has repeatedly defended Medicaid expansion, noting it has extended coverage to 700,000 Ohioans and helped many deal with opioid addiction. \nWest Virginia and Alaska would also see big reversals, Urban projected. Republican Senators Lisa Murkowski of Alaska and Shelley Moore Capito of West Virginia have also said they would not support their chamber's bill because of the harm it would inflict on their residents. \nSenate Republicans had hoped to vote on their bill, titled the Better Care Reconciliation Act , this week. But leadership shelved those plans after encountering resistance from multiple senators. \nMajority Leader Mitch McConnell hopes to release a revised bill this week and vote on itby mid-July. CNNMoney (New York) First published June 29, 2017: 6:23 AM ET ",
+            "highlightText": "",
+            "highlightTitle": "",
+            "language": "english",
+            "external_links": [],
+            "entities": {
+                "persons": [
+                    {
+                        "name": "tami luhby",
+                        "sentiment": "negative"
+                    },
+                    {
+                        "name": "obamacare",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "shelley moore capito",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "mitch mcconnell",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "john kasich",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "lisa murkowski",
+                        "sentiment": "none"
+                    }
+                ],
+                "organizations": [
+                    {
+                        "name": "senate",
+                        "sentiment": "negative"
+                    },
+                    {
+                        "name": "senate gop",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "congress",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "cbo",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "urban",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "centers for disease control and prevention",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "medicaid",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "urban institute",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "congressional budget office",
+                        "sentiment": "none"
+                    }
+                ],
+                "locations": [
+                    {
+                        "name": "obamacare",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "west virginia",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "new york",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "alaska",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "ohio",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "california",
+                        "sentiment": "none"
+                    }
+                ]
+            },
+            "rating": null,
+            "crawled": "2017-06-29T14:02:52.001+03:00"
+        },
+        {
+            "thread": {
+                "uuid": "4f2dd459892956daf5fcc3ffcd0900d266e9f9ac",
+                "url": "http://omgili.com/ri/2wGaacqxApsw5GGC2pSnC7lLDLzSw7BGkKP2PR05E62_kGJlMZrUhqIV5ARMlmP5_p5BxwpPU_RA8GVXqYwjZsHL6O6iX.Coa.XPVhRfUhy7hqHWbB.HLovyz9Ja3VxE",
+                "site_full": "money.cnn.com",
+                "site": "cnn.com",
+                "site_section": "http://rss.cnn.com/rss/cnn_topstories",
+                "site_categories": [],
+                "section_title": "CNN.com - RSS Channel - HP Hero",
+                "title": "Middle class could feel squeeze on nursing home care",
+                "title_full": "Middle class could feel squeeze on nursing home care",
+                "published": "2017-06-29T13:15:00.000+03:00",
+                "replies_count": 0,
+                "participants_count": 0,
+                "site_type": "news",
+                "country": "US",
+                "spam_score": 0,
+                "main_image": "http://i2.cdn.turner.com/money/dam/assets/170628184248-kaiser-family-foundation-jacobs-780x439.jpg",
+                "performance_score": 8,
+                "domain_rank": 81,
+                "social": {
+                    "facebook": {
+                        "likes": 878,
+                        "comments": 0,
+                        "shares": 878
+                    },
+                    "gplus": {
+                        "shares": 11
+                    },
+                    "pinterest": {
+                        "shares": 2
+                    },
+                    "linkedin": {
+                        "shares": 16
+                    },
+                    "stumbledupon": {
+                        "shares": 0
+                    },
+                    "vk": {
+                        "shares": 0
+                    }
+                }
+            },
+            "uuid": "4f2dd459892956daf5fcc3ffcd0900d266e9f9ac",
+            "url": "http://omgili.com/ri/2wGaacqxApsw5GGC2pSnC7lLDLzSw7BGkKP2PR05E62_kGJlMZrUhqIV5ARMlmP5_p5BxwpPU_RA8GVXqYwjZsHL6O6iX.Coa.XPVhRfUhy7hqHWbB.HLovyz9Ja3VxE",
+            "ord_in_thread": 0,
+            "author": "",
+            "published": "2017-06-29T13:15:00.000+03:00",
+            "title": "Middle class could feel squeeze on nursing home care",
+            "text": "Even the middle class would feel GOP squeeze on nursing home care by Jordan Rau, Kaiser Health News @CNNMoney June 29, 2017: 6:15 AM ET This state line divides the Medicaid debate Alice Jacobs, 90, once owned a factory and horses. She raised four children and buried two husbands. But years in an assisted living facility drained her savings, and now she relies on Medicaid to pay for her care at Dogwood Village, a nonprofit, county-owned nursing home here. \"You think you've got enough money to last all your life, and here I am,\" Jacobs said. \nMedicaid pays for about two-thirds of the 1.4 million elderly people in nursing homes, like Jacobs. It covers 20% of all Americans, and 40% of poor adults. \nLast week, Senate Republicans joined their House colleagues in proposing steep cuts to Medicaid, part of the effort to repeal the Affordable Care Act. Conservatives hope to roll back what they see as an expanding and costly health care entitlement. But little has been said about what would happen to older Americans in nursing homes if these cuts took effect. \nRelated: Who gets hurt and who gets helped by the Senate health care bill \nUnder federal law, state Medicaid programs are required to cover nursing home care. But state officials decide how much to pay facilities, and states under budgetary pressure could decrease the amount they are willing to pay or restrict eligibility for coverage. \n\"The states are going to make it harder to qualify medically for needing nursing home care,\" predicted Toby Edelman, a senior policy attorney at the Center for Medicare Advocacy. \"They'd have to be more disabled before they qualify for Medicaid assistance.\" Alice Jacobs depends on Medicaid to pay for her stay nursing home care at Dogwood Village. \nStates might allow nursing homes to require residents' families to pay for a portion of their care, she added. Officials could also limit the types of services and days of nursing home care they pay for, as Medicare already does. \nThe 150 residents of Dogwood Village include former teachers, farmers, doctors, lawyers, homemakers and health aides -- a cross section of this rural county a half-hour northeast of Charlottesville. Many entered old age solidly middle-class but turned to Medicaid, once thought of as a government program exclusively for the poor, after exhausting their insurance and assets. \nA combination of longer life spans and spiraling health care costs has left an estimated 64% of the Americans in nursing homes dependent on Medicaid. In Alaska, Mississippi and West Virginia, Medicaid was the primary payer for three-quarters or more of nursing home residents in 2015, according to the Kaiser Family Foundation. (KHN is an editorially independent project of the foundation.) \nRelated: Senate health plan may not protect millions on Medicaid expansion \nWith more than 70 million people enrolled in Medicaid at an annual cost of more than $500 billion, the program certainly faces long-term financial challenges. Federal Medicaid spending is projected to grow by 6% a year on average, rising to $650 billion in 2027 from $389 billion this year, according to the Congressional Budget Office. \nEven if Congress does not repeal the Affordable Care Act, Medicaid will remain a target for cuts, experts say. \n\"The Medicaid pieces of the House bill could be incorporated into other pieces of legislation that are moving this year,\" said Edwin Park, a vice president at the Center on Budget and Policy Priorities, a Washington nonprofit that focuses on how government budgets affect low-income people. \"Certainly, nursing homes would be part of those cuts, not only in reimbursement rates but in reductions in eligibility for nursing home care.\" \nWhile most Medicaid enrollees are children, pregnant women and non-elderly adults, long-term services such as nursing homes account for 42% of all Medicaid spending -- even though only 6% of Medicaid enrollees use them. \n\"Moms and kids aren't where the money is,\" said Damon Terzaghi, a senior director at the National Association of States United for Aging and Disabilities, a group that represents state agencies that manages programs for or advocates for these populations. \"If you're going to cut that much money out, it's going to be coming from older people and people with disabilities.\" \nThe House health care bill targets nursing home coverage directly by requiring every state to count home equity above $560,000 in determining Medicaid eligibility. That would make eligibility rules tougher in 10 states -- mostly ones with expensive real estate markets, including California, Massachusetts and New York -- as well as in the District of Columbia, according to an analysis by the Center for Budget and Policy Priorities. \nRelated: Deep cuts to Medicaid put rural hospitals in the crosshairs \nDogwood Village receives about half of its $13 million annual operating costs from Medicaid, with rates from $168 to $170 a day. Some residents who come to the facility after a hospital stay are initially covered by Medicare, but if they stay longer than 100 days, that benefit ends, and those without savings move to Medicaid. \n\"You have patients who have spent their life savings, and they come here,\" said Kristen Smith, the admissions coordinator. Smith said patients now were older and sicker than they used to be, frequently arriving directly from a hospital. \n\"It used to be hips and knee\" surgeries, she said. \"And now a lot of those patients are going home. What we're seeing is more complex, sicker patients.\" \nNancy Huffstickler, 64, has been at Dogwood Village for four years and regards herself as \"a medical disaster.\" \nShe listed her ailments: spinal cancer in remission, restless legs syndrome, high blood pressure and multiple ulcers. She has had spinal reconstructive surgery and a hip replacement. She is undergoing physical therapy with the hope that, one day, she will be able to leave her wheelchair and use a walker. \nHuffstickler is fearful of Republicans' health care changes. \"It may save the federal government money, but what about us?\" she asked. \nMajor Medicaid cuts would compel the facility to cut staff, supplies and amenities -- changes that would affect the quality of care for all residents, not just those on Medicaid. \nIf that does not save enough money, the facility might have to reduce the number of Medicaid residents, said Vernon Baker, who resigned as administrator in April. \nSome residents do not even know they are on government insurance; administrators often complete the paperwork to start Medicaid once other insurance expires. Others are embarrassed that they are dependent on a program that still carries stigma. \nThey should not be, said Jennifer Harper, the assistant director of nursing. Relying on Medicaid for nursing home care has become the new normal. \n\"These folks have worked their whole lives, some with pretty strenuous jobs, and paid into the system,\" she said. But with changes looming, she said, \"it may be a system that fails them.\" \nKaiser Health News , a nonprofit health newsroom whose stories appear in news outlets nationwide, is an editorially independent part of the Kaiser Family Foundation . CNNMoney (New York) First published June 29, 2017: 6:15 AM ET ",
+            "highlightText": "",
+            "highlightTitle": "",
+            "language": "english",
+            "external_links": [],
+            "entities": {
+                "persons": [
+                    {
+                        "name": "jordan rau",
+                        "sentiment": "negative"
+                    },
+                    {
+                        "name": "kristen smith",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "alice jacobs",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "edwin park",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "toby edelman",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "smith",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "jacobs",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "nancy huffstickler",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "jennifer harper",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "damon terzaghi",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "vernon baker",
+                        "sentiment": "none"
+                    }
+                ],
+                "organizations": [
+                    {
+                        "name": "gop",
+                        "sentiment": "negative"
+                    },
+                    {
+                        "name": "kaiser health news",
+                        "sentiment": "negative"
+                    },
+                    {
+                        "name": "congress",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "kaiser family foundation",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "major medicaid",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "national association of states united for aging and disabilities",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "medicare",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "federal medicaid",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "house",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "center on budget and policy priorities",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "medicare advocacy",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "senate",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "center for budget and policy priorities",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "medicaid",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "congressional budget office",
+                        "sentiment": "none"
+                    }
+                ],
+                "locations": [
+                    {
+                        "name": "west virginia",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "new york",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "district of columbia",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "mississippi",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "charlottesville",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "massachusetts",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "alaska",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "california",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "dogwood village",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "washington",
+                        "sentiment": "none"
+                    }
+                ]
+            },
+            "rating": null,
+            "crawled": "2017-06-29T14:02:55.001+03:00"
+        },
+        {
+            "thread": {
+                "uuid": "977d582a1f39de9f7cc9df944ff8873706414afb",
+                "url": "http://omgili.com/ri/jHIAmI4hxg.iJPgI2z6a7enpVQ9s33Ls12g3T0_Fs1n5IOA3F6EqZ49_UcdQ9DO4YIAUkUkaG.dEDkA87IzV4aa7al4Y3EN.",
+                "site_full": "www.cnn.com",
+                "site": "cnn.com",
+                "site_section": "http://rss.cnn.com/rss/cnn_topstories",
+                "site_categories": [],
+                "section_title": "CNN.com - RSS Channel - HP Hero",
+                "title": "House set to vote on 'Kate's Law'",
+                "title_full": "House set to vote on 'Kate's Law'",
+                "published": "2017-06-29T13:09:00.000+03:00",
+                "replies_count": 0,
+                "participants_count": 0,
+                "site_type": "news",
+                "country": "US",
+                "spam_score": 0,
+                "main_image": "http://i2.cdn.cnn.com/cnnnext/dam/assets/170210162720-ice-agent-super-tease.jpg",
+                "performance_score": 9,
+                "domain_rank": 81,
+                "social": {
+                    "facebook": {
+                        "likes": 944,
+                        "comments": 0,
+                        "shares": 944
+                    },
+                    "gplus": {
+                        "shares": 16
+                    },
+                    "pinterest": {
+                        "shares": 0
+                    },
+                    "linkedin": {
+                        "shares": 3
+                    },
+                    "stumbledupon": {
+                        "shares": 0
+                    },
+                    "vk": {
+                        "shares": 0
+                    }
+                }
+            },
+            "uuid": "977d582a1f39de9f7cc9df944ff8873706414afb",
+            "url": "http://omgili.com/ri/jHIAmI4hxg.iJPgI2z6a7enpVQ9s33Ls12g3T0_Fs1n5IOA3F6EqZ49_UcdQ9DO4YIAUkUkaG.dEDkA87IzV4aa7al4Y3EN.",
+            "ord_in_thread": 0,
+            "author": "",
+            "published": "2017-06-29T13:09:00.000+03:00",
+            "title": "House set to vote on 'Kate's Law'",
+            "text": "Immigration and civil liberties advocates have already come out swinging against the bills The administration is engaging in a full court press to support the bills Washington (CNN) The House Thursday is expected to pass bills that would hand President Donald Trump key pieces of his immigration agenda, especially efforts targeting sanctuary cities. The bills, \" Kate's Law \" and the No Sanctuary for Criminals Act , would install harsher penalties for repeat illegal entry to the US, and expand US law on sanctuary cities to pressure localities to cooperate with federal immigration enforcement. But it's unlikely either would have enough votes to pass the Senate, which struggled with Kate's Law last year. Trump admin scales back threat to sanctuary cities Immigration and civil liberties advocates have also come out swinging against the bills, saying they bolster a \"deportation force\" and anti-immigrant agenda from the Trump administration. Both bills come from the Judiciary Committee led by Virginia Rep. Bob Goodlatte, a longtime proponent of strict immigration policies like Trump's and Attorney General Jeff Sessions. Another lead sponsor is Iowa Rep. Steve King, one of the most aggressive Republicans on immigration enforcement who has a history of controversial statements about immigrants. Read More Kate's Law is named for Kate Steinle, a young woman in San Francisco who was murdered on a pier on the Embarcadero allegedly by an undocumented immigrant who was a repeat felon and was deported multiple times. Saturday is the two-year anniversary of her death. ICE director: Undocumented immigrants 'should be afraid' The bill would raise the maximum prison penalties for immigrants caught repeatedly entering the US illegally, with escalating penalties for the number of repeat offenses and for other criminal acts. For example, someone who re-enters the US illegally with a felony conviction or three misdemeanors on their record could be imprisoned for up to 10 years. An undocumented immigrant who illegally crosses after being deported three or more times would also serve up to 10 years. The bill has been introduced before, and failed to get the 60 votes needed to advance in the Senate last year. It did pick up three Democratic votes -- Indiana Sen. Joe Donnelly, North Dakota Sen. Heidi Heitkamp and West Virginia Sen. Joe Manchin -- but to pass the Senate, Republicans would need five more Democrats to join all Republicans in voting yes. Other red-state Democrats have already voted against the bill. Critics say the bill would aggressively criminalize even non-criminal undocumented immigrants. Being in the country illegally carries only civil penalties. They also accuse the administration of unfairly and inaccurately portraying immigrants as criminals; meanwhile defenders of the bill say any crime committed by an undocumented immigrant is a crime that could have been prevented. The sanctuary cities bill would change the law to give the administration far more ability to go after jurisdictions that do not cooperate with federal immigration enforcement. House committee squares off on aggressive immigration bills The bill would give the federal government one of its biggest asks -- requiring localities to comply with \"detainers.\" Immigration and Customs Enforcement can request that law enforcement detain suspected deportable individuals an extra 48 hours beyond what would be required by criminal law, but currently many jurisdictions do not comply with the requests. Some cite a desire to retain cooperation of immigrant witnesses and victims of crimes, others note that federal courts have held such detentions are unconstitutional. There is currently no law requiring jurisdictions honor the requests. The bill would require compliance and allow the federal government to withhold law enforcement grant funds from those jurisdictions that don't comply. In an effort to address concerns about the courts, the law would protect compliant localities from being sued, placing liability instead on the federal government. On the other hand, the legislation would allow individuals harmed by an undocumented immigrant who had been released pending a detainer to sue those localities for damages. ",
+            "highlightText": "",
+            "highlightTitle": "",
+            "language": "english",
+            "external_links": [],
+            "entities": {
+                "persons": [
+                    {
+                        "name": "kate",
+                        "sentiment": "negative"
+                    },
+                    {
+                        "name": "jeff sessions",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "donald trump",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "bob goodlatte",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "steve king",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "heidi heitkamp",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "kate steinle",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "joe donnelly",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "trump",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "joe manchin",
+                        "sentiment": "none"
+                    }
+                ],
+                "organizations": [
+                    {
+                        "name": "house",
+                        "sentiment": "negative"
+                    },
+                    {
+                        "name": "cnn",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "senate",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "judiciary committee",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "customs enforcement",
+                        "sentiment": "none"
+                    }
+                ],
+                "locations": [
+                    {
+                        "name": "san francisco",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "west virginia",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "iowa",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "indiana",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "virginia",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "north dakota",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "washington",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "us",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "embarcadero",
+                        "sentiment": "none"
+                    }
+                ]
+            },
+            "rating": null,
+            "crawled": "2017-06-29T13:29:40.004+03:00"
+        },
+        {
+            "thread": {
+                "uuid": "c20199fea43cda38f233113beed356e3de79176a",
+                "url": "http://omgili.com/ri/.wHSUbtEfZSPfVRrC83GDKJbKDRbkYjxcPa.3mXw4lvecSr39gbT8CNQDH1nsbvoDpaGuFieSQYRsK6aDpIsCBsKRLhDXE9FbqZwbOJQcL5CQXaBUUvfkg--",
+                "site_full": "www.nytimes.com",
+                "site": "nytimes.com",
+                "site_section": "http://www.nytimes.com/services/xml/rss/nyt/Opinion.xml",
+                "site_categories": [],
+                "section_title": "NYT > Opinion",
+                "title": "Contributing Op-Ed Writer: The Mitch McConnell Sinkhole",
+                "title_full": "Contributing Op-Ed Writer: The Mitch McConnell Sinkhole",
+                "published": "2017-06-29T11:02:00.000+03:00",
+                "replies_count": 0,
+                "participants_count": 1,
+                "site_type": "news",
+                "country": "US",
+                "spam_score": 0,
+                "main_image": "https://static01.nyt.com/images/2017/06/29/opinion/29edsallWeb/29edsallWeb-facebookJumbo.jpg",
+                "performance_score": 9,
+                "domain_rank": 98,
+                "social": {
+                    "facebook": {
+                        "likes": 947,
+                        "comments": 0,
+                        "shares": 947
+                    },
+                    "gplus": {
+                        "shares": 4
+                    },
+                    "pinterest": {
+                        "shares": 0
+                    },
+                    "linkedin": {
+                        "shares": 5
+                    },
+                    "stumbledupon": {
+                        "shares": 0
+                    },
+                    "vk": {
+                        "shares": 0
+                    }
+                }
+            },
+            "uuid": "c20199fea43cda38f233113beed356e3de79176a",
+            "url": "http://omgili.com/ri/.wHSUbtEfZSPfVRrC83GDKJbKDRbkYjxcPa.3mXw4lvecSr39gbT8CNQDH1nsbvoDpaGuFieSQYRsK6aDpIsCBsKRLhDXE9FbqZwbOJQcL5CQXaBUUvfkg--",
+            "ord_in_thread": 0,
+            "author": "THOMAS B. EDSALL",
+            "published": "2017-06-29T11:02:00.000+03:00",
+            "title": "Contributing Op-Ed Writer: The Mitch McConnell Sinkhole",
+            "text": "The Opinion Pages | Contributing Op-Ed Writer The Mitch McConnell Sinkhole   Photo Mick Mulvaney, the Trump administration’s budget director, on Capitol Hill last week. He is a great defender of huge cuts in federal programs. Credit Astrid Riecken/Getty Images More than a third of Americans believe that Medicaid is akin to welfare, with the implicit subtext that racial and ethnic minorities are the principal beneficiaries. If that’s what they think, they’re dead wrong. Many more Medicaid recipients are white than black or Hispanic. Mick Mulvaney, a former congressman from South Carolina who is now the director of the Office of Management and Budget, promulgates the conservative view. Writing on May 22 for his home state paper, the Charleston Post and Courier, in an opinion piece that fiercely defended the Trump administration’s proposed budget for fiscal year 2018, Mulvaney argued : \nFor years, we’ve focused on how we can help Americans receive taxpayer-funded assistance. Under President Trump’s leadership, we’re now looking at how we can respect both those who require assistance and the taxpayers who fund that support. For the first time in a long time, we’re putting taxpayers first. After laying down this classic Republican framework, Mulvaney puts his own spin on it: \nTaking money from someone without an intention to pay it back is not debt. It is theft. In other words, recipients of Medicaid and other federal programs that the Trump administration proposes to cut are thieves, and Mulvaney, with the president’s backing, is determined to end this criminal activity: \nSo if you left for work this morning in the dark, if you came home after your kids were asleep, if you feel lucky to get overtime pay to support your aging parents or adult children, if you’re working part-time but praying for a full-time job, if your savings are as exhausted as you are, you have not been forgotten. Mulvaney has little understanding of or respect for social insurance — certainly as it is defined by Merriam-Webster: \nprotection of the individual against economic hazards (such as unemployment, old age, or disability) in which the government participates. So who actually gets Medicaid? A plurality , 41 percent, of Medicaid recipients, are white; 22 percent are black; 25 percent are Hispanic; and 12 percent are other ethnicities, including Asian-American. In 18 states , at least 60 percent of Medicaid beneficiaries are white: ranging from 98 percent in Idaho and 93 percent in West Virginia to 60 percent in Minnesota and Nebraska. \nAdvertisement   In Kentucky , which is represented by Mitch McConnell, the Senate majority leader, Medicaid covers a third of the population. Seventy-eight percent of Kentuckians on Medicaid are white. Significantly, while 41 percent of beneficiaries of Medicaid are white, whites receive 51.8 percent of all dollars spent in the program, $149.5 billion out of a total of $288.9 billion in 2012, the most recent year for which such data is available. Whites participate at higher levels in the most costly Medicaid services, including the care of the elderly, of disabled children and of disabled working-age adults. In the four key Rust Belt states that provided crucial Electoral College votes for Trump in 2016, whites are the decisive majority of Medicaid recipients: 67 percent in Ohio, 59 percent in Michigan and 58 percent in both Pennsylvania and Wisconsin. Along similar lines, Medicaid provides benefits to significantly higher percentages of children in rural and small-town America , where Trump and Republicans generally won by their strongest margins. A recent Georgetown University study found that \nIn 2014-2015, Medicaid provided health coverage for 45 percent of children and 16 percent of adults in small towns and rural areas, compared to 38 percent and 15 percent, respectively, in metropolitan areas. In McConnell’s Kentucky, the study found that Medicaid has become a crucial source of coverage for adults. Before the passage of Obamacare in 2010, 13 percent of adult Kentuckians were covered; after passage, in 2013-14, the percentage more than doubled to 28 percent. Over the same period, the percentage of uninsured adults in Kentucky fell from 26 to 10 percent. Since its inception in 1965, Medicaid has become an integral and major part of the American safety net. Not only does it cover health care for the poor, it prevents millions of members of the working and middle classes from losing all their savings and falling into bankruptcy when they or their family members become too old, sick or disabled to work. Medicaid also provides essential help in family planning, preventing premature births and supporting infant and child health. Diane Rowland, executive vice president of the Henry J. Kaiser Family Foundation, provided the following information on the demographics of Medicaid beneficiaries. Medicaid covers 4.9 million of the 11.2 million children in the United States with special health needs , including those with autism , Down syndrome, cerebral palsy, spina bifida and muscular dystrophy. Nationally, 60 percent of children with special needs are white. \nAdvertisement   There are 6.9 million working-age disabled adults — many of them the siblings, cousins, aunts and uncles of Mulvaney’s “taxpayers” — who are covered by Medicaid. Fifty-seven percent of the working-age disabled covered by Medicaid are white. They suffer from disabilities ranging from missing limbs, blindness and progressive neurological disorders to traumatic brain and spinal cord injuries. There are another 10 million elderly Medicaid recipients — many of them the parents of Mulvaney’s struggling taxpayers — who get Medicaid to cover long-term nursing home care, help with eating, bathing or dressing and care for cognitive or mental impairments like dementia. More than half , 56 percent, are white. Newsletter Sign Up   Sign Up for the Opinion Today Newsletter Every weekday, get thought-provoking commentary from Op-Ed columnists, the Times editorial board and contributing writers from around the world. Please verify you're not a robot by clicking the box. Invalid email address. Please re-enter. You must select a newsletter to subscribe to. Sign Up You agree to receive occasional updates and special offers for The New York Times's products and services. Thank you for subscribing. An error has occurred. Please try again later. You are already subscribed to this email. Opt out or contact us anytime The care Medicaid provides to these elderly men and women does not come cheap. In 2011, according to Kaiser, these patients accounted for 36 percent of total Medicaid expenditures. What all this data shows is that, contrary to the view that Medicaid is a welfare program, in real life Medicaid has become a financial, emotional and practical lifesaver for millions of Americans. This is especially the case for those with close relatives who need assistance and would otherwise be an enormous burden in one of the 29 states that have “filial responsibility” laws on the books that make it the responsibility of adult children to care for their indigent parents . How is it possible, then, that Senate Republicans are continuing to weigh the consequences of passing health care legislation that would inflict harm on millions of low- to middle-income white voters essential to the conservative coalition? On Monday, the Congressional Budget Office reported that the health care bill currently before the Senate would result in 22 million more people without coverage by 2026. The measure would not only cut Medicaid by $772 billion over ten years, it would also eliminate $408 billion in subsidies for those with low incomes but above the poverty level. The likely result, according to the C.B.O.: “few low-income people would purchase any plan.” Pressure on Congressional Republicans from conservative primary voters determined to repeal Obamacare , the continuing attractiveness to many Republicans of cutting taxes for the rich and the party’s commitment to reduce social spending all conspire to make it tough for Republican leaders to give up on this initiative. Their task is made easier by the fact that a majority of Republican voters stand apart from independents and Democrats in that they believe that Medicaid is indeed a welfare program. A survey conducted in May by the Kaiser Family Foundation asked voters this question: \nWhich comes closer to your view, Medicaid is more similar to other health insurance programs, like Medicare, that help people pay for health care; or Medicaid is more similar to welfare programs like food stamps that help people pay for food? As noted above, just over a third of the 1,205 adults questioned, 37 percent, chose welfare, while 60 percent said Medicaid is like Medicare. \nAdvertisement   Democrats (73-25) and independents (62-35) were solidly in agreement that Medicaid is a health insurance program. Republican were not. A majority of Republicans, 52 percent, said that Medicaid was a welfare program, and a minority, 46 percent, said it was a health insurance program. Drew Altman, president and C.E.O. of the Kaiser Foundation, wrote about this finding in an essay last week on the recently created website, Axios : \nRepublicans want to roll back the Medicaid expansion, cap federal Medicaid spending increases, and add work requirements, drug testing, time limits, copays and premiums to some state Medicaid programs. But almost no one else wants to do these things. One poll finding goes a long way toward explaining why: Republicans view Medicaid as a form of welfare, and pretty much everyone else views it as a government insurance program. What Mulvaney’s characterization of means-tested programs as larceny leaves out is that for all the hard working men and women putting in overtime to care for their aging parents, there are many who face catastrophic situations beyond anything that overtime pay or modern families are able to cover. Think of the kind of full-time care provided to the 938,000 Medicaid beneficiaries currently in nursing homes in the United States. Nearly half suffer from dementia and more than half are confined to a bed or wheelchair . These men and women require, in addition to skilled nursing care, assistance with what are known as activities of daily living — bed mobility, transferring, dressing, eating and toileting — at $102,900 annually in a semiprivate room. In 2014, 78 percent of the 1.4 million nursing home residents in America were white . The census reports that the number of people in the oldest old age group, those over 85, is projected to grow from 5.8 million in 2010, to 8.7 million in 2030, to 19 million in 2050. If the Republican Congress cuts Medicaid along the lines of either the Senate or House legislation, Mulvaney’s hard-working taxpayers will face brutal choices. Medicaid is not, to use Mulvaney’s term, thievery. Thievery is what folks like Paul Ryan and Mitch McConnell are proposing to inflict on their fellow Americans, a massive reduction in what has become a crucial source of support for those faced with impossibly high costs and impossible personal demands as caregivers. And speaking of thievery, the non-partisan Tax Policy Center has found that the tax changes in the Senate health care bill would give those in the bottom fifth \nan average tax cut of about $180, or 1 percent of their after-tax income. Middle-income households (making $55,000-$93,000) would receive an average tax cut of $280, raising their after-tax incomes by about 0.4 percent. In contrast, the top 1 percent, making at least $875,000 would receive a tax cut of \nmore than $45,000, raising their after-tax incomes by 2 percent. And those in the top 0.1 percent (who will be making $5 million or more) would receive an average tax cut of nearly $250,000, boosting their after-tax incomes by 2.5 percent. In an appearance on PBS Tuesday, Warren Buffett described the Senate health care bill as the “Relief for the Rich Act.” \nAdvertisement All of which gives an ominous tenor to President Trump’s most recent statement on the pending health care legislation: “You’re going to have a great, great surprise. It’s going to be great.” \nI invite you to follow me on Twitter, @Edsall . \nFollow The New York Times Opinion section on Facebook and Twitter (@NYTopinion) , and sign up for the Opinion Today newsletter .",
+            "highlightText": "",
+            "highlightTitle": "",
+            "language": "english",
+            "external_links": [],
+            "entities": {
+                "persons": [
+                    {
+                        "name": "mitch mcconnell",
+                        "sentiment": "negative"
+                    },
+                    {
+                        "name": "obamacare",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "drew altman",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "warren buffett",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "mick mulvaney",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "merriam-webster",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "kaiser",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "trump",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "paul ryan",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "mcconnell",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "diane rowland",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "mulvaney",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "courier",
+                        "sentiment": "none"
+                    }
+                ],
+                "organizations": [
+                    {
+                        "name": "congress",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "pbs",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "kaiser family foundation",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "tax policy center",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "medicare",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "charleston post",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "new york times",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "new york times opinion",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "house",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "trump",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "senate",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "times",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "henry j. kaiser family foundation",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "electoral college",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "georgetown university",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "medicaid",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "c.e.o. of the kaiser foundation",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "facebook",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "office of management and budget",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "congressional budget office",
+                        "sentiment": "none"
+                    }
+                ],
+                "locations": [
+                    {
+                        "name": "capitol hill",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "united states",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "kentucky",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "minnesota",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "south carolina",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "nebraska",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "michigan",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "pennsylvania",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "west virginia",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "rust belt",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "america",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "ohio",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "idaho",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "wisconsin",
+                        "sentiment": "none"
+                    }
+                ]
+            },
+            "rating": null,
+            "crawled": "2017-06-29T12:32:14.000+03:00"
+        },
+        {
+            "thread": {
+                "uuid": "e7563e8e0e0610dcddb549549e77adca8c022e4c",
+                "url": "http://omgili.com/ri/.wHSUbtEfZSPfVRrC83GDKJbKDRbkYjxcPa.3mXw4lsYJJRP.VqYa3rMKF471_5Eb1fwtV9Mn7NKJzPgJRt.UQZO4YfjY5edQJSqV3siorUuCD7FPWLoh2yTUhlp3z3srpWiaT0nooJ80SarvB9MB3mqALfVeZbo",
+                "site_full": "www.nytimes.com",
+                "site": "nytimes.com",
+                "site_section": "http://nytimes.com/timeswire/feeds/",
+                "site_categories": [],
+                "section_title": "NYT > Most Recent Headlines",
+                "title": "Senate Democrats Sought to Work With Trump. Then He Began Governing.",
+                "title_full": "Senate Democrats Sought to Work With Trump. Then He Began Governing.",
+                "published": "2017-06-29T07:47:00.000+03:00",
+                "replies_count": 0,
+                "participants_count": 1,
+                "site_type": "news",
+                "country": "US",
+                "spam_score": 0,
+                "main_image": "https://static01.nyt.com/images/2017/06/29/us/29DC-dems/29DC-dems-facebookJumbo.jpg",
+                "performance_score": 8,
+                "domain_rank": 98,
+                "social": {
+                    "facebook": {
+                        "likes": 864,
+                        "comments": 0,
+                        "shares": 864
+                    },
+                    "gplus": {
+                        "shares": 11
+                    },
+                    "pinterest": {
+                        "shares": 0
+                    },
+                    "linkedin": {
+                        "shares": 18
+                    },
+                    "stumbledupon": {
+                        "shares": 0
+                    },
+                    "vk": {
+                        "shares": 0
+                    }
+                }
+            },
+            "uuid": "e7563e8e0e0610dcddb549549e77adca8c022e4c",
+            "url": "http://omgili.com/ri/.wHSUbtEfZSPfVRrC83GDKJbKDRbkYjxcPa.3mXw4lsYJJRP.VqYa3rMKF471_5Eb1fwtV9Mn7NKJzPgJRt.UQZO4YfjY5edQJSqV3siorUuCD7FPWLoh2yTUhlp3z3srpWiaT0nooJ80SarvB9MB3mqALfVeZbo",
+            "ord_in_thread": 0,
+            "author": "JENNIFER STEINHAUER",
+            "published": "2017-06-29T07:47:00.000+03:00",
+            "title": "Senate Democrats Sought to Work With Trump. Then He Began Governing.",
+            "text": "Opt out or contact us anytime Mr. Manchin has no interest in the Senate health care bill, which would greatly cut the Medicaid program in his poor, rural state, a concern shared by his Republican counterpart from West Virginia, Shelley Moore Capito. Mr. Manchin has largely voted against Mr. Trump’s agenda and nominees. (He was the one Democrat who voted to confirm Jeff Sessions as attorney general, but that was out of friendship with Mr. Sessions more than fealty to Mr. Trump.) The country has a long history of senators from the opposite party working to help pass a new president’s agenda. Former Senator Max Baucus, Democrat of Montana, supported President George Bush on a broad trade agreement, and sided with President George W. Bush on a large tax cut and the expansion of a prescription drug benefit for older Americans, infuriating his own party. “Both Bushes were very deeply experienced, as were their cabinet officials,” Mr. Baucus said in a telephone interview from Paris on Wednesday, noting that the White House had courted him on every measure he ultimately supported. “Jim Baker took the cake,” Mr. Baucus said, referring to George H. W. Bush’s chief of staff, who called him to wheel and deal on the North American Free Trade Agreement. “ Donald Trump and his people have no public policy experience, and it shows.” \nAdvertisement Continue reading the main story Congressional leaders, emboldened by the total Republican control of Washington, are now pursuing a partisan agenda largely through methods that require no help from Democrats. Senate committees, where bipartisan bills have historically been forged, are not developing big bills right now, which have been left to leadership teams instead. Mr. Baucus, who served in leadership roles on the Senate Finance Committee, met with his Republican counterpart, Senator Charles E. Grassley of Iowa, “every Tuesday at 5:30 for 12 years, even if it was just to talk about our kids,” Mr. Baucus said, and that helped pave the way for bipartisan legislation. The most successful bills have historically come out of committees, because successful committee votes provide evidence of a policy’s ability to pass the full Senate, and pressure members of both parties to participate. “I know this sounds corny,” Mr. Baucus said, referring to votes for bills that cross party lines, “but if you do what’s right, it’s a terrific shield against critics.” Should the Republicans’ health care bill fail in the Senate, there is already nascent talk of bipartisan bills to fix the existing law. At the same time, Democrats have sought a parallel unity, coming up with their own infrastructure and child care plans to lay down markers if the White House decides to bargain on bills that, unlike health care and the next item up, tax reform, will need 60 votes, and therefore the support of at least some Democrats, to pass. “We Democrats have set the goal posts,” Mr. Schumer said. “If President Trump is going to talk the talk on these issues, then we look forward to him working with us and walking the walk.” \nGet politics and Washington news updates via Facebook , Twitter and in the Morning Briefing newsletter . A version of this article appears in print on June 29, 2017, on Page A15 of the New York edition with the headline: Spurned by Trump, Conciliatory Senate Democrats Take a Harder Line. Order Reprints | Today's Paper | Subscribe ",
+            "highlightText": "",
+            "highlightTitle": "",
+            "language": "english",
+            "external_links": [],
+            "entities": {
+                "persons": [
+                    {
+                        "name": "trump",
+                        "sentiment": "neutral"
+                    },
+                    {
+                        "name": "claire mccaskill",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "ronald reagan",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "hillary clinton",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "joe manchin iii",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "obama",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "manchin",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "mitch mcconnell",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "schumer",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "scott mulhauser",
+                        "sentiment": "none"
+                    }
+                ],
+                "organizations": [
+                    {
+                        "name": "senate",
+                        "sentiment": "neutral"
+                    },
+                    {
+                        "name": "new york times",
+                        "sentiment": "none"
+                    }
+                ],
+                "locations": [
+                    {
+                        "name": "west virginia",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "missouri",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "kentucky",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "white house",
+                        "sentiment": "none"
+                    }
+                ]
+            },
+            "rating": null,
+            "crawled": "2017-06-29T04:13:36.001+03:00"
+        },
+        {
+            "thread": {
+                "uuid": "c938844e98357b3b529c5db0ac78c1e9d5cfc0ce",
+                "url": "http://omgili.com/ri/.wHSUbtEfZQ2wVwv1GOz6Msy5xK737ZFGEhRHESI53Sf0vBI97znv7OxfETnN0sDHw.Hbil2wnrT5q.sbL63Ahm5L9_ynEPU",
+                "site_full": "www.bloomberg.com",
+                "site": "bloomberg.com",
+                "site_section": "",
+                "site_categories": [],
+                "section_title": "",
+                "title": "Senate GOP Health Bill Would Raise Out-of-Pocket Costs in Every State",
+                "title_full": "Senate GOP Health Bill Would Raise Out-of-Pocket Costs in Every State",
+                "published": "2017-06-29T06:32:00.000+03:00",
+                "replies_count": 0,
+                "participants_count": 0,
+                "site_type": "news",
+                "country": "US",
+                "spam_score": 0.166,
+                "main_image": "https://www.bloomberg.com/graphics/2017-gop-health-bill-premiums/img/2017-gop-health-bill-premiums_facebook.png?v=2",
+                "performance_score": 9,
+                "domain_rank": 356,
+                "social": {
+                    "facebook": {
+                        "likes": 978,
+                        "comments": 0,
+                        "shares": 978
+                    },
+                    "gplus": {
+                        "shares": 0
+                    },
+                    "pinterest": {
+                        "shares": 0
+                    },
+                    "linkedin": {
+                        "shares": 1
+                    },
+                    "stumbledupon": {
+                        "shares": 0
+                    },
+                    "vk": {
+                        "shares": 0
+                    }
+                }
+            },
+            "uuid": "c938844e98357b3b529c5db0ac78c1e9d5cfc0ce",
+            "url": "http://omgili.com/ri/.wHSUbtEfZQ2wVwv1GOz6Msy5xK737ZFGEhRHESI53Sf0vBI97znv7OxfETnN0sDHw.Hbil2wnrT5q.sbL63Ahm5L9_ynEPU",
+            "ord_in_thread": 0,
+            "author": "",
+            "published": "2017-06-29T06:32:00.000+03:00",
+            "title": "Senate GOP Health Bill Would Raise Out-of-Pocket Costs in Every State",
+            "text": "By Hannah Recht Hannah Recht and Mira Rojanasakul Mira Rojanasakul June 28, 2017 \nSenate Republicans are having a tough time agreeing on a plan to replace the Affordable Care Act. For some senators, there's at least one big red flag in the proposed bill: Out-of-pocket costs for most people in the individual marketplace would skyrocket. \nThe bill's subsidies are less generous than Obamacare’s, so even though the average premium is expected to fall beginning in 2020 under the plan, most people would have to pay more to maintain the same level of coverage. Out-of-pocket premiums for people on mid-level plans would be 74 percent higher on average, according to the Kaiser Family Foundation . \nIn several states represented by a Republican senator, including Alaska, West Virginia and Louisiana, the average premium after tax credits for a mid-level plan would more than double. Average Annual Premium After Subsidies for a Mid-Level Plan in 2020 U.S. Senators ",
+            "highlightText": "",
+            "highlightTitle": "",
+            "language": "english",
+            "external_links": [],
+            "entities": {
+                "persons": [
+                    {
+                        "name": "hannah recht hannah recht",
+                        "sentiment": "negative"
+                    },
+                    {
+                        "name": "mira rojanasakul mira rojanasakul",
+                        "sentiment": "negative"
+                    },
+                    {
+                        "name": "obamacare",
+                        "sentiment": "none"
+                    }
+                ],
+                "organizations": [
+                    {
+                        "name": "senate gop",
+                        "sentiment": "negative"
+                    },
+                    {
+                        "name": "kaiser family foundation",
+                        "sentiment": "none"
+                    }
+                ],
+                "locations": [
+                    {
+                        "name": "west virginia",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "u.s.",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "louisiana",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "alaska",
+                        "sentiment": "none"
+                    }
+                ]
+            },
+            "rating": null,
+            "crawled": "2017-06-29T08:26:59.006+03:00"
+        },
+        {
+            "thread": {
+                "uuid": "f2e0126302c75c474fed6fd7d09f802b1dfe65de",
+                "url": "http://omgili.com/ri/j.JM_ertN3JaXg5X46kqTnjMvGX4JruX6WP_Bn6BEA42pYjpF42CoqvCtx6a_UMAd2eyak9klAIRyuM2mZvMzmJ7GFnk0nZKor65H.2W1uw-",
+                "site_full": "edition.cnn.com",
+                "site": "cnn.com",
+                "site_section": "http://rss.cnn.com/rss/cnn_latest.rss",
+                "site_categories": [],
+                "section_title": "CNN.com - RSS Channel",
+                "title": "House set to vote on 'Kate's Law' - CNNPolitics.com",
+                "title_full": "House set to vote on 'Kate's Law' - CNNPolitics.com",
+                "published": "2017-06-29T03:00:00.000+03:00",
+                "replies_count": 0,
+                "participants_count": 1,
+                "site_type": "news",
+                "country": "US",
+                "spam_score": 0,
+                "main_image": "http://i2.cdn.cnn.com/cnnnext/dam/assets/170210162720-ice-agent-super-tease.jpg",
+                "performance_score": 9,
+                "domain_rank": 81,
+                "social": {
+                    "facebook": {
+                        "likes": 944,
+                        "comments": 0,
+                        "shares": 944
+                    },
+                    "gplus": {
+                        "shares": 0
+                    },
+                    "pinterest": {
+                        "shares": 0
+                    },
+                    "linkedin": {
+                        "shares": 0
+                    },
+                    "stumbledupon": {
+                        "shares": 0
+                    },
+                    "vk": {
+                        "shares": 0
+                    }
+                }
+            },
+            "uuid": "f2e0126302c75c474fed6fd7d09f802b1dfe65de",
+            "url": "http://omgili.com/ri/j.JM_ertN3JaXg5X46kqTnjMvGX4JruX6WP_Bn6BEA42pYjpF42CoqvCtx6a_UMAd2eyak9klAIRyuM2mZvMzmJ7GFnk0nZKor65H.2W1uw-",
+            "ord_in_thread": 0,
+            "author": "Tal Kopan",
+            "published": "2017-06-29T03:00:00.000+03:00",
+            "title": "House set to vote on 'Kate's Law' - CNNPolitics.com",
+            "text": "Story highlights Immigration and civil liberties advocates have already come out swinging against the bills The administration is engaging in a full court press to support the bills Washington (CNN) The House Thursday is expected to pass bills that would hand President Donald Trump key pieces of his immigration agenda, especially efforts targeting sanctuary cities.\nThe bills, \" Kate's Law \" and the No Sanctuary for Criminals Act , would install harsher penalties for repeat illegal entry to the US, and expand US law on sanctuary cities to pressure localities to cooperate with federal immigration enforcement. But it's unlikely either would have enough votes to pass the Senate, which struggled with Kate's Law last year. Trump admin scales back threat to sanctuary cities Immigration and civil liberties advocates have also come out swinging against the bills, saying they bolster a \"deportation force\" and anti-immigrant agenda from the Trump administration. Both bills come from the Judiciary Committee led by Virginia Rep. Bob Goodlatte, a longtime proponent of strict immigration policies like Trump's and Attorney General Jeff Sessions. Another lead sponsor is Iowa Rep. Steve King, one of the most aggressive Republicans on immigration enforcement who has a history of controversial statements about immigrants. Read More Kate's Law is named for Kate Steinle, a young woman in San Francisco who was murdered on a pier on the Embarcadero allegedly by an undocumented immigrant who was a repeat felon and was deported multiple times. Saturday is the two-year anniversary of her death. ICE director: Undocumented immigrants 'should be afraid' The bill would raise the maximum prison penalties for immigrants caught repeatedly entering the US illegally, with escalating penalties for the number of repeat offenses and for other criminal acts. For example, someone who re-enters the US illegally with a felony conviction or three misdemeanors on their record could be imprisoned for up to 10 years. An undocumented immigrant who illegally crosses after being deported three or more times would also serve up to 10 years. The bill has been introduced before, and failed to get the 60 votes needed to advance in the Senate last year. It did pick up three Democratic votes -- Indiana Sen. Joe Donnelly, North Dakota Sen. Heidi Heitkamp and West Virginia Sen. Joe Manchin -- but to pass the Senate, Republicans would need five more Democrats to join all Republicans in voting yes. Other red-state Democrats have already voted against the bill. Critics say the bill would aggressively criminalize even non-criminal undocumented immigrants. Being in the country illegally carries only civil penalties. They also accuse the administration of unfairly and inaccurately portraying immigrants as criminals; meanwhile defenders of the bill say any crime committed by an undocumented immigrant is a crime that could have been prevented. The sanctuary cities bill would change the law to give the administration far more ability to go after jurisdictions that do not cooperate with federal immigration enforcement. House committee squares off on aggressive immigration bills The bill would give the federal government one of its biggest asks -- requiring localities to comply with \"detainers.\" Immigration and Customs Enforcement can request that law enforcement detain suspected deportable individuals an extra 48 hours beyond what would be required by criminal law, but currently many jurisdictions do not comply with the requests. Some cite a desire to retain cooperation of immigrant witnesses and victims of crimes, others note that federal courts have held such detentions are unconstitutional. There is currently no law requiring jurisdictions honor the requests. The bill would require compliance and allow the federal government to withhold law enforcement grant funds from those jurisdictions that don't comply. In an effort to address concerns about the courts, the law would protect compliant localities from being sued, placing liability instead on the federal government. On the other hand, the legislation would allow individuals harmed by an undocumented immigrant who had been released pending a detainer to sue those localities for damages.",
+            "highlightText": "",
+            "highlightTitle": "",
+            "language": "english",
+            "external_links": [],
+            "entities": {
+                "persons": [
+                    {
+                        "name": "kate",
+                        "sentiment": "negative"
+                    },
+                    {
+                        "name": "jeff sessions",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "donald trump",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "bob goodlatte",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "steve king",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "heidi heitkamp",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "kate steinle",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "joe donnelly",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "trump",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "joe manchin",
+                        "sentiment": "none"
+                    }
+                ],
+                "organizations": [
+                    {
+                        "name": "house",
+                        "sentiment": "negative"
+                    },
+                    {
+                        "name": "cnn",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "senate",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "judiciary committee",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "customs enforcement",
+                        "sentiment": "none"
+                    }
+                ],
+                "locations": [
+                    {
+                        "name": "san francisco",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "west virginia",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "iowa",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "indiana",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "virginia",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "north dakota",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "washington",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "us",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "embarcadero",
+                        "sentiment": "none"
+                    }
+                ]
+            },
+            "rating": null,
+            "crawled": "2017-06-29T13:22:54.002+03:00"
+        },
+        {
+            "thread": {
+                "uuid": "db773df765aade4b9db47851fca476377521db0d",
+                "url": "http://omgili.com/ri/.wHSUbtEfZRsEAbESvBgTLZ9ttgu9qB0YojfbcsL7X8mdbNC4tGQ2Q2aK6fV2SmT2wmrB5ni.ZncgLbEJy_n2QzemM0O0ZJQYQsB8OFXwl6P6qrqL86UlJ42iH75XY.a",
+                "site_full": "www.vox.com",
+                "site": "vox.com",
+                "site_section": "http://www.vox.com/rss/index.xml",
+                "site_categories": [],
+                "section_title": "Vox -  All",
+                "title": "Pretty much nobody is lobbying for the Senate to pass its health care bill",
+                "title_full": "Pretty much nobody is lobbying for the Senate to pass its health care bill",
+                "published": "2017-06-28T18:50:00.000+03:00",
+                "replies_count": 0,
+                "participants_count": 1,
+                "site_type": "news",
+                "country": "US",
+                "spam_score": 0,
+                "main_image": "https://cdn.vox-cdn.com/thumbor/1iZNJws_V9s7Qv7AJk06Kz07gJA=/0x249:3000x1916/1080x600/cdn.vox-cdn.com/uploads/chorus_image/image/55485245/699966356.0.jpg",
+                "performance_score": 8,
+                "domain_rank": 902,
+                "social": {
+                    "facebook": {
+                        "likes": 853,
+                        "comments": 0,
+                        "shares": 853
+                    },
+                    "gplus": {
+                        "shares": 0
+                    },
+                    "pinterest": {
+                        "shares": 0
+                    },
+                    "linkedin": {
+                        "shares": 1
+                    },
+                    "stumbledupon": {
+                        "shares": 0
+                    },
+                    "vk": {
+                        "shares": 0
+                    }
+                }
+            },
+            "uuid": "db773df765aade4b9db47851fca476377521db0d",
+            "url": "http://omgili.com/ri/.wHSUbtEfZRsEAbESvBgTLZ9ttgu9qB0YojfbcsL7X8mdbNC4tGQ2Q2aK6fV2SmT2wmrB5ni.ZncgLbEJy_n2QzemM0O0ZJQYQsB8OFXwl6P6qrqL86UlJ42iH75XY.a",
+            "ord_in_thread": 0,
+            "author": "Tara Golshan",
+            "published": "2017-06-28T18:50:00.000+03:00",
+            "title": "Pretty much nobody is lobbying for the Senate to pass its health care bill",
+            "text": "share Photo by Scott Olson/Getty Images Sen. Bob Corker (R-TN) has been getting an earful on Republicans’ health care bill. For days, his staff has been fielding thousands of angry constituent calls a day. “We have a very efficient office answering phones, and they work — and they are really, really good,” Corker said, sidestepping a question about the likelihood of Republican lawmakers coming to an agreement. “They have had so many calls, it’s been hard for people to get through. As hard as our staff is working, and, look, they are really, really good.” Already, major health groups like the American Medical Association and the American Heart Association have panned the bill. Conservative groups don’t like it either, calling it a failed attempt at repealing Obamacare. Republicans had been planning to vote this Thursday, but late Tuesday afternoon, Senate Majority Leader Mitch McConnell confirmed the upper chamber would not be voting on the health bill this week. They would “continue discussions,” and vote after the July 4 recess. Since the announcement, a growing number of Republican senators have come out against the bill, spanning the entirety of the Republican Party’s ideological spectrum. Moderate Sens. Susan Collins (ME) and Lisa Murkowski (AK) are “no” votes; tried-and-true party stalwart Sen. Jerry Moran (KS) is a “no”; ultra-conservatives Sens. Mike Lee (UT) and Ted Cruz (TX) also said they’re against the bill. No one, it seems, is interested in making the affirmative case for this bill. Even those willing to vote for moving it along, like Sen. John McCain (R-AZ) don’t have much to say about the bill’s merits: \"I have lots of concerns,\" McCain told reporters Monday . There’s no getting around it: The Senate’s first attempt at health care reform has failed. And it’s likely because far too many senators are hearing the case against the bill — virtually no one seems to be for it. The left is mobilizing against the bill In the absence of a wall of defense around the bill, congressional Democrats, medical groups, and activists launched an all-out blitz against it — taking over the airwaves, holding rallies, and jamming Senate phone lines. Revolution Messaging reported that it connected 90,000 calls to the Senate to express opposition to the Republican health bill. MoveOn.Org helped organize a “People’s Filibuster” that drew a large crowd of Planned Parenthood supporters and other activists Tuesday afternoon. Sen. Cory Booker (D-NJ) and Rep. John Lewis (D-GA) held a Facebook Live event to discuss the bill Monday night on the Capitol steps, and it transformed into an impromptu rally with hundreds of people. “The American people from coast to coast have said that this is unacceptable,” Sen. Bernie Sanders (I-VT), who spent the weekend campaigning against the bill in West Virginia and Ohio, said en route to a rally outside the Capitol. “I’d wager you there’s not one state in the country that supports throwing millions of people off health insurance for tax breaks for the wealthy.” Then there was the vociferous interest group opposition to the bill. The American Medical Association excoriated the legislation, saying it violated doctors’ principles of “First, do no harm.” The American Hospital Association blasted it for hurting “our most vulnerable patients.” A few weeks ago, some activists on the front lines of the health care fight argued that Democratic congressional leaders weren’t doing all they could to stop Obamacare repeal. But by last week, their concerns had more or less evaporated. For more than a week, Senate Democrats have withheld consent on legislation and invoked the two-hour rule, prematurely cutting off committee hearings, according to a Senate aide. “This is a key win in a long fight,” said CREDO political director Murshed Zaheed in an email. “The momentum in the fight over health care in the United States is on the side of the anti-Trump resistance.” Photo by Spencer Platt/Getty Images The bill is also getting hit hard from the right Fervent left-leaning anti-Trump groups aren’t the only voices against this bill; distaste for the Senate’s health bill spans party affiliation. Just like with the House’s American Health Care Act , prominent lobby groups from the right have also decried Senate leadership for not going far enough with Obamacare repeal efforts. From the American Enterprise Institute , which called the bill a start but far from a “finished product,” to those at the conservative Heritage Foundation who said the bill missed a “key opportunity” to repeal more of Obamacare’s regulations, the right hasn’t come out in full support of the bill. “This Senate bill needs to get better,” Tim Phillips, the president of Americans for Prosperity, the Koch network's political arm, said at a donors weekend last week . “It has to get better.” The group, which for years has led an assertive campaign to repeal the Affordable Care Act, has called the Senate’s bill a mere “nip and tuck” of Obamacare, and plans to lobby for more conservative changes in the legislation. Club for Growth, another conservative advocacy group — which aggressively campaigned against Trump during the election — had the same concerns, going so far as to say that the Senate’s health bill would “make our nation’s failing health care system worse.” “Only in Washington does repeal translate to restore,” Club for Growth president David McIntosh said in a statement. “Because that’s exactly what the Senate GOP health care bill does: It restores Obamacare. And while it’s hard to imagine, in some ways the Senate’s legislation would.” The group that likes this bill is notorious for its support of tax cuts — that should tell you something While Republicans’ bills to repeal and replace Obamacare is overwhelmingly unpopular in public polling, and among many industry voices, there is support among a small contingent of lobby groups: those that want to see the bills’ tax cuts go through. The US Chamber of Commerce, the nation’s largest business lobby, has urged Republican lawmakers to support the repeal-and-replace bills all along, and on Tuesday it once again threw its support behind the Better Care Reconciliation Act. According to the chamber’s “key vote alert” letter, the way their folks see it, this bill would “repeal the most egregious taxes and mandates of the ACA, which will help lower the cost of health care coverage and allow employers to create jobs. The bill repeals the medical device tax that unfairly penalizes American manufacturers, and zeros out the employer mandate penalties.” The argument alludes to the fundamental structure of the Republican health bill: a proposal that cuts Medicaid, a health service for poorer Americans and the disabled and elderly, by $772 billion over the next 10 years, according to estimates from the Congressional Budget Office, to pay for the tax cuts on high-income people, fees on manufacturers, and Obamacare’s excise taxes. Basically the chamber is saying this bill will reduce the burden on health insurance companies and manufacturers — with less focus on how it might impact the American people in need of health care. That alone, however, isn’t enough to convince Republicans in the Senate to vote for it. Was this article helpful?",
+            "highlightText": "",
+            "highlightTitle": "",
+            "language": "english",
+            "external_links": [],
+            "entities": {
+                "persons": [
+                    {
+                        "name": "bob corker",
+                        "sentiment": "negative"
+                    },
+                    {
+                        "name": "scott",
+                        "sentiment": "negative"
+                    },
+                    {
+                        "name": "obamacare",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "mccain",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "tim phillips",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "david mcintosh",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "jerry moran",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "koch",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "spencer",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "john mccain",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "trump",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "bernie sanders",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "cory booker",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "corker",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "mitch mcconnell",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "susan collins",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "lisa murkowski",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "john lewis",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "murshed zaheed",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "mike lee",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "ted cruz",
+                        "sentiment": "none"
+                    }
+                ],
+                "organizations": [
+                    {
+                        "name": "senate",
+                        "sentiment": "negative"
+                    },
+                    {
+                        "name": "senate gop",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "heritage foundation",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "american enterprise institute",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "american medical association",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "us chamber of commerce",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "republican",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "house",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "american heart association",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "moveon.org",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "american hospital association",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "republican party",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "capitol",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "medicaid",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "congressional budget office",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "ut",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "aca",
+                        "sentiment": "none"
+                    }
+                ],
+                "locations": [
+                    {
+                        "name": "obamacare",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "west virginia",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "tx",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "united states",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "capitol",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "ohio",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "washington",
+                        "sentiment": "none"
+                    }
+                ]
+            },
+            "rating": null,
+            "crawled": "2017-06-28T19:49:24.005+03:00"
+        },
+        {
+            "thread": {
+                "uuid": "405a3b9eddeb8e26d819073ca6e16c18dcdfe6a5",
+                "url": "http://omgili.com/ri/jHIAmI4hxg_gfG0J81kdk35HiaMSCCuaroCswk.hOfQeyw8XsUs9BbSYMGjiNIz32m37H8SEBTXCv44xA8Gyj0KGpYlAhyZhlVykr3C6_3rN9F5zi_MvGCce4dj9Oy9D92Oww.LoqVg-",
+                "site_full": "www.rollingstone.com",
+                "site": "rollingstone.com",
+                "site_section": "http://www.rollingstone.com/siteServices/rss/allNews",
+                "site_categories": [],
+                "section_title": "Rolling Stone Latest TV and Sports and Music and Movies and Politics and Culture and RS Country News",
+                "title": "Trumpcare Will Be a Disaster for Opioid Epidemic",
+                "title_full": "Trumpcare Will Be a Disaster for Opioid Epidemic",
+                "published": "2017-06-28T18:16:00.000+03:00",
+                "replies_count": 0,
+                "participants_count": 0,
+                "site_type": "news",
+                "country": "US",
+                "spam_score": 0,
+                "main_image": "http://img.wennermedia.com/social/rs-healthcare-6dfcc8f3-26d8-4db3-8204-ce97d6a1c2eb.jpg",
+                "performance_score": 8,
+                "domain_rank": 972,
+                "social": {
+                    "facebook": {
+                        "likes": 835,
+                        "comments": 0,
+                        "shares": 835
+                    },
+                    "gplus": {
+                        "shares": 3
+                    },
+                    "pinterest": {
+                        "shares": 1
+                    },
+                    "linkedin": {
+                        "shares": 3
+                    },
+                    "stumbledupon": {
+                        "shares": 0
+                    },
+                    "vk": {
+                        "shares": 0
+                    }
+                }
+            },
+            "uuid": "405a3b9eddeb8e26d819073ca6e16c18dcdfe6a5",
+            "url": "http://omgili.com/ri/jHIAmI4hxg_gfG0J81kdk35HiaMSCCuaroCswk.hOfQeyw8XsUs9BbSYMGjiNIz32m37H8SEBTXCv44xA8Gyj0KGpYlAhyZhlVykr3C6_3rN9F5zi_MvGCce4dj9Oy9D92Oww.LoqVg-",
+            "ord_in_thread": 0,
+            "author": "",
+            "published": "2017-06-28T18:16:00.000+03:00",
+            "title": "Trumpcare Will Be a Disaster for Opioid Epidemic",
+            "text": "'Morning Joe' Co-Hosts Mika Brzezinski, Joe Scarborough:... Trumpcare Will Be a Disaster for Opioid Epidemic By cutting Medicaid, the new health care bill will exacerbate the crisis – and Republican plans to add more aid won't do nearly enough \"Without Medicaid I wouldn't be here today,\" said one opioid survivor. Credit: Leonard Lessin/Getty All Stories \nEvery corner of the nation – in wealthy suburbs, posh newly revitalized urban areas, and depressed former coal towns alike – is being touched by the opioid and heroin crisis, which has brought lawmakers in this bitter hyper-partisan Washington together just last year. That's why Democrats, doctors and first responders feel betrayed that the Senate Republican insurance bill proposes a drastic rollback to the federal programs that have proven the most effective to helping stem the crisis. Related Trump Administration to Effectively Kill Office Fighting Opioid Epidemic A leaked memo shows the Office of National Drug Control Policy budget being slashed by 95 percent \nWhile the Republican talking point is that their proposal represents a reform that doesn't cut Medicaid spending, that assertion isn't passing the smell test – let alone the calculations – of the nation's fact checkers. The proposal calls for slashing Medicaid funding by $772 billion over a decade, which the Congressional Budget Office says would decrease enrollment by 16 percent for people under 65. That would have real life consequences because Medicaid is treating about 30 percent of the nation's addicts , though in some of the state's hardest hit by the epidemic that number is more like 40 or 50 percent of those struggling with addiction. \n\"Without Medicaid I wouldn't be here today. Without Medicaid I wouldn't have a family. Without Medicaid, I would be dead. And I'm sorry I'm emotional but it's the truth,\" a tearful 25-year-old West Virginia resident, Shelby Valentine, said as she joined Democrats at a press conference opposing the proposed cuts at the Capitol on Tuesday. Her state's senators know that she's not alone, though she's a survivor – which is increasingly rare in the state that lost 818 people to overdoses last year alone. \n\"In my state, we're the number one. We're ground zero. We have more people that have been affected through legal drugs, opioid addiction, than any other form that we've ever had hit our state,\" West Virginia Democratic Sen. Joe Manchin told reporters at the Capitol. \"We didn't grow up with this, it was not out there. The legal pharmaceutical manufacturers were not producing this product. This came of age in the Eighties, and when it came of age it became a business model. I understand there was some good intentions and some need of really some severe cases we have like cancer and end of life comfort. This thing became a business. And it has been exploited to the extent that we have never seen before.\" \nFor Manchin, like every other Democrat, the GOP insurance bill is a nonstarter, but he's actually got an ally in his opposition from his Republican counterpart in the Senate. Shelley Moore Capito is currently opposed to the bill, partly because it cuts rural hospitals, cuts Medicaid and doesn't do enough to address the opioid crisis. She and Ohio Sen. Rob Portman have been trying to get party leaders to boost opioid funding in the bill from its current $2 billion to $45 billion, but she says she hasn't gotten a response to her request from McConnell and other party leaders. \n\"I haven't heard,\" Republican Sen. Shelley Moore Capito tells Rolling Stone . \"I think that's an issue, obviously, for me, but not the only one.\" \nBut Democrats say even if GOP leaders toss another $45 billion to opioid prevention and treatment programs, the bill would still tie the hands of the nation's doctors, nurses and first responders because the cuts to Medicaid are so deep. They fear McConnell is now going to spend the July 4th recess trying to buy votes of senators like Capito using the $200 billion in deficit reduction the CBO says the bill provides. \n\"One-off carve outs…are we only going to deal with opioids? Are we also going to deal with alcohol? Are we also going to deal with other drug addictions? What about cancer? What about diabetes?\" Democratic Sen. Mark Warner tells Rolling Stone . \"You don't take close to 800 billion dollars out of Medicaid that serves not only poor individuals but two-thirds of the folks in nursing homes. Many, many children with disabilities, people with addiction and pit one challenge group against the other. I think that would be short-sighted if there was only the opioid relief and there wasn't the other kind of more comprehensive drug and other alcohol rehabilitation.\" \nOther Democrats are glad some Republicans are addressing the opioid crisis, but they argue just a new tranche of money isn't going to do the trick. \n\"The folks who are experts in this, tell me that in the vast majority of cases, you have to integrate the opioid treatment into the overall plan of care for people. Because so often an opioid addiction relates to other physical or behavioral health challenges,\" Democratic Sen. Sheldon Whitehouse tells Rolling Stone. \n\"I think it's hard to do, I mean I'm delighted they're interested in finally throwing some money at the problem. But when you put that up against the destruction that they want to do to Medicare, I don't think it balances out. It looks an awful like, to quote Dick Durbin, 'putting that lace collar on the pit bull.'\" \nWhile Democrats are glad the GOP leader had to pull its health effort this week, they know McConnell is a master legislator who now has $200 billion in projected saving to toss around skeptical rank and file Republicans, which is why they're girding for battle. \n\"The wheeling and dealing will be to tried to buy votes essentially, not in a nefarious way, but simply politically try to make the bill more palatable,\" Democratic Sen. Richard Blumenthal tells Rolling Stone . \"I still regard this fight to stop the bill as uphill, because they have the majority. And as long as the majority leader can command dollars as well as persuasion, he has a path forward.\" More News",
+            "highlightText": "",
+            "highlightTitle": "",
+            "language": "english",
+            "external_links": [],
+            "entities": {
+                "persons": [
+                    {
+                        "name": "shelley moore capito",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "sheldon whitehouse",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "shelby valentine",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "capito",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "dick durbin",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "rob portman",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "mcconnell",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "manchin",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "mark warner",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "leonard",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "joe manchin",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "richard blumenthal",
+                        "sentiment": "none"
+                    }
+                ],
+                "organizations": [
+                    {
+                        "name": "claypool lennon delirium cover pink floyd",
+                        "sentiment": "negative"
+                    },
+                    {
+                        "name": "cbo",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "senate",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "office of national drug control policy",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "medicare",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "related trump administration to effectively kill office fighting opioid epidemic a",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "rolling stone",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "republican",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "gop",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "medicaid",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "congressional budget office",
+                        "sentiment": "none"
+                    }
+                ],
+                "locations": [
+                    {
+                        "name": "west virginia",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "capitol",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "ohio",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "washington",
+                        "sentiment": "none"
+                    }
+                ]
+            },
+            "rating": null,
+            "crawled": "2017-06-28T19:06:45.001+03:00"
+        },
+        {
+            "thread": {
+                "uuid": "930a4661e4e6c6d96cb2af489d0e7edd68bad0b6",
+                "url": "http://omgili.com/ri/.wHSUbtEfZQ2wVwv1GOz6Msy5xK737ZFABw8Ekw2S.t5sWsmdlgeKfLdimyI0eafPv6ReXpSyrFDt3nTxpYX9olnhv5pgYwRzPEkTKOXN78GB6xQHi1s8juMEojFz83vHDlGmMONNpeW3OGs.SNEcByr6qg35tFq",
+                "site_full": "www.bloomberg.com",
+                "site": "bloomberg.com",
+                "site_section": "https://www.bloomberg.com/politics/feeds/site.xml",
+                "site_categories": [],
+                "section_title": "Bloomberg Politics",
+                "title": "Looking for a Coal Job? Better Work on Those PlayStation Skills",
+                "title_full": "Looking for a Coal Job? Better Work on Those PlayStation Skills - Bloomberg",
+                "published": "2017-06-28T16:00:00.000+03:00",
+                "replies_count": 0,
+                "participants_count": 1,
+                "site_type": "news",
+                "country": "US",
+                "spam_score": 0,
+                "main_image": "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iwFW6Ga.3YZE/v0/1200x800.jpg",
+                "performance_score": 8,
+                "domain_rank": 356,
+                "social": {
+                    "facebook": {
+                        "likes": 834,
+                        "comments": 0,
+                        "shares": 834
+                    },
+                    "gplus": {
+                        "shares": 4
+                    },
+                    "pinterest": {
+                        "shares": 0
+                    },
+                    "linkedin": {
+                        "shares": 12
+                    },
+                    "stumbledupon": {
+                        "shares": 0
+                    },
+                    "vk": {
+                        "shares": 0
+                    }
+                }
+            },
+            "uuid": "930a4661e4e6c6d96cb2af489d0e7edd68bad0b6",
+            "url": "http://omgili.com/ri/.wHSUbtEfZQ2wVwv1GOz6Msy5xK737ZFABw8Ekw2S.t5sWsmdlgeKfLdimyI0eafPv6ReXpSyrFDt3nTxpYX9olnhv5pgYwRzPEkTKOXN78GB6xQHi1s8juMEojFz83vHDlGmMONNpeW3OGs.SNEcByr6qg35tFq",
+            "ord_in_thread": 0,
+            "author": "More stories by Tim Loh",
+            "published": "2017-06-28T16:00:00.000+03:00",
+            "title": "Looking for a Coal Job? Better Work on Those PlayStation Skills",
+            "text": "While on the campaign trail in West Virginia last year, Donald Trump donned a hardhat and pantomimed digging coal with a shovel. The coal miners in the audience would soon be back to work, he promised : “Get ready, because you are going to be working your asses off.”\nThe only problem: Coal miners no longer swing a pickax or wield a shovel. While coal companies are hiring again, executives are starting to search for workers who can crunch gigabytes of data or use a joystick to maneuver mining vehicles hundreds of miles away.\n“If you do PlayStation , you can run a 300-ton truck,\" said Douglas Blackburn, a fourth-generation miner himself who runs the industry consultancy Blackacre LLC . For an industry once notorious for its risks, “the worst that can happen is you sprain a thumb.”\nThe trend toward fewer workers, of course, is nothing new. The heyday of coal employment came in 1923, when the U.S. industry -- then reliant on laborers with hand tools, blast powder and oil lamps -- had a record 863,000 miners, according to the Mine Safety and Health Administration. Ever since, that number has fallen thanks to increasingly sophisticated machinery. The technological change took a leap forward in the 1980s with the expansion of large-scale mining in Wyoming’s Powder River Basin, where the coal can be scooped out of the ground from above. The miners no longer had to tunnel underground.\nIn the Powder River Basin’s giant open-pit mines, large haul trucks now crisscross the sites day and night, collecting up to 400 tons of coal at a time from towering seams. High-school graduates with little experience often drive the trucks, taking home salaries that can be $30 an hour. Trains that can stretch more than 100 cars long are loaded up mechanically with the coal and sent off to plants as far away as Georgia.\nRead More: America’s Coal Miners Extract Signing Bonuses and Raises Again\n“Whether coal comes back or not is not necessarily directly related to jobs,” Heath Lovell, a spokesman for coal producer Alliance Resource Partners LP , said in an interview on NPR’s \"On Point.\" “We should be becoming more and more efficient, which would mean we could produce the same amount of coal with less employees.”\nIn Illinois, underground miners including Alliance Resource and Foresight Energy LP have a collection of longwall machines -- computerized devices that cut coal from the earth in slices that can extend for miles -- ready to ramp up production with minimal manpower if demand allows.\nTo be sure, Trump’s pledge has come true for some workers. Coal companies added 2,400 jobs since September, bringing the total to 51,000, according to the Bureau of Labor Statistics. Coal companies are advertising for licensed mechanics and electricians, warehouse clerks and security guards.\nCoal’s future, however, is likely to involve a new set of skills. It won’t be long before a miner is working out of an office in, say, Denver, where she’ll stare at computer screens and maneuver equipment in Wyoming, according to Blackburn. The miner -- earning, perhaps, $15 an hour -- will monitor several massive trucks that largely steer themselves, he said.\nRead More: Coal Isn’t Coming Back, Even With Trump Leaving the Paris Accord\nJust as electric locomotives once replaced the pit ponies and mules in the mines, Caterpillar Inc. is already selling fleets of its “autonomous” haul trucks to Australian mining companies. One customer, iron-ore giant Fortescue Metals Group Ltd , has increased productivity by up to 30 percent thanks to the vehicles’ better-than-human consistency and precision, Denise Johnson, Caterpillar’s head of resource industries, said at a Deutsche Bank summit on June 8.\n“You can keep those trucks running 24/7,’’ Johnson said. “You don’t have to take bathroom breaks.’’\nThat sort of savings will be hard for U.S. coal companies to resist as they struggle to stay competitive against the onslaught of cheap natural gas, solar and wind power. Caterpillar’s autonomous-mining technology is already being adopted by U.S. customers and it’s expanding its offerings, a company spokesman said by email. The company declined to identify its customers.\nAnd such technology won’t be limited to Wyoming. When talking to coal executives, Rick Honaker, chairman of the University of Kentucky’s mining program for the past decade, keeps hearing how they want young engineers who can automate a piece of equipment, managing gigabytes of data so the machinery can be used most efficiently.\n“The way to compete is being more automated,” Honaker said in an interview. “And unfortunately, that means less jobs -- more skilled labor but less overall employment.\"\nSense of Nostalgia Against that backdrop, Trump is capitalizing on the sense of nostalgia for coal’s bygone days and anxiety about the future, said Patrick Hickey, a political science professor at West Virginia University. In Appalachia, people are well aware that miners stopped heaving coal with shovels generations ago, but Trump’s air-shoveling still resonated in a state whose flag bears the image of a 19th century miner holding a pickax.\n\"Coal mining jobs were hard jobs -- people had serious health problems as a result of them -- but an honest effort was rewarded well,\" Hickey said. By trading politically on an antiquated image of a miner, Trump is appealing not just to displaced coal workers but to those in manufacturing and other sectors threatened by automation and foreign competition.\n\"As we see this disruption all over the economy in the public and private sector, I think it’s really powerful to hearken back to these touchstones of an economy that had more certainty,\" he said.\nThe most important business stories of the day. Get Bloomberg&apos;s daily newsletter. Sign Up One irony for the industry now is that in some areas the coal companies say they can’t find the high-skilled workers they need. In West Virginia, companies are resorting to offering signing bonuses and fully paid healthcare to poach experienced shift foremen, mechanics and electricians from rivals. Many of those workers left the coal industry during the last decade’s collapse and found more stable employment in other sectors. They aren’t anxious to switch back.\n“The scars are still fresh,” said George Dethlefsen, CEO of Canonsburg, Pennsylvania-based Corsa Coal Corp., which opened a mine in Pennsylvania this month. “Those guys are not fully trusting that this market is back and here to stay.’’\nFinding young talent is especially hard. During the bust, companies were laying off people rather than training a new generation of miners. That created a dearth of high-skilled workers in their 20s and 30s.\n\"Youth might be the most looked-for qualification,\" Matt Preston, a coal analyst at Wood Mackenzie Ltd. , said in an email. Finding young workers \"willing to get into a shrinking industry is an uphill climb.\"",
+            "highlightText": "",
+            "highlightTitle": "",
+            "language": "english",
+            "external_links": [],
+            "entities": {
+                "persons": [
+                    {
+                        "name": "donald trump",
+                        "sentiment": "positive"
+                    },
+                    {
+                        "name": "denise johnson",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "patrick hickey",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "matt preston",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "johnson",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "george dethlefsen",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "heath lovell",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "honaker",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "douglas blackburn",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "rick honaker",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "hickey",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "trump",
+                        "sentiment": "none"
+                    }
+                ],
+                "organizations": [
+                    {
+                        "name": "alliance resource partners lp",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "alliance resource and foresight energy lp",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "bureau of labor statistics",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "deutsche bank",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "university of kentucky",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "pennsylvania-based corsa coal corp.",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "fortescue metals group ltd",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "caterpillar",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "mine safety and health administration",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "blackburn",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "wood mackenzie ltd.",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "npr",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "caterpillar inc.",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "blackacre llc",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "bloomberg",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "west virginia university",
+                        "sentiment": "none"
+                    }
+                ],
+                "locations": [
+                    {
+                        "name": "west virginia",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "u.s.",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "wyoming",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "appalachia",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "illinois",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "america",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "denver",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "georgia",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "powder river basin",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "canonsburg",
+                        "sentiment": "none"
+                    },
+                    {
+                        "name": "pennsylvania",
+                        "sentiment": "none"
+                    }
+                ]
+            },
+            "rating": null,
+            "crawled": "2017-06-28T12:25:06.003+03:00"
+        }
+    ],
+    "totalResults": 13,
+    "moreResultsAvailable": 0,
+    "next": "/filterWebContent?token=e6d255ff-1622-4b08-9098-81186a9ca40e&format=json&ts=1498633200000&q=is_first%3Atrue+language%3Aenglish+published%3A%3E1498633200000+site_type%3Anews+thread.country%3AUS+performance_score%3A%3E7+location%3A%22West+Virginia%22&sort=published&from=100",
+    "requestsLeft": 966
+}
