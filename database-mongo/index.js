@@ -19,11 +19,11 @@ var articleSchema = new Schema({
 var stateTones = new Schema({
   state: String,
   tones: {
-    anger: Number,
-    disgust: Number,
-    fear: Number,
-    sadness: Number,
-    joy: Number
+    anger: {type: Number, default: null},
+    disgust: {type: Number, default: null},
+    fear: {type: Number, default: null},
+    sadness: {type: Number, default: null},
+    joy: {type: Number, default: null}
   }
 });
 
