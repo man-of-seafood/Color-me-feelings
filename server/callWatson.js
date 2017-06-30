@@ -1,4 +1,4 @@
-var Article = require('../database-mongo/index');
+var db = require('../database-mongo/index');
 var ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
 var configFile = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
 var secret = configFile.keys;
@@ -24,7 +24,7 @@ var params = {
 
 exports.finalObj = {};
 
-// eg {az: {joy: 0, fear: 0}, ax: joy}
+// eg {az: {joy: 0, fear: 0}, bx: joy}
 
 
 var makeAvg = (obj, divisor) => {
@@ -33,38 +33,66 @@ var makeAvg = (obj, divisor) => {
   }
 };
 
+var callWatsonForScores = (articlesArr, finalObj) => {
+  articlesArr.forEach( (article) => {
+    params.text = article.text;
+    toneAnalyzer.tone(params, (err, res) => {
+      if (err) { console.log('Watson: Error retreiving tone analysis', err); }
+      // sum az's scores
+      finalObj[state].anger = finalObj[state].anger + res.document_tone.tone_categories[0].tones[0].score;
+      finalObj[state].disgust = finalObj[state].disgust + res.document_tone.tone_categories[0].tones[1].score;
+      finalObj[state].fear = finalObj[state].fear + res.document_tone.tone_categories[0].tones[2].score;
+      finalObj[state].joy = finalObj[state].joy + res.document_tone.tone_categories[0].tones[3].score;
+      finalObj[state].sadness = finalObj[state].sadness + res.document_tone.tone_categories[0].tones[4].score;
+      
+    });
+  });
+};
+
 exports.addTones = () => {
-  // loop thru states
-  dictionary.stateCodeArr.forEach( (state) => {
-    // find all articles about az
-    Article.find({type: state}, (err, allArticles) => { 
-      if (err) { 
-        console.log(`Error getting ${state} articles in db`, err); 
-      } else {
-        // make entry in finalObj for az
-        finalObj[state] = {
-          anger: 0, 
-          disgust: 0, 
-          fear: 0, 
-          fear: 0, 
-          joy: 0
-        };
-        // run analyzer on all articles about az, add to finalObj
-        allArticles.forEach( (item) => {
-          params.text = item.text;
-          toneAnalyzer.tone(params, (err, res) => {
-            if (err) { console.log('Watons: Error retreiving tone analysis', err); }
-            // sum az's scores
-            finalObj[state].anger = finalObj[state].anger + res.document_tone.tone_categories[0].tones[0].score;
-            finalObj[state].disgust = finalObj[state].disgust + res.document_tone.tone_categories[0].tones[1].score;
-            finalObj[state].fear = finalObj[state].fear + res.document_tone.tone_categories[0].tones[2].score;
-            finalObj[state].joy = finalObj[state].joy + res.document_tone.tone_categories[0].tones[3].score;
-            finalObj[state].sadness = finalObj[state].sadness + res.document_tone.tone_categories[0].tones[4].score;
+
+  // remove existing document from db
+  db.StateTone.remove().then( () => {
+
+    // loop thru states
+    dictionary.stateCodeArr.forEach( (state) => {
+
+      // find all articles about az in db
+      db.Article.find({type: state}, (err, allArticles) => { 
+        if (err) { 
+          console.log(`Error getting ${state} articles in db`, err); 
+        } else {
+          // make entry in finalObj for az
+          finalObj[state] = {
+            anger: 0, 
+            disgust: 0, 
+            fear: 0, 
+            joy: 0, 
+            sadness: 0
+          };
+          // run analyzer on all articles about az, add to finalObj
+          callWatsonForScores(allArticles, finalObj);
+
+          // avg scores for az
+          makeAvg(finalObj, allArticles.length);
+
+          // create document
+          var stateTone = new db.StateTone({
+            state: state,
+            tones: {
+              anger: finalObj[state].anger, 
+              disgust: finalObj[state].disgust, 
+              fear: finalObj[state].fear, 
+              joy: finalObj[state].joy, 
+              sadness: finalObj[state].sadness
+            }
           });
-        });
-        // avg scores for az
-        makeAvg(finalObj, allArticles.length);
-      }
+          stateTone.save( (err, stateTone) => {
+            if (err) { console.log(`There was an error saving ${state}'s tone data`); }
+            console.log('stateTone document content: ', stateTone);
+          });
+        }
+      });
     });
   });
 };
