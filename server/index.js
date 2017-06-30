@@ -7,8 +7,9 @@ var secret = configFile.keys;
 
 var db = require('../database-mongo');
 var refill = require('./addArticles');
-var analyze = require('./callWatson');
+var watson = require('./callWatson');
 var CronJob = require('cron').CronJob;
+
 
 
 app.use(express.static(__dirname + '/../react-client/dist'));
@@ -32,10 +33,13 @@ var job = new CronJob({
      * Runs every weekday (Monday and Friday)
      * at 11:30:00 AM. 
      */
+
      // run news api call
   }, function() {
-    //can remove, but runs when job is finihsed
-    // run watson
+    //can remove, but runs when job is finished
+
+    // run watson + add tones to db
+    watson.addTones();
   },
   start: false,
   timeZone: 'America/Los_Angeles'
