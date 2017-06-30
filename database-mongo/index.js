@@ -13,15 +13,19 @@ var articleSchema = new Schema({
   uuid: { type: String, required: true},
   date: { type: Date, default: Date.now },
   stateCode: { type: String, uppercase: true, minlength: 2, maxlength: 2 },
-  text: String,
-  scores: {
-    joy: { type: Number, default: null },
-    anger: { type: Number, default: null },
-    disgust: { type: Number, default: null },
-    fear: { type: Number, default: null },
-    sadness: { type: Number, default: null }
+  text: String
+}, {minimize: false});
+
+var stateTones = new Schema({
+  state: String,
+  tones: {
+    anger: Number, 
+    disgust: Number, 
+    fear: Number, 
+    fear: Number, 
+    joy: Number
   }
-},{minimize: false});
+});
 
 
 var Article = mongoose.model('Article', articleSchema);
