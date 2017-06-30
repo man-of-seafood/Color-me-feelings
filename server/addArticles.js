@@ -5,7 +5,7 @@ var axios = require('axios');
 var reference = require('../database-mongo/dictionary');
     var statesList = reference.stateCodeArr;
 var configFile = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
-    var WEBHOSE_API_KEY = configFile['WEBHOSE_API_KEY'];
+    var WEBHOSE_API_KEY = configFile.keys['WEBHOSE_API_KEY'];
 
   var getSearchStr = function(stateCode){
     var fullTextName = reference.dictionary[stateCode];
@@ -52,6 +52,7 @@ var configFile = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
   };
 
   var dailyRefresh = function(){
+    db.getCollection('articles').remove({})
     getStateData(statesList[1]);
     // var smallSample = statesList.slice(0,3);
     // smallSample.forEach(stateCode)
