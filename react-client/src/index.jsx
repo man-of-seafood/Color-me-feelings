@@ -92,6 +92,19 @@ class App extends React.Component {
         'data': 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_1_states_provinces.geojson'
       });
 
+    // $.ajax({
+    //   type: 'GET',
+    //   url: '/tones',
+    //   success: (data) => {
+    //     this.setState({
+    //       data: data
+    //     });
+
+    //     that.refreshMap(map, data, currentEmotion);
+    //   },
+    //   error: (err) => { console.log('Failed to get data from server ', err); }
+    // });
+
       that.refreshMap(map, data, currentEmotion);
     });
 
@@ -132,15 +145,6 @@ class App extends React.Component {
     });
 
     this.refreshMap(this.state.map, this.state.data, newSelection);
-
-
-    // $.ajax({
-    //   type: 'GET',
-    //   url: '/tones/' + tone + '/emotion',
-    //   data: {tone: tone}, // from news
-    //   success: (data) => {},
-    //   error: (err) => { console.log('Watson: Failed to get tone data from server ', err); }
-    // });
   }
 
 
