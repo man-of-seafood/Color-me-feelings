@@ -2,6 +2,7 @@ var db = require('../database-mongo/index');
 var ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
 var configFile = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
 var secret = configFile.keys;
+var axios = require('axios');
 var dictionary = require('../database-mongo/dictionary'); // stateCodeArr, stateNameArr, dictionary
 
 // create instance of Tone Analyzer service
@@ -29,23 +30,34 @@ var makeAvg = (obj, divisor) => {
   }
 };
 
-var callWatsonForScores = (articlesArr, finalObj) => {
+var callWatsonForScores = (articlesArr, finalObj, state, cb) => {
+  // only run cb if there are articles about that state - cb ends up as makeAvg + saving to db
+
+  // counter checks that all articles have been analyzed
+  var counter = 0;
+
   articlesArr.forEach( (article) => {
     params.text = article.text;
     toneAnalyzer.tone(params, (err, res) => {
-      if (err) { console.log('Watson: Error retreiving tone analysis', err); }
-      // sum az's scores
-      finalObj[state].anger = finalObj[state].anger + res.document_tone.tone_categories[0].tones[0].score;
-      finalObj[state].disgust = finalObj[state].disgust + res.document_tone.tone_categories[0].tones[1].score;
-      finalObj[state].fear = finalObj[state].fear + res.document_tone.tone_categories[0].tones[2].score;
-      finalObj[state].joy = finalObj[state].joy + res.document_tone.tone_categories[0].tones[3].score;
-      finalObj[state].sadness = finalObj[state].sadness + res.document_tone.tone_categories[0].tones[4].score;
-      
+      if (err) { 
+        console.log('Watson: Error retreiving tone analysis', err); 
+      } else {
+        counter++;
+
+        // sum az's scores
+        finalObj[state].anger = finalObj[state].anger + res.document_tone.tone_categories[0].tones[0].score;
+        finalObj[state].disgust = finalObj[state].disgust + res.document_tone.tone_categories[0].tones[1].score;
+        finalObj[state].fear = finalObj[state].fear + res.document_tone.tone_categories[0].tones[2].score;
+        finalObj[state].joy = finalObj[state].joy + res.document_tone.tone_categories[0].tones[3].score;
+        finalObj[state].sadness = finalObj[state].sadness + res.document_tone.tone_categories[0].tones[4].score;
+        if (counter === articlesArr.length) { cb(); }
+      }
     });
   });
+
 };
 
-exports.addTones = () => {
+var addTones = () => {
 
   // remove existing document from db
   db.StateTone.remove().then( () => {
@@ -54,10 +66,12 @@ exports.addTones = () => {
     dictionary.stateCodeArr.forEach( (state) => {
 
       // find all articles about az in db
-      db.Article.find({type: state}, (err, allArticles) => { 
+      db.Article.find({stateCode: state}, (err, allArticles) => { 
         if (err) { 
           console.log(`Error getting ${state} articles in db`, err); 
         } else {
+          // console.log(`+++++ the articles for ${state} in the db `, allArticles);
+
           // make entry in finalObj for az
           finalObj[state] = {
             anger: 0, 
@@ -67,33 +81,38 @@ exports.addTones = () => {
             sadness: 0
           };
           // run analyzer on all articles about az, add to finalObj
-          callWatsonForScores(allArticles, finalObj);
+          callWatsonForScores(allArticles, finalObj, state, () => {
+            // avg scores for az
+            makeAvg(finalObj[state], allArticles.length);
 
-          // avg scores for az
-          makeAvg(finalObj[state], allArticles.length);
+            // create document
+            var stateTone = new db.StateTone({
+              state: state,
+              tones: {
+                anger: finalObj[state].anger, 
+                disgust: finalObj[state].disgust, 
+                fear: finalObj[state].fear, 
+                joy: finalObj[state].joy, 
+                sadness: finalObj[state].sadness
+              }
+            });
+            stateTone.save( (err, stateTone) => {
+              if (err) { 
+                console.log(`There was an error saving ${state}'s tone data`); 
+              } else {
+                // console.log('stateTone document content: ', stateTone);
+              }
+            });
 
-          // create document
-          var stateTone = new db.StateTone({
-            state: state,
-            tones: {
-              anger: finalObj[state].anger, 
-              disgust: finalObj[state].disgust, 
-              fear: finalObj[state].fear, 
-              joy: finalObj[state].joy, 
-              sadness: finalObj[state].sadness
-            }
           });
-          stateTone.save( (err, stateTone) => {
-            if (err) { console.log(`There was an error saving ${state}'s tone data`); }
-            console.log('stateTone document content: ', stateTone);
-          });
+
         }
       });
     });
   });
 };
 
-
+module.exports = addTones;
 
 
 

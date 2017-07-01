@@ -4,7 +4,7 @@ var axios = require('axios');
 var CronJob = require('cron').CronJob;
 var db = require('../database-mongo');
 var refill = require('./addArticles');
-var watson = require('./callWatson');
+var analyze = require('./callWatson');
 
 
 app.use(express.static(__dirname + '/../react-client/dist'));
@@ -14,11 +14,13 @@ app.get('/tones', function (req, res) {
     if (err) {
       res.sendStatus(500);
     } else {
-      res.sendStatus(200);
       res.json(stateTones);
     }
   });
 });
+
+// UNCOMMENT TO DEBUG callWatson.js
+// analyze(); 
 
 //just require anywhere you want to start a job and change crontime based on what you want
 var job = new CronJob({
@@ -34,7 +36,7 @@ var job = new CronJob({
     //can remove, but runs when job is finished
 
     // run watson + add tones to db
-    watson.addTones();
+    analyze();
   },
   start: false,
   timeZone: 'America/Los_Angeles'
