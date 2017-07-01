@@ -20,7 +20,8 @@ app.get('/tones', function (req, res) {
 });
 
 // UNCOMMENT TO DEBUG callWatson.js
-// analyze(); 
+// refill();
+analyze(); 
 
 //just require anywhere you want to start a job and change crontime based on what you want
 var job = new CronJob({

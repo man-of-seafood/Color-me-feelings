@@ -10,36 +10,36 @@ class App extends React.Component {
     super(props);
     this.state = {
       data: [
-        {
-          state: 'CA',
-          tones: {
-            joy: Math.random() * 100,
-            anger: Math.random() * 100,
-            disgust: Math.random() * 100,
-            fear: Math.random() * 100,
-            sadness: Math.random() * 100
-          }
-        },
-        {
-          state: 'NV',
-          tones: {
-            joy: null,
-            anger: null,
-            disgust: null,
-            fear: null,
-            sadness: null
-          }
-        },
-        {
-          state: 'AZ',
-          tones: {
-            joy: Math.random() * 100,
-            anger: Math.random() * 100,
-            disgust: Math.random() * 100,
-            fear: Math.random() * 100,
-            sadness: Math.random() * 100
-          }
-        }
+        // {
+        //   state: 'CA',
+        //   tones: {
+        //     joy: Math.random() * 100,
+        //     anger: Math.random() * 100,
+        //     disgust: Math.random() * 100,
+        //     fear: Math.random() * 100,
+        //     sadness: Math.random() * 100
+        //   }
+        // },
+        // {
+        //   state: 'NV',
+        //   tones: {
+        //     joy: null,
+        //     anger: null,
+        //     disgust: null,
+        //     fear: null,
+        //     sadness: null
+        //   }
+        // },
+        // {
+        //   state: 'AZ',
+        //   tones: {
+        //     joy: Math.random() * 100,
+        //     anger: Math.random() * 100,
+        //     disgust: Math.random() * 100,
+        //     fear: Math.random() * 100,
+        //     sadness: Math.random() * 100
+        //   }
+        // }
       ],
       currentEmotion: 'joy',
       map: null,
@@ -92,20 +92,20 @@ class App extends React.Component {
         'data': 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_1_states_provinces.geojson'
       });
 
-    // $.ajax({
-    //   type: 'GET',
-    //   url: '/tones',
-    //   success: (data) => {
-    //     this.setState({
-    //       data: data
-    //     });
+    $.ajax({
+      type: 'GET',
+      url: '/tones',
+      success: (data) => {
+        that.setState({
+          data: data
+        });
 
-    //     that.refreshMap(map, data, currentEmotion);
-    //   },
-    //   error: (err) => { console.log('Failed to get data from server ', err); }
-    // });
+        that.refreshMap(map, data, currentEmotion);
+      },
+      error: (err) => { console.log('Failed to get data from server ', err); }
+    });
 
-      that.refreshMap(map, data, currentEmotion);
+    //   that.refreshMap(map, data, currentEmotion);
     });
 
     this.setState({
