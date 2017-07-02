@@ -26,37 +26,39 @@ var configFile = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
             '%22';
   };
 
-  var getStateData = function(stateCode){
+  var getStateData = function (stateCode) {
     var queryString = getSearchStr(stateCode);
 
     axios.get(queryString)
-    .then( (result) => {
+    .then((result) => {
       var respObj = result.data;
       var totalResults = respObj.totalResults;
-      console.log( totalResults+' total articles for '+ stateCode+' in rec\'d hose-response');
+      console.log( totalResults + ' total articles for ' + stateCode + ' in rec\'d hose-response');
 
       var arrOfArticleObj = respObj.posts;
-      arrOfArticleObj.forEach( (articleObj) => {
+      arrOfArticleObj.forEach((articleObj) => {
         var artuuid = articleObj.uuid;
         var artDate = articleObj.published;
         var artText = articleObj.text;
 
-        var inbound = new Article({uuid: artuuid, date:artDate, stateCode:stateCode, text:artText})
+        var inbound = new Article({uuid: artuuid, date: artDate, stateCode: stateCode, text: artText})
         inbound.save( function(err) {
-          if (err){ console.error(err); }  //otherwise...
+          if (err) { console.error(err); }  //otherwise...
           console.log('uuid saved...', artuuid);
         });
       });
     })
-    .catch( (error) => { console.error(" UH OH!!! -->", error); } );
+    .catch( (error) => { console.error(" ERROR!!! For State" + stateCode + "-->", error); } );
   };
 
   var dailyRefresh = function(){
     Article.find({}).remove(() => {console.log('DB Cleared');});
 
-    var smallSample = statesList.slice(0,2);
-    smallSample.forEach( (stateCode) => {
-      getStateData(stateCode);
+    var smallSample = statesList.slice(0,9);
+    smallSample.forEach( (stateCode,i) => {
+      setTimeout(
+        function () { getStateData(stateCode) },
+        i * 1000);
     });
   };
 
