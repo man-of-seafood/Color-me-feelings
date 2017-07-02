@@ -1,4 +1,4 @@
-var Promise = require('bluebird');
+// var Promise = require('bluebird');
 var mongoose = require('mongoose');
 var dbSetup = require('../database-mongo/index');
     var Article = dbSetup.Article;
@@ -9,10 +9,7 @@ var configFile = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
     var WEBHOSE_API_KEY = configFile.keys['WEBHOSE_API_KEY'];
 
   var getSearchStr = function(stateCode){
-    var fullTextName = reference.dictionary[stateCode];
-        fullTextName.replace(/\s/g, '%20');
-
-    /* TIME: Must be in Unix ms which are 13-integers long! */
+    var fullTextName = reference.dictionary[stateCode].replace(/\s/g, '%20');
     var timeNow = new Date().getTime(); // time in Unix Epoch ms...
     var twoDaysAgo = timeNow - 86400000 - 86400000; // 86400000ms in a day
     return 'http://webhose.io/filterWebContent?token='+
@@ -26,25 +23,36 @@ var configFile = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
             '%22';
   };
 
+  var clearStateData = function (stateCode) {
+    Article.find( {stateCode: stateCode} )
+           .remove( () => { console.log( stateCode + ' Cleared from DB'); });
+  }
+
   var getStateData = function (stateCode) {
     var queryString = getSearchStr(stateCode);
 
     axios.get(queryString)
     .then((result) => {
-      var respObj = result.data;
-      var totalResults = respObj.totalResults;
-      console.log( totalResults + ' total articles for ' + stateCode + ' in rec\'d hose-response');
+      var totalResults = result.data.totalResults;
+      console.log( totalResults + ' articles rec\'d for ' + stateCode + ' in hose-response');
 
-      var arrOfArticleObj = respObj.posts;
+      if ( totalResults > 0 ){
+        clearStateData(stateCode);
+      } else {
+        console.log('ZERO NEW Articles for ' + stateCode + ', leaving STALE DATA as is.');
+      }
+
+      var arrOfArticleObj = result.data.posts;
       arrOfArticleObj.forEach((articleObj) => {
-        var artuuid = articleObj.uuid;
-        var artDate = articleObj.published;
-        var artText = articleObj.text;
-
-        var inbound = new Article({uuid: artuuid, date: artDate, stateCode: stateCode, text: artText})
+        var inbound = new Article({
+          uuid: articleObj.uuid,
+          date: articleObj.published,
+          stateCode: stateCode,
+          text: articleObj.text
+        });
         inbound.save( function(err) {
           if (err) { console.error(err); }  //otherwise...
-          console.log('uuid saved...', artuuid);
+          console.log('saved uuid-', articleObj.uuid);
         });
       });
     })
@@ -52,13 +60,14 @@ var configFile = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
   };
 
   var dailyRefresh = function(){
-    Article.find({}).remove(() => {console.log('DB Cleared');});
-
-    var smallSample = statesList.slice(0,9);
-    smallSample.forEach( (stateCode,i) => {
+    // TO REQUEST DATA FOR ALL STATES - COMMENT OUT LINES 64-65, AND UN-COMMENT LINE 66
+    var onlyFirstTenStates = statesList.slice(0,9);
+    onlyFirstTenStates.forEach( (stateCode,i) => {
+    // statesList.forEach( (stateCode,i) => {
       setTimeout(
         function () { getStateData(stateCode) },
-        i * 1000);
+        i * 1000
+      );
     });
   };
 
