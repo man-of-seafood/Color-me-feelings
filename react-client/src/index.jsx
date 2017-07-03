@@ -67,19 +67,19 @@ class App extends React.Component {
         'data': 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_1_states_provinces.geojson'
       });
 
-    // get data on tones once map loads
-    $.ajax({
-      type: 'GET',
-      url: '/tones',
-      success: (data) => {
-        that.setState({
-          data: data
-        });
+      // get data on tones once map loads
+      $.ajax({
+        type: 'GET',
+        url: '/tones',
+        success: (data) => {
+          that.setState({
+            data: data
+          });
 
-        that.refreshMap(map, data, currentEmotion);
-      },
-      error: (err) => { console.log('Failed to get data from server ', err); }
-    });
+          that.refreshMap(map, data, currentEmotion);
+        },
+        error: (err) => { console.log('Failed to get data from server ', err); }
+      });
 
 
     });
@@ -131,7 +131,7 @@ class App extends React.Component {
         <Dropdown handleToneSelection={this.handleToneSelection} currentEmotion={this.state.currentEmotion}/>
         <div className='col-md-9 col-sm-9 col-lg-9'></div>
         <div className='col-md-1 col-sm-1 col-lg-1'>
-          <Legend color={this.state.colors[this.state.currentEmotion]}/>
+          <Legend color={this.state.colors[this.state.currentEmotion]} emotion={this.state.currentEmotion}/>
         </div>
       </div>
     );
