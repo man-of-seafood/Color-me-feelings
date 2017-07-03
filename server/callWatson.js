@@ -42,12 +42,18 @@ var callWatsonForScores = (articlesArr, finalObj, state, cb) => {
       } else {
         counter++;
 
+        // index of tone according to Watson response
+        var angerScore = res.document_tone.tone_categories[0].tones[0].score;
+        var disgustScore = res.document_tone.tone_categories[0].tones[1].score;
+        var fearScore = res.document_tone.tone_categories[0].tones[2].score;
+        var joyScore = res.document_tone.tone_categories[0].tones[3].score;
+        var sadnessScore = res.document_tone.tone_categories[0].tones[4].score;
         // sum az's scores
-        finalObj[state].anger = finalObj[state].anger + res.document_tone.tone_categories[0].tones[0].score;
-        finalObj[state].disgust = finalObj[state].disgust + res.document_tone.tone_categories[0].tones[1].score;
-        finalObj[state].fear = finalObj[state].fear + res.document_tone.tone_categories[0].tones[2].score;
-        finalObj[state].joy = finalObj[state].joy + res.document_tone.tone_categories[0].tones[3].score;
-        finalObj[state].sadness = finalObj[state].sadness + res.document_tone.tone_categories[0].tones[4].score;
+        finalObj[state].anger = finalObj[state].anger + angerScore;
+        finalObj[state].disgust = finalObj[state].disgust + disgustScore;
+        finalObj[state].fear = finalObj[state].fear + fearScore;
+        finalObj[state].joy = finalObj[state].joy + joyScore;
+        finalObj[state].sadness = finalObj[state].sadness + sadnessScore;
         if (counter === articlesArr.length) { cb(); }
       }
     });
@@ -63,14 +69,13 @@ var addTones = () => {
     // loop thru states
     dictionary.stateCodeArr.forEach( (state) => {
 
-      // find all articles about az in db
+      // find all articles about 'state' in db
       db.Article.find({stateCode: state}, (err, allArticles) => { 
         if (err) { 
           console.log(`Error getting ${state} articles in db`, err); 
         } else {
-          // console.log(`+++++ the articles for ${state} in the db `, allArticles);
 
-          // make entry in finalObj for az
+          // make entry in finalObj for state
           finalObj[state] = {
             anger: 0, 
             disgust: 0, 
@@ -78,9 +83,9 @@ var addTones = () => {
             joy: 0, 
             sadness: 0
           };
-          // run analyzer on all articles about az, add to finalObj
+          // run analyzer on all articles about state, add to finalObj
           callWatsonForScores(allArticles, finalObj, state, () => {
-            // avg scores for az
+            // avg scores for state
             makeAvg(finalObj[state], allArticles.length);
 
             // create document
