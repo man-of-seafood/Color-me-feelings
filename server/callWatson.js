@@ -2,7 +2,6 @@ var db = require('../database-mongo/index');
 var ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
 var configFile = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
 var secret = configFile.keys;
-var axios = require('axios');
 var dictionary = require('../database-mongo/dictionary'); // stateCodeArr, stateNameArr, dictionary
 
 // create instance of Tone Analyzer service
@@ -20,8 +19,8 @@ var params = {
 };
 
 // stores state and tone data
+// format {az: {joy: 0, fear: 0, disgust: 0}, ca: {joy...}}
 var finalObj = {};
-// eg {az: {joy: 0, fear: 0, disgust: 0}, ca: {joy...}}
 
 
 var makeAvg = (obj, divisor) => {
@@ -31,8 +30,7 @@ var makeAvg = (obj, divisor) => {
 };
 
 var callWatsonForScores = (articlesArr, finalObj, state, cb) => {
-  // only run cb if there are articles about that state - cb ends up as makeAvg + saving to db
-
+  // only run cb if there are articles about that state - cb assures makeAvg and adding to db happens after watson data is returned
   // counter checks that all articles have been analyzed
   var counter = 0;
 
@@ -97,15 +95,9 @@ var addTones = () => {
               }
             });
             stateTone.save( (err, stateTone) => {
-              if (err) { 
-                console.log(`There was an error saving ${state}'s tone data`); 
-              } else {
-                // console.log('stateTone document content: ', stateTone);
-              }
+              if (err) { console.log(`There was an error saving ${state}'s tone data`); } 
             });
-
           });
-
         }
       });
     });

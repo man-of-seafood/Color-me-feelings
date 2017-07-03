@@ -1,13 +1,13 @@
-# Project Name
+# News Mapper
 
-> Pithy project description
+> Map display of top news articles' tone by state
 
 ## Team
 
-  - teamMember
-  - teamMember
-  - teamMember
-  - teamMember
+  - Bryant
+  - Rich
+  - Jake
+  - Andrea
 
 ## Table of Contents
 
@@ -25,11 +25,18 @@
 
 ## Requirements
 
-- Node 6.4.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- Node.js 6.4.x
+- MongoDB
+- Mapbox 0.38.0
+- Bootstrap
+- Webpack 2.2.1
+- IBM Watson
+- Webhose.io
+- Express
+- JQuery
+- Cron
+- React/ React DOM
+
 
 ## Development
 
@@ -45,7 +52,7 @@ bower install
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_DOC)
+View the project roadmap [here](https://docs.google.com/document/d/1ojttqxqz_li1peBNtLMCQDCbpJuglBM1r4oR7oZwGMM/edit?usp=sharing)
 
 
 ## Contributing
