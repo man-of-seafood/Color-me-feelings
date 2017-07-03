@@ -1,46 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import List from './components/List.jsx';
+import Legend from './components/Legend.jsx';
+import Dropdown from './components/Dropdown.jsx';
 import mapboxgl from 'mapbox-gl';
 var dictionary = require('../../database-mongo/dictionary.js').dictionary;
+
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      data: [
-        // {
-        //   state: 'CA',
-        //   tones: {
-        //     joy: Math.random() * 100,
-        //     anger: Math.random() * 100,
-        //     disgust: Math.random() * 100,
-        //     fear: Math.random() * 100,
-        //     sadness: Math.random() * 100
-        //   }
-        // },
-        // {
-        //   state: 'NV',
-        //   tones: {
-        //     joy: null,
-        //     anger: null,
-        //     disgust: null,
-        //     fear: null,
-        //     sadness: null
-        //   }
-        // },
-        // {
-        //   state: 'AZ',
-        //   tones: {
-        //     joy: Math.random() * 100,
-        //     anger: Math.random() * 100,
-        //     disgust: Math.random() * 100,
-        //     fear: Math.random() * 100,
-        //     sadness: Math.random() * 100
-        //   }
-        // }
-      ],
+      data: [],
       currentEmotion: 'joy',
       map: null,
       colors: {
@@ -56,8 +28,10 @@ class App extends React.Component {
         sadness: ['hsl(0, 50%, 10%)', 'hsl(0, 50%, 25%)', 'hsl(0, 50%, 50%)', 'hsl(0, 50%, 75%)', 'hsl(0, 50%, 90%)']
       }
     };
+
     this.handleToneSelection = this.handleToneSelection.bind(this);
   }
+
 
   getColor(score, currentEmotion) {
     if (currentEmotion === 'joy') {
@@ -72,6 +46,7 @@ class App extends React.Component {
       return 'hsl(0, 50%, ' + (score * 0.8 + 10) + '%)';
     }
   }
+
 
   componentDidMount() {
     var data = this.state.data;
@@ -92,6 +67,7 @@ class App extends React.Component {
         'data': 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_1_states_provinces.geojson'
       });
 
+    // get data on tones once map loads
     $.ajax({
       type: 'GET',
       url: '/tones',
@@ -105,14 +81,17 @@ class App extends React.Component {
       error: (err) => { console.log('Failed to get data from server ', err); }
     });
 
-    //   that.refreshMap(map, data, currentEmotion);
+
     });
 
+    // allows the map to be accessed throughout the app
     this.setState({
       map: map
     });
   }
 
+
+  // adds a layer representing data on the currently selected tone
   refreshMap(map, data, currentEmotion) {
     for (var i = 0; i < data.length; i++) {
       if (data[i].tones[currentEmotion] !== null) {
@@ -133,18 +112,15 @@ class App extends React.Component {
   }
 
 
-  // TODO: News get request
-
-
   // when user selects tone
   handleToneSelection(event) {
-    var newSelection = event.target.value[0].toLowerCase() + event.target.value.slice(1);
+    var newlySelectedEmotion = event.target.value[0].toLowerCase() + event.target.value.slice(1);
 
     this.setState({
-      currentEmotion: newSelection
+      currentEmotion: newlySelectedEmotion
     });
 
-    this.refreshMap(this.state.map, this.state.data, newSelection);
+    this.refreshMap(this.state.map, this.state.data, newlySelectedEmotion);
   }
 
 
@@ -152,22 +128,15 @@ class App extends React.Component {
     return (
       <div>
         <p className='title'>News Mapper</p>
-        <div className='col-md-2 col-sm-2 col-lg-2'>
-          <select className='form-control selector' onChange={this.handleToneSelection} value={this.state.currentEmotion[0].toUpperCase() + this.state.currentEmotion.slice(1)}>
-            <option>Joy</option>
-            <option>Anger</option>
-            <option>Disgust</option>
-            <option>Fear</option>
-            <option>Sadness</option>
-          </select>
-        </div>
+        <Dropdown handleToneSelection={this.handleToneSelection} currentEmotion={this.state.currentEmotion}/>
         <div className='col-md-9 col-sm-9 col-lg-9'></div>
         <div className='col-md-1 col-sm-1 col-lg-1'>
-          <List colorCode={this.state.colors[this.state.currentEmotion]}/>
+          <Legend color={this.state.colors[this.state.currentEmotion]}/>
         </div>
       </div>
     );
   }
 }
+
 
 ReactDOM.render(<App />, document.getElementById('app'));
