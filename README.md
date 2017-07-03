@@ -21,7 +21,7 @@
 
 ## Usage
 
-> Some usage instructions
+> Select an emotion to view the level of that emotion in today's news for articles related to each state
 
 ## Requirements
 
@@ -45,9 +45,10 @@
 From within the root directory:
 
 ```sh
-npm install -g bower
 npm install
-bower install
+react-dev
+database-dev
+server-dev
 ```
 
 ### Roadmap
