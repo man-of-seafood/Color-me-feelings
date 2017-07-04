@@ -1,24 +1,24 @@
-var mongoose = require('mongoose');
-var Promise = require('bluebird');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Promise = require('bluebird');
+const Schema = mongoose.Schema;
 mongoose.Promise = Promise;
   //?? assert.equal(query.exec().constructor, require('bluebird'));
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-var dbURI = 'mongodb://localhost:27017/NewsDB';
+const dbURI = 'mongodb://localhost:27017/NewsDB';
 mongoose.connect(dbURI);
-var db = mongoose.connection;
+const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'db connection error!'));
-db.once('open', function() { console.log('mongoose connected successfully'); });
+db.once('open', () => { console.log('mongoose connected successfully'); });
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-var articleSchema = new Schema({
+const articleSchema = new Schema({
   uuid: { type: String, required: true},
   date: { type: Date, default: Date.now },
   stateCode: { type: String, uppercase: true, minlength: 2, maxlength: 2 },
   text: String
 });
 
-var stateTones = new Schema({
+const stateTones = new Schema({
   state: String,
   tones: {
     anger: {type: Number, default: null},
@@ -29,8 +29,8 @@ var stateTones = new Schema({
   }
 });
 
-var StateTone = mongoose.model('StateTone', stateTones);
-var Article = mongoose.model('Article', articleSchema);
+const StateTone = mongoose.model('StateTone', stateTones);
+const Article = mongoose.model('Article', articleSchema);
 
 module.exports = {
   StateTone: StateTone,
