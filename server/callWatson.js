@@ -1,8 +1,8 @@
-const db = require('../database-mongo/index');
+const db = require('../database/index');
 const ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
 const configFile = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
 const secret = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
-const dictionary = require('../database-mongo/dictionary'); // stateCodeArr, stateNameArr, dictionary
+const dictionary = require('../database/dictionary'); // stateCodeArr, stateNameArr, dictionary
 
 
 // create instance of Tone Analyzer service

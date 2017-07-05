@@ -4,7 +4,7 @@ import $ from 'jquery';
 import Legend from './components/Legend.jsx';
 import Dropdown from './components/Dropdown.jsx';
 import mapboxgl from 'mapbox-gl';
-import { dictionary } from '../../database-mongo/dictionary.js';
+import { dictionary } from '../../database/dictionary.js';
 
 
 class App extends React.Component {

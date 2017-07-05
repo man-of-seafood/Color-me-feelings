@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const axios = require('axios');
 const CronJob = require('cron').CronJob;
-const db = require('../database-mongo');
+const db = require('../database');
 const refill = require('./addArticles');
 const analyze = require('./callWatson');
 
