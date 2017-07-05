@@ -24,7 +24,7 @@ const getSearchStr = stateCode => {
 };
 
 const clearStateData = stateCode => {
-  Article.find({stateCode: stateCode}).remove(() => {
+  Article.find({ stateCode: stateCode }).remove(() => {
     console.log(stateCode + ' Cleared from DB');
   });
 };

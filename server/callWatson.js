@@ -68,7 +68,7 @@ const addTones = () => {
     // loop thru states
     dictionary.stateCodeArr.forEach(state => {
       // find all articles about 'state' in db
-      Article.find({stateCode: state}, (err, allArticles) => {
+      Article.find({ stateCode: state }, (err, allArticles) => {
         if (err) {
           console.log(`Error getting ${state} articles in db`, err);
         } else {
