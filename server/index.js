@@ -7,7 +7,7 @@ const refill = require('./addArticles');
 const analyze = require('./callWatson');
 
 
-app.use(express.static(__dirname + '/../react-client/dist'));
+app.use(express.static(__dirname + '/../client/dist'));
 
 app.get('/tones', (req, res) => {
   db.StateTone.find({}, (err, stateTones) => {
