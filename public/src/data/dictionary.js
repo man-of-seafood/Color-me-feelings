@@ -103,9 +103,11 @@ const dictionary = {
   'WI': 'Wisconsin',
   'WY': 'Wyoming'
 };
-
+/*
 module.exports = { 
   stateCodeArr: stateCodeArr, 
   stateNameArr: stateNameArr, 
   dictionary: dictionary 
-};
+};*/
+
+export { dictionary };
