@@ -10,7 +10,4 @@ const db = mongoose.connection;
 db.on('error', () => console.log('db connection error!'));
 db.once('open', () => console.log('mongoose connected successfully'));
 
-module.exports = {
-  StateTone,
-  Article
-};
+module.exports = db;
