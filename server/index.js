@@ -7,7 +7,7 @@ const refill = require('./addArticles');
 const analyze = require('./callWatson');
 
 
-app.use(express.static(__dirname + '/../client/dist'));
+app.use(express.static(__dirname + '/../public/dist'));
 
 app.get('/tones', (req, res) => {
   db.StateTone.find({}, (err, stateTones) => {
@@ -16,7 +16,7 @@ app.get('/tones', (req, res) => {
 });
 
 // UNCOMMENT TO get new articles for database
-// refill();
+refill();
 // UNCOMMENT TO analyze articles in the database
 // analyze();
 
