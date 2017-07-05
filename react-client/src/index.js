@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import Legend from './components/Legend.jsx';
-import Dropdown from './components/Dropdown.jsx';
+import Legend from './components/Legend';
+import Dropdown from './components/Dropdown';
 import mapboxgl from 'mapbox-gl';
-var dictionary = require('../../database-mongo/dictionary.js').dictionary;
+var dictionary = require('../../database/dictionary.js').dictionary;
 
 
 class App extends React.Component {

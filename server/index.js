@@ -1,31 +1,27 @@
-var express = require('express');
-var app = express();
-var axios = require('axios');
-var CronJob = require('cron').CronJob;
-var db = require('../database-mongo');
-var refill = require('./addArticles');
-var analyze = require('./callWatson');
+const express = require('express');
+const app = express();
+const axios = require('axios');
+const CronJob = require('cron').CronJob;
+const db = require('../database');
+const refill = require('./addArticles');
+const analyze = require('./callWatson');
 
 
 app.use(express.static(__dirname + '/../react-client/dist'));
 
-app.get('/tones', function (req, res) {
-  db.StateTone.find({}, function(err, stateTones) {
-    if (err) {
-      res.sendStatus(500);
-    } else {
-      res.json(stateTones);
-    }
+app.get('/tones', (req, res) => {
+  db.StateTone.find({}, (err, stateTones) => {
+    err ? res.sendStatus(500) : res.json(stateTones);
   });
 });
 
 // UNCOMMENT TO get new articles for database
 // refill();
 // UNCOMMENT TO analyze articles in the database
-// analyze(); 
+// analyze();
 
 //just require anywhere you want to start a job and change crontime based on what you want
-var job = new CronJob({
+const job = new CronJob({
   cronTime: '00 30 11 * * 1,5',
   onTick: function() {
     /* run whatever you want scheduled in here.
