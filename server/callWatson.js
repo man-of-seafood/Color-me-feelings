@@ -1,26 +1,12 @@
-<<<<<<< HEAD
-const db = require('../database/index');
-const ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
-const configFile = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
-const secret = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
-const dictionary = require('../database/dictionary'); // stateCodeArr, stateNameArr, dictionary
-
-
-// create instance of Tone Analyzer service
-const toneAnalyzer = new ToneAnalyzerV3({
-  username: secret.WATSON_TA_USERNAME,
-  password: secret.WATSON_TA_PASSWORD,
-=======
 const db = require('../database');
 const ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
-const credentials = require('../config/config').keys; // PRIVATE FILE - DO NOT COMMIT!
+const credentials = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
 const dictionary = require('../database/dictionary'); // stateCodeArr, stateNameArr, dictionary
 
 // create instance of Tone Analyzer service
 const toneAnalyzer = new ToneAnalyzerV3({
   username: credentials.WATSON_TA_USERNAME,
   password: credentials.WATSON_TA_PASSWORD,
->>>>>>> 24369b858f7018e266b8c620a16f01e0b8dbacba
   version_date: '2016-05-19'
 });
 
@@ -35,14 +21,8 @@ const params = {
 // format {az: {joy: 0, fear: 0, disgust: 0}, ca: {joy...}}
 const finalObj = {};
 
-<<<<<<< HEAD
-
-const makeAvg = (obj, divisor) => {
-  for (let tone in obj) {
-=======
 const makeAvg = (obj, divisor) => {
   for (const tone in obj) {
->>>>>>> 24369b858f7018e266b8c620a16f01e0b8dbacba
     obj[tone] = obj[tone] / divisor * 100;
   }
 };
@@ -81,10 +61,6 @@ const callWatsonForScores = (articlesArr, finalObj, state, cb) => {
 };
 
 const addTones = () => {
-<<<<<<< HEAD
-
-=======
->>>>>>> 24369b858f7018e266b8c620a16f01e0b8dbacba
   // remove existing document from db
   db.StateTone.remove().then(() => {
     // loop thru states
