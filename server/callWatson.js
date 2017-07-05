@@ -27,7 +27,7 @@ const toneAnalyzer = new ToneAnalyzerV3({
 const params = {
   // Get the text from the JSON file.
   text: require(__dirname + '/../apis/news-sample.json').text,
-  tones: 'emotion', // omit for all three, comma separated list
+  tones: 'emotion', // omit for all three, comma separated listtones: 'emotion', // omit for all three, comma separated list
   sentences: false
 };
 
