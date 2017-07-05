@@ -2,7 +2,7 @@ var db = require('../database-mongo/index');
 var ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
 var configFile = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
 var secret = configFile.keys;
-var dictionary = require('../database-mongo/dictionary'); // stateCodeArr, stateNameArr, dictionary
+import { dictionary } from '../database-mongo/dictionary'; // stateCodeArr, stateNameArr, dictionary
 
 // create instance of Tone Analyzer service
 var toneAnalyzer = new ToneAnalyzerV3({
