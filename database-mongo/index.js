@@ -14,8 +14,11 @@ db.once('open', () => { console.log('mongoose connected successfully'); });
 const articleSchema = new Schema({
   uuid: { type: String, required: true},
   date: { type: Date, default: Date.now },
+  countryCode: { type: String, uppercase: true, minLength: 3, maxLength: 3 },
   stateCode: { type: String, uppercase: true, minlength: 2, maxlength: 2 },
-  text: String
+  title: String,
+  text: String,
+  url: String
 });
 
 const stateTones = new Schema({
