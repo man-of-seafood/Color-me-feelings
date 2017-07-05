@@ -59,4 +59,4 @@ typings/
 
 react-client/dist/bundle.js
 
-database-mongo/data/
+database/data/
