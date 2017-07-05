@@ -13,7 +13,7 @@ const getSearchStr = stateCode => {
   const fullTextName = dbDict.dictionary[stateCode].replace(/\s/g, '%20');
   const timeNow = new Date().getTime(); // time in Unix Epoch ms...
   const twoDaysAgo = timeNow - 86400000 - 86400000; // 86400000ms in a day
-  return 'http://webhose.io/filterWebContent?token='+
+  return 'http://webhose.io/filterWebContent?token=' +
           WEBHOSE_API_KEY +
           '&format=json&ts=' +
           twoDaysAgo +
