@@ -104,4 +104,8 @@ const dictionary = {
   'WY': 'Wyoming'
 };
 
-export { stateCodeArr, stateNameArr, dictionary };
+module.exports = { 
+  stateCodeArr: stateCodeArr, 
+  stateNameArr: stateNameArr, 
+  dictionary: dictionary 
+};
