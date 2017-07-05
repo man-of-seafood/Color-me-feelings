@@ -1,17 +1,15 @@
 const mongoose = require('mongoose');
 const axios = require('axios');
-const dbIndex = require('../database/index');
+const Article = require('../database/models/Article');
 const dbDict = require('../database/dictionary');
 const config = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
-
-const Article = dbIndex.Article;
 const statesList = dbDict.stateCodeArr;
 const WEBHOSE_API_KEY = config['WEBHOSE_API_KEY'];
 
 const getSearchStr = stateCode => {
   const fullTextName = dbDict.dictionary[stateCode].replace(/\s/g, '%20');
   const timeNow = new Date().getTime(); // time in Unix Epoch ms...
-  const twoDaysAgo = timeNow - 86400000 - 86400000; // 86400000ms in a day
+  const twoDaysAgo = timeNow - 2 * 86400000; // 86400000ms in a day
   return (
     'http://webhose.io/filterWebContent?token=' +
     WEBHOSE_API_KEY +
@@ -26,7 +24,7 @@ const getSearchStr = stateCode => {
 };
 
 const clearStateData = stateCode => {
-  Article.find({ stateCode: stateCode }).remove(() => {
+  Article.find({stateCode: stateCode}).remove(() => {
     console.log(stateCode + ' Cleared from DB');
   });
 };

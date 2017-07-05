@@ -2,15 +2,14 @@ const express = require('express');
 const app = express();
 const axios = require('axios');
 const CronJob = require('cron').CronJob;
-const db = require('../database');
+const StateTones = require('../database/models/StateTones');
 const refill = require('./addArticles');
 const analyze = require('./callWatson');
-
 
 app.use(express.static(__dirname + '/../public/dist'));
 
 app.get('/tones', (req, res) => {
-  db.StateTone.find({}, (err, stateTones) => {
+  StateTones.find({}, (err, stateTones) => {
     err ? res.sendStatus(500) : res.json(stateTones);
   });
 });
@@ -28,9 +27,9 @@ const job = new CronJob({
      * Runs every weekday (Monday and Friday)
      * at 11:30:00 AM.
      */
-
-     // run news api call
-  }, function() {
+    // run news api call
+  },
+  function() {
     //can remove, but runs when job is finished
 
     // run watson + add tones to db

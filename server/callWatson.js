@@ -1,7 +1,9 @@
-const db = require('../database');
 const ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
-const credentials = require('../config/config').keys; // PRIVATE FILE - DO NOT COMMIT!
+const credentials = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
 const dictionary = require('../database/dictionary'); // stateCodeArr, stateNameArr, dictionary
+
+const StateTones = require('../database/models/StateTones');
+const Article = require('../database/models/Article');
 
 // create instance of Tone Analyzer service
 const toneAnalyzer = new ToneAnalyzerV3({
@@ -62,11 +64,11 @@ const callWatsonForScores = (articlesArr, finalObj, state, cb) => {
 
 const addTones = () => {
   // remove existing document from db
-  db.StateTone.remove().then(() => {
+  StateTones.remove().then(() => {
     // loop thru states
     dictionary.stateCodeArr.forEach(state => {
       // find all articles about 'state' in db
-      db.Article.find({ stateCode: state }, (err, allArticles) => {
+      Article.find({stateCode: state}, (err, allArticles) => {
         if (err) {
           console.log(`Error getting ${state} articles in db`, err);
         } else {
@@ -84,7 +86,7 @@ const addTones = () => {
             makeAvg(finalObj[state], allArticles.length);
 
             // create document
-            const stateTone = new db.StateTone({
+            const stateTones = new StateTones({
               state: state,
               tones: {
                 anger: finalObj[state].anger,
@@ -94,7 +96,7 @@ const addTones = () => {
                 sadness: finalObj[state].sadness
               }
             });
-            stateTone.save((err, stateTone) => {
+            stateTones.save((err, stateTones) => {
               if (err) {
                 console.log(`There was an error saving ${state}'s tone data`);
               }
