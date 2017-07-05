@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "react-dev": "webpack -d --watch",
-    "server-dev": "nodemon server/index.js",
-    "database-dev": "mongod --dbpath './database/data'"
+    "watch": "webpack -d --watch",
+    "start-db": "mongod --dbpath './database/data'",
+    "start-server": "nodemon server/index.js"
   },
-  "author": "Fantastic Frogs",
+  "author": "jubilant jumpers",
   "devDependencies": {
     "babel-core": "^6.23.1",
     "babel-loader": "^6.3.2",

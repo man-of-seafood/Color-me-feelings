@@ -7,22 +7,18 @@ const refill = require('./addArticles');
 const analyze = require('./callWatson');
 
 
-app.use(express.static(__dirname + '/../react-client/dist'));
+app.use(express.static(__dirname + '/../public/dist'));
 
-app.get('/tones', function (req, res) {
-  db.StateTone.find({}, function(err, stateTones) {
-    if (err) {
-      res.sendStatus(500);
-    } else {
-      res.json(stateTones);
-    }
+app.get('/tones', (req, res) => {
+  db.StateTone.find({}, (err, stateTones) => {
+    err ? res.sendStatus(500) : res.json(stateTones);
   });
 });
 
 // UNCOMMENT TO get new articles for database
 refill();
 // UNCOMMENT TO analyze articles in the database
-// analyze(); 
+// analyze();
 
 //just require anywhere you want to start a job and change crontime based on what you want
 const job = new CronJob({

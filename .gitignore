@@ -57,6 +57,10 @@ typings/
 # dotenv environment variables file
 .env
 
-react-client/dist/bundle.js
+public/dist/bundle.js
 
 database/data/
+
+node_modules/
+
+config/
