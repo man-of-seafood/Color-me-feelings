@@ -4,7 +4,7 @@ import $ from 'jquery';
 import Legend from './components/Legend.jsx';
 import Dropdown from './components/Dropdown.jsx';
 import mapboxgl from 'mapbox-gl';
-var dictionary = require('../../database-mongo/dictionary.js').dictionary;
+import { dictionary } from '../../database-mongo/dictionary.js';
 
 
 class App extends React.Component {
@@ -49,12 +49,12 @@ class App extends React.Component {
 
 
   componentDidMount() {
-    var data = this.state.data;
-    var currentEmotion = this.state.currentEmotion;
-    var that = this;
+    const data = this.state.data;
+    const currentEmotion = this.state.currentEmotion;
+    const that = this;
 
     mapboxgl.accessToken = 'pk.eyJ1IjoiYmh1YW5nIiwiYSI6ImNqNDhxZWF6ZzBibjIycXBjaXN2Ymx3aHcifQ.MKQaPh3n3c94mcs0s2IfHw';
-    var map = new mapboxgl.Map({
+    const map = new mapboxgl.Map({
       container: 'map', // container id
       style: 'mapbox://styles/mapbox/dark-v9', //hosted style id
       center: [-95.38, 39], // starting position
@@ -93,9 +93,9 @@ class App extends React.Component {
 
   // adds a layer representing data on the currently selected tone
   refreshMap(map, data, currentEmotion) {
-    for (var i = 0; i < data.length; i++) {
+    for (let i = 0; i < data.length; i++) {
       if (data[i].tones[currentEmotion] !== null) {
-        var color = this.getColor(data[i].tones[currentEmotion], currentEmotion);
+        let color = this.getColor(data[i].tones[currentEmotion], currentEmotion);
         map.addLayer({
           'id': data[i].state + '-fill',
           'type': 'fill',
@@ -114,7 +114,7 @@ class App extends React.Component {
 
   // when user selects tone
   handleToneSelection(event) {
-    var newlySelectedEmotion = event.target.value[0].toLowerCase() + event.target.value.slice(1);
+    const newlySelectedEmotion = event.target.value[0].toLowerCase() + event.target.value.slice(1);
 
     this.setState({
       currentEmotion: newlySelectedEmotion

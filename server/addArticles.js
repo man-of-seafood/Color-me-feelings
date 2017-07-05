@@ -1,15 +1,16 @@
 // var Promise = require('bluebird');
 const mongoose = require('mongoose');
-const dbSetup = require('../database-mongo/index');
-const Article = dbSetup.Article;
 const axios = require('axios');
-import reference from '../database-mongo/dictionary';
-const statesList = reference.stateCodeArr;
-const configFile = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
-const WEBHOSE_API_KEY = configFile.keys['WEBHOSE_API_KEY'];
+const dbIndex = require('../database-mongo/index');
+const dbDict = require('../database-mongo/dictionary');
+const config = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
+
+const Article = dbIndex.Article;
+const statesList = dbDict.stateCodeArr;
+const WEBHOSE_API_KEY = config['WEBHOSE_API_KEY'];
 
 const getSearchStr = stateCode => {
-  const fullTextName = reference.dictionary[stateCode].replace(/\s/g, '%20');
+  const fullTextName = dbDict.dictionary[stateCode].replace(/\s/g, '%20');
   const timeNow = new Date().getTime(); // time in Unix Epoch ms...
   const twoDaysAgo = timeNow - 86400000 - 86400000; // 86400000ms in a day
   return 'http://webhose.io/filterWebContent?token='+
@@ -23,16 +24,16 @@ const getSearchStr = stateCode => {
           '%22';
 };
 
-const clearStateData = (stateCode) => {
+const clearStateData = stateCode => {
   Article.find( {stateCode: stateCode} )
          .remove( () => { console.log( stateCode + ' Cleared from DB'); });
 };
 
-const getStateData = (stateCode) => {
+const getStateData = function (stateCode) {
   const queryString = getSearchStr(stateCode);
 
   axios.get(queryString)
-    .then((result) => {
+    .then(result => {
       const totalResults = result.data.totalResults;
       console.log( totalResults + ' articles rec\'d for ' + stateCode + ' in hose-response');
 
@@ -43,29 +44,32 @@ const getStateData = (stateCode) => {
       }
 
       const arrOfArticleObj = result.data.posts;
-      arrOfArticleObj.forEach((articleObj) => {
+      arrOfArticleObj.forEach(articleObj => {
         let inbound = new Article({
           uuid: articleObj.uuid,
           date: articleObj.published,
           stateCode: stateCode,
-          text: articleObj.text
+          text: articleObj.text,
+          title: articleObj.title,
+          url: articleObj.url
         });
-        inbound.save( (err) => {
-          if (err) { console.error(err); }  //otherwise...
+        inbound.save(err => {
+          if (err) { console.error(err); } // otherwise...
           console.log('saved uuid-', articleObj.uuid);
         });
       });
     })
-    .catch( (error) => { console.error("ERROR!!! For State" + stateCode + "-->", error); } );
+    .catch(error => { console.error('ERROR!!! For State' + stateCode + '-->', error); } );
 };
 
 const dailyRefresh = () => {
-  // TO REQUEST DATA FOR ALL STATES - COMMENT OUT LINES 64-65, AND UN-COMMENT LINE 66
-  var onlyFirstTenStates = statesList.slice(0,9);
-  onlyFirstTenStates.forEach( (stateCode, i) => {
+  // TO REQUEST DATA FOR ALL STATES - COMMENT OUT LINES 67-68, AND UN-COMMENT LINE 70
+  // var onlyFirstTenStates = statesList.slice(0,9);
+  let onlyFirstState = statesList.slice(0, 1); //testing with one state
+  onlyFirstState.forEach( (stateCode, i) => {
   // statesList.forEach( (stateCode,i) => {
     setTimeout(
-      () => { getStateData(stateCode); },
+      function () { getStateData(stateCode); },
       i * 1000
     );
   });
