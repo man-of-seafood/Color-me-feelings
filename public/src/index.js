@@ -85,8 +85,8 @@ class App extends React.Component {
             .then( data => {
               stateData = data;
               this.setState({
-                countryData: countryData,
-                stateData: stateData
+                countryData,
+                stateData
               });
 
               this.refreshMap([[stateData, 'state'], [countryData, 'country']], currentEmotion);
