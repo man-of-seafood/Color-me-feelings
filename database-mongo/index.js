@@ -32,10 +32,23 @@ const stateTones = new Schema({
   }
 });
 
+const countryTones = new Schema({
+  country: String,
+  tones: {
+    anger: {type: Number, default: null},
+    disgust: {type: Number, default: null},
+    fear: {type: Number, default: null},
+    sadness: {type: Number, default: null},
+    joy: {type: Number, default: null}
+  }
+})
+
 const StateTone = mongoose.model('StateTone', stateTones);
+const CountryTone = mongoose.model('CountryTone', countryTones);
 const Article = mongoose.model('Article', articleSchema);
 
 module.exports = {
   StateTone: StateTone,
+  CountryTone: CountryTone,
   Article: Article
 };

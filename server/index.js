@@ -9,18 +9,30 @@ var analyze = require('./callWatson');
 
 app.use(express.static(__dirname + '/../react-client/dist'));
 
+// app.get('/tones', function (req, res) {
+//   db.StateTone.find({}, function(err, stateTones) {
+//     if (err) {
+//       res.sendStatus(500);
+//     } else {
+//       res.json(stateTones);
+//     }
+//   });
+// });
+
+//*~~~ COUNTRY ~~~~*/
 app.get('/tones', function (req, res) {
-  db.StateTone.find({}, function(err, stateTones) {
+  db.CountryTone.find({}, function(err, countryTones) {
     if (err) {
       res.sendStatus(500);
     } else {
-      res.json(stateTones);
+      res.json(countryTones);
     }
   });
 });
 
 // UNCOMMENT TO get new articles for database
-refill();
+// refill('state');
+// refill('country');
 // UNCOMMENT TO analyze articles in the database
 analyze(); 
 

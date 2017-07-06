@@ -60,22 +60,72 @@ var callWatsonForScores = (articlesArr, finalObj, state, cb) => {
 
 };
 
+// var addTones = () => {
+
+//   // remove existing document from db
+//   db.StateTone.remove().then( () => {
+
+//     // loop thru states
+//     dictionary.stateCodeArr.forEach( (state) => {
+
+//       // find all articles about 'state' in db
+//       db.Article.find({stateCode: state}, (err, allArticles) => { 
+//         if (err) { 
+//           console.log(`Error getting ${state} articles in db`, err); 
+//         } else {
+
+//           // make entry in finalObj for state
+//           finalObj[state] = {
+//             anger: 0, 
+//             disgust: 0, 
+//             fear: 0, 
+//             joy: 0, 
+//             sadness: 0
+//           };
+//           // run analyzer on all articles about state, add to finalObj
+//           callWatsonForScores(allArticles, finalObj, state, () => {
+//             // avg scores for state
+//             makeAvg(finalObj[state], allArticles.length);
+
+//             // create document
+//             var stateTone = new db.StateTone({
+//               state: state,
+//               tones: {
+//                 anger: finalObj[state].anger, 
+//                 disgust: finalObj[state].disgust, 
+//                 fear: finalObj[state].fear, 
+//                 joy: finalObj[state].joy, 
+//                 sadness: finalObj[state].sadness
+//               }
+//             });
+//             stateTone.save( (err, stateTone) => {
+//               if (err) { console.log(`There was an error saving ${state}'s tone data`); } 
+//             });
+//           });
+//         }
+//       });
+//     });
+//   });
+// };
+
+/*~~~ COUNTRY ~~~*/
 var addTones = () => {
 
   // remove existing document from db
-  db.StateTone.remove().then( () => {
+  db.CountryTone.remove().then( () => {
 
     // loop thru states
-    dictionary.stateCodeArr.forEach( (state) => {
+    // dictionary.stateCodeArr.forEach( (state) => {
 
       // find all articles about 'state' in db
-      db.Article.find({stateCode: state}, (err, allArticles) => { 
+      const country = 'CN';
+      db.Article.find({ countryCode: country }, (err, allArticles) => { 
         if (err) { 
-          console.log(`Error getting ${state} articles in db`, err); 
+          console.log(`Error getting ${country} articles in db`, err); 
         } else {
 
           // make entry in finalObj for state
-          finalObj[state] = {
+          finalObj[country] = {
             anger: 0, 
             disgust: 0, 
             fear: 0, 
@@ -83,28 +133,28 @@ var addTones = () => {
             sadness: 0
           };
           // run analyzer on all articles about state, add to finalObj
-          callWatsonForScores(allArticles, finalObj, state, () => {
+          callWatsonForScores(allArticles, finalObj, country, () => {
             // avg scores for state
-            makeAvg(finalObj[state], allArticles.length);
+            makeAvg(finalObj[country], allArticles.length);
 
             // create document
-            var stateTone = new db.StateTone({
-              state: state,
+            var countryTone = new db.CountryTone({
+              country: country,
               tones: {
-                anger: finalObj[state].anger, 
-                disgust: finalObj[state].disgust, 
-                fear: finalObj[state].fear, 
-                joy: finalObj[state].joy, 
-                sadness: finalObj[state].sadness
+                anger: finalObj[country].anger, 
+                disgust: finalObj[country].disgust, 
+                fear: finalObj[country].fear, 
+                joy: finalObj[country].joy, 
+                sadness: finalObj[country].sadness
               }
             });
-            stateTone.save( (err, stateTone) => {
-              if (err) { console.log(`There was an error saving ${state}'s tone data`); } 
+            countryTone.save( (err, countryTone) => {
+              if (err) { console.log(`There was an error saving ${country}'s tone data`); } 
             });
           });
         }
       });
-    });
+    // });
   });
 };
 

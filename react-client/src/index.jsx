@@ -62,9 +62,15 @@ class App extends React.Component {
     });
 
     map.on('load', function () {
-      map.addSource('states', {
+      // map.addSource('states', {
+      //   'type': 'geojson',
+      //   'data': 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_1_states_provinces.geojson'
+      // });
+
+      /*~~~ COUNTRY ~~~*/
+      map.addSource('countries', {
         'type': 'geojson',
-        'data': 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_1_states_provinces.geojson'
+        'data': 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_0_countries.geojson'
       });
 
       // get data on tones once map loads
@@ -93,19 +99,37 @@ class App extends React.Component {
 
   // adds a layer representing data on the currently selected tone
   refreshMap(map, data, currentEmotion) {
+    // for (let i = 0; i < data.length; i++) {
+    //   if (data[i].tones[currentEmotion] !== null) {
+    //     let color = this.getColor(data[i].tones[currentEmotion], currentEmotion);
+    //     map.addLayer({
+    //       'id': data[i].state + '-fill',
+    //       'type': 'fill',
+    //       'source': 'states',
+    //       'layout': {},
+    //       'paint': {
+    //         'fill-color': color,
+    //         'fill-opacity': 0.3
+    //       },
+    //       'filter': ['==', 'name', dictionary[data[i].state]]
+    //     });
+    //   }
+    // }
+
+    /*~~~ COUNTRY ~~~*/
     for (let i = 0; i < data.length; i++) {
       if (data[i].tones[currentEmotion] !== null) {
         let color = this.getColor(data[i].tones[currentEmotion], currentEmotion);
         map.addLayer({
-          'id': data[i].state + '-fill',
+          'id': data[i].country + '-fill',
           'type': 'fill',
-          'source': 'states',
+          'source': 'countries',
           'layout': {},
           'paint': {
             'fill-color': color,
             'fill-opacity': 0.3
           },
-          'filter': ['==', 'name', dictionary[data[i].state]]
+          'filter': ['==', 'postal', data[i].country]
         });
       }
     }
