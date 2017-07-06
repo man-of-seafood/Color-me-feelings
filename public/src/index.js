@@ -61,19 +61,17 @@ class App extends React.Component {
 
     map.on('load', () => {
       /*~~~ STATE ~~~*/
-      map.addSource('state', {
+      map.addSource('states', {
         'type': 'geojson',
         'data': 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_1_states_provinces.geojson'
       });
 
-<<<<<<< HEAD
       map.addLayer({
         'id': 'states-layer',
         'type': 'fill',
         'source': 'states'
       })
 
-=======
       /*~~~ COUNTRY ~~~*/
       map.addSource('country', {
         'type': 'geojson',
@@ -82,7 +80,6 @@ class App extends React.Component {
 
       let countryData = [];
       let stateData = [];
->>>>>>> 283fc5366082bc3ac70801817ca090856d5ae64a
       // get data on tones once map loads
       fetch('/tones?scope=country')
         .then( res => res.json() )
@@ -110,7 +107,6 @@ class App extends React.Component {
             })
         )
     });
-<<<<<<< HEAD
 
     map.on('click', (e) => {
       const features = map.queryRenderedFeatures(e.point, { layers: ['states-layer']});
@@ -126,8 +122,6 @@ class App extends React.Component {
       }
     });
 
-=======
->>>>>>> 283fc5366082bc3ac70801817ca090856d5ae64a
   };
 
   // adds a layer representing data on the currently selected tone
