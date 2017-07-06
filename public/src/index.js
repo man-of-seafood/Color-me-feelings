@@ -69,20 +69,18 @@ class App extends React.Component {
 
       map.addLayer({
         'id': 'country-layer',
-        'type': 'fill',
         'source': 'country'
       });
 
       /*~~~ STATE ~~~*/
-      map.addSource('states', {
+      map.addSource('state', {
         'type': 'geojson',
         'data': 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_1_states_provinces.geojson'
       });
 
       map.addLayer({
         'id': 'states-layer',
-        'type': 'fill',
-        'source': 'states'
+        'source': 'state'
       });
 
       let countryData = [];
@@ -101,6 +99,7 @@ class App extends React.Component {
             .then( res => res.json() )
             .then( data => {
               stateData = data;
+              console.log(stateData, countryData);
               this.setState({
                 countryData,
                 stateData
