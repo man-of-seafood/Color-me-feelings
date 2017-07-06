@@ -14,7 +14,7 @@ db.once('open', () => { console.log('mongoose connected successfully'); });
 const articleSchema = new Schema({
   uuid: { type: String, required: true},
   date: { type: Date, default: Date.now },
-  countryCode: { type: String, uppercase: true, minLength: 3, maxLength: 3 },
+  countryCode: { type: String, uppercase: true, minLength: 2, maxLength: 2 },
   stateCode: { type: String, uppercase: true, minlength: 2, maxlength: 2 },
   title: String,
   text: String,
@@ -32,10 +32,23 @@ const stateTones = new Schema({
   }
 });
 
+const countryTones = new Schema({
+  country: String,
+  tones: {
+    anger: {type: Number, default: null},
+    disgust: {type: Number, default: null},
+    fear: {type: Number, default: null},
+    sadness: {type: Number, default: null},
+    joy: {type: Number, default: null}
+  }
+})
+
 const StateTone = mongoose.model('StateTone', stateTones);
+const CountryTone = mongoose.model('CountryTone', countryTones);
 const Article = mongoose.model('Article', articleSchema);
 
 module.exports = {
   StateTone: StateTone,
+  CountryTone: CountryTone,
   Article: Article
 };

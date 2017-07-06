@@ -6,15 +6,15 @@ import EmotionDropdown from './components/EmotionDropdown';
 import NewsList from './components/NewsList'; 
 
 import mapboxgl from 'mapbox-gl';
-
-import dictionary from './data/dictionary';
+import { stateDict, countryDict } from '../../reference/dictionary.js';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: [],
+      stateData: [],
+      countryData: [],
       currentEmotion: 'joy',
       selectedState: 'California',
       modalVisible: false,
@@ -56,36 +56,61 @@ class App extends React.Component {
       zoom: 4 // starting zoom
     });
 
-    this.setState({
-      map
-    });
+    this.setState({ map });
 
 
     map.on('load', () => {
-      map.addSource('states', {
+      /*~~~ STATE ~~~*/
+      map.addSource('state', {
         'type': 'geojson',
         'data': 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_1_states_provinces.geojson'
       });
 
+<<<<<<< HEAD
       map.addLayer({
         'id': 'states-layer',
         'type': 'fill',
         'source': 'states'
       })
 
+=======
+      /*~~~ COUNTRY ~~~*/
+      map.addSource('country', {
+        'type': 'geojson',
+        'data': 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_50m_admin_0_countries.geojson'
+      });
+
+      let countryData = [];
+      let stateData = [];
+>>>>>>> 283fc5366082bc3ac70801817ca090856d5ae64a
       // get data on tones once map loads
-      fetch('/tones')
+      fetch('/tones?scope=country')
         .then( res => res.json() )
         .then( data => {
-          this.setState(
-            data: data
-          );
-          this.refreshMap(data, currentEmotion);
+          countryData = data; 
         })
         .catch( err => {
-          console.log('Failed to get data from server ', err);
-        });
+          console.log('Failed to get country data from server ', err);
+        })
+        .then(
+          fetch('/tones?scope=state')
+            .then( res => res.json() )
+            .then( data => {
+              stateData = data;
+              this.setState({
+                countryData,
+                stateData
+              });
+
+              this.refreshMap([[stateData, 'state'], [countryData, 'country']], currentEmotion);
+
+            })
+            .catch( err => {
+              console.log('Failed to get state data from server ', err);
+            })
+        )
     });
+<<<<<<< HEAD
 
     map.on('click', (e) => {
       const features = map.queryRenderedFeatures(e.point, { layers: ['states-layer']});
@@ -101,26 +126,35 @@ class App extends React.Component {
       }
     });
 
+=======
+>>>>>>> 283fc5366082bc3ac70801817ca090856d5ae64a
   };
 
   // adds a layer representing data on the currently selected tone
-  refreshMap(data, currentEmotion) {
-    for (let i = 0; i < data.length; i++) {
-      if (data[i].tones[currentEmotion] !== null) {
-        let color = this.getColor(data[i].tones[currentEmotion], currentEmotion);
-        this.state.map.addLayer({
-          'id': data[i].state + '-fill',
-          'type': 'fill',
-          'source': 'states',
-          'layout': {},
-          'paint': {
-            'fill-color': color,
-            'fill-opacity': 0.3
-          },
-          'filter': ['==', 'name', dictionary[data[i].state]]
-        });
+  refreshMap(dataArr, currentEmotion) {
+    /*~~~ COUNTRY AND STATE ~~~*/
+    dataArr.forEach(scopeData => {
+      //scopeData[0] is data set, scopeData[1] is data scope
+      const type = scopeData[1];
+      const data = scopeData[0];
+      const dict = type === 'state' ? stateDict : countryDict;
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].tones[currentEmotion] !== null) {
+          let color = this.getColor(data[i].tones[currentEmotion], currentEmotion);
+          this.state.map.addLayer({
+            'id': data[i][type] + '-fill',
+            'type': 'fill',
+            'source': type,
+            'layout': {},
+            'paint': {
+              'fill-color': color,
+              'fill-opacity': 0.3
+            },
+            'filter': ['==', 'name', dict[data[i][type]]]
+          });
+        }
       }
-    }
+    })
   }
 
   hideModal() {
@@ -136,7 +170,7 @@ class App extends React.Component {
       currentEmotion: newlySelectedEmotion
     });
 
-    this.refreshMap(this.state.data, newlySelectedEmotion);
+    this.refreshMap([[this.state.stateData, 'state'], [this.state.countryData, 'country']], newlySelectedEmotion);
   }
 
   render() {
