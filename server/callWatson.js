@@ -1,7 +1,10 @@
 const db = require('../database');
 const ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
 const credentials = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
-const dictionary = require('../reference/dictionary'); // stateDict, countryDict
+const dict = require('../reference/dictionary'); // stateDict, countryDict
+
+const stateDict = dict.stateDict;
+const countryDict = dict.countryDict;
 
 // create instance of Tone Analyzer service
 const toneAnalyzer = new ToneAnalyzerV3({
@@ -27,10 +30,11 @@ const makeAvg = (obj, divisor) => {
   }
 };
 
-const callWatsonForScores = (articlesArr, finalObj, state, cb) => {
-  // only run cb if there are articles about that state - cb assures makeAvg and adding to db happens after watson data is returned
+const callWatsonForScores = (articlesArr, finalObj, place, cb) => {
+  // only run cb if there are articles about that stat/country - cb assures makeAvg and adding to db happens after watson data is returned
   // counter checks that all articles have been analyzed
   let counter = 0;
+  console.log('analyzing', articlesArr.length, 'articles in Watson for', place);
 
   articlesArr.forEach( (article) => {
     params.text = article.text;
@@ -47,11 +51,11 @@ const callWatsonForScores = (articlesArr, finalObj, state, cb) => {
         const joyScore = res.document_tone.tone_categories[0].tones[3].score;
         const sadnessScore = res.document_tone.tone_categories[0].tones[4].score;
         // sum az's scores
-        finalObj[state].anger = finalObj[state].anger + angerScore;
-        finalObj[state].disgust = finalObj[state].disgust + disgustScore;
-        finalObj[state].fear = finalObj[state].fear + fearScore;
-        finalObj[state].joy = finalObj[state].joy + joyScore;
-        finalObj[state].sadness = finalObj[state].sadness + sadnessScore;
+        finalObj[place].anger = finalObj[place].anger + angerScore;
+        finalObj[place].disgust = finalObj[place].disgust + disgustScore;
+        finalObj[place].fear = finalObj[place].fear + fearScore;
+        finalObj[place].joy = finalObj[place].joy + joyScore;
+        finalObj[place].sadness = finalObj[place].sadness + sadnessScore;
         if (counter === articlesArr.length) { cb(); }
       }
     });
@@ -59,101 +63,57 @@ const callWatsonForScores = (articlesArr, finalObj, state, cb) => {
 
 };
 
-// var addTones = () => {
-
-//   // remove existing document from db
-//   db.StateTone.remove().then( () => {
-
-//     // loop thru states
-//     dictionary.stateCodeArr.forEach( (state) => {
-
-//       // find all articles about 'state' in db
-//       db.Article.find({stateCode: state}, (err, allArticles) => { 
-//         if (err) { 
-//           console.log(`Error getting ${state} articles in db`, err); 
-//         } else {
-
-//           // make entry in finalObj for state
-//           finalObj[state] = {
-//             anger: 0, 
-//             disgust: 0, 
-//             fear: 0, 
-//             joy: 0, 
-//             sadness: 0
-//           };
-//           // run analyzer on all articles about state, add to finalObj
-//           callWatsonForScores(allArticles, finalObj, state, () => {
-//             // avg scores for state
-//             makeAvg(finalObj[state], allArticles.length);
-
-//             // create document
-//             var stateTone = new db.StateTone({
-//               state: state,
-//               tones: {
-//                 anger: finalObj[state].anger, 
-//                 disgust: finalObj[state].disgust, 
-//                 fear: finalObj[state].fear, 
-//                 joy: finalObj[state].joy, 
-//                 sadness: finalObj[state].sadness
-//               }
-//             });
-//             stateTone.save( (err, stateTone) => {
-//               if (err) { console.log(`There was an error saving ${state}'s tone data`); } 
-//             });
-//           });
-//         }
-//       });
-//     });
-//   });
-// };
-
-/*~~~ COUNTRY ~~~*/
-const addTones = () => {
+/*~~~ COUNTRY AND STATE ~~~*/
+const addTones = (type) => {
+  const collection = type === 'state' ? 'StateTone' : 'CountryTone'; 
+  const codeType = type === 'state' ? 'stateCode' : 'countryCode'; 
+  // UNCOMMENT next line to loop through all, currently limiting API calls
+  // const refObj = req.query.scope === 'state' ? stateDict : countryDict;
+  // then COMMENT out below line
+  const refObj = type === 'state' ? { 'AL': 'Alabama', 'MD': 'Maryland' } : { 'CN': 'China', 'JP': 'Japan' };
 
   // remove existing document from db
-  db.CountryTone.remove().then( () => {
+  db[collection].remove().then( () => {
 
-    // loop thru states
-    // dictionary.stateCodeArr.forEach( (state) => {
+    // loop through states/countries
+    for (let key in refObj) {
 
-      // find all articles about 'state' in db
-      const country = 'JP';
-      db.Article.find({ countryCode: country }, (err, allArticles) => { 
+      // find all articles about state/country in db
+      const codeObj = type === 'state' ? { 'stateCode': key } : { 'countryCode': key };
+      db.Article.find(codeObj, (err, allArticles) => {
         if (err) { 
-          console.log(`Error getting ${country} articles in db`, err); 
+          console.log(`Error getting ${key} articles in db`, err); 
         } else {
-
-          // make entry in finalObj for state
-          finalObj[country] = {
+          finalObj[key] = {
             anger: 0, 
             disgust: 0, 
             fear: 0, 
             joy: 0, 
             sadness: 0
           };
-          // run analyzer on all articles about state, add to finalObj
-          callWatsonForScores(allArticles, finalObj, country, () => {
-            // avg scores for state
-            makeAvg(finalObj[country], allArticles.length);
+          // run analyzer on all articles about state/country, add to finalObj
+          callWatsonForScores(allArticles, finalObj, key, () => {
+            // avg scores for state/country
+            makeAvg(finalObj[key], allArticles.length);
 
             // create document
-            var countryTone = new db.CountryTone({
-              country: country,
+            let newTone = new db[collection]({
               tones: {
-                anger: finalObj[country].anger, 
-                disgust: finalObj[country].disgust, 
-                fear: finalObj[country].fear, 
-                joy: finalObj[country].joy, 
-                sadness: finalObj[country].sadness
+                anger: finalObj[key].anger, 
+                disgust: finalObj[key].disgust, 
+                fear: finalObj[key].fear, 
+                joy: finalObj[key].joy, 
+                sadness: finalObj[key].sadness
               }
             });
-            countryTone.save( (err, countryTone) => {
-              if (err) { console.log(`There was an error saving ${country}'s tone data`); } 
+            newTone[type] = key;
+            newTone.save((err, result) => {
+              if (err) { console.log(`There was an error saving ${key}'s tone data`); } 
             });
           });
         }
       });
-    // });
+    };
   });
 };
 

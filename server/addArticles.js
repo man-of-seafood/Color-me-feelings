@@ -1,22 +1,22 @@
 const mongoose = require('mongoose');
 const axios = require('axios');
-const dbIndex = require('../database/index');
-const dbDict = require('../reference/dictionary');
+const db = require('../database/index');
+const dict = require('../reference/dictionary');
 const config = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
 
-const Article = dbIndex.Article;
-const statesList = dbDict.stateDict;
-const countriesList = dbDict.countryDict;
+const Article = db.Article;
+const stateDict = dict.stateDict;
+const countryDict = dict.countryDict;
 const WEBHOSE_API_KEY = config['WEBHOSE_API_KEY'];
 
 /*~~~ COUNTRY AND STATE ~~~*/
 const getQueryStr = (code, type) => {
   let refObj, countryCode;
   if (type === 'state') { 
-    refObj = statesList;
+    refObj = stateDict;
     countryCode = 'US';
   } else {
-    refObj = countriesList;
+    refObj = countryDict;
     countryCode = code;
   }
   const locationStr = refObj[code];
@@ -71,16 +71,17 @@ const getArticles = (code, type) => {
 };
 
 const clearArticles = (code, type) => {
-  const codeType = type === 'state' ? 'stateCode' : 'countryCode';
-  console.log(codeType, 'CODETYPE');
-  Article.find( { codeType: code } )
+  const codeObj = type === 'state' ? { 'stateCode': code } : { 'countryCode': code };
+  Article.find(codeObj)
          .remove(() => { console.log('Cleared', type, code, 'from DB'); });
 }
 
 const articleRefresh = (type) => {
-  const refObj = type === 'state' ? { 'AL': 'Alabama' } : { 'JP': 'Japan' };
+  // UNCOMMENT next line to loop through all, currently limiting API calls
+  // const refObj = type === 'state' ? stateDict : countryDict;
+  // then COMMENT out below line
+  const refObj = type === 'state' ? { 'AL': 'Alabama', 'MD': 'Maryland' } : { 'CN': 'China', 'JP': 'Japan' };
   let i = 0;
-
   for (let key in refObj) {
     i += 1000;
     setTimeout(() => { getArticles(key, type) }, i);

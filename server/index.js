@@ -5,7 +5,7 @@ const CronJob = require('cron').CronJob;
 const db = require('../database');
 const refill = require('./addArticles');
 const analyze = require('./callWatson');
-
+const dict = require('../reference/dictionary.js');
 
 app.use(express.static(__dirname + '/../public/dist'));
 
@@ -18,10 +18,13 @@ app.get('/tones', function (req, res) {
 });
 
 // UNCOMMENT TO get new articles for database
-// refill('state'); //refill state articles
-// refill('country'); //refill country articles
+// refill('state'); //grab state articles
+// setTimeout(() => { refill('country') }, dict.stateDict * 1000); //grab country articles
+//wait for all states to run, though it's hardcoded for testing
+
 // UNCOMMENT TO analyze articles in the database
-analyze(); 
+analyze('state'); //analyze state tones
+analyze('country'); //analyze country tones
 
 //just require anywhere you want to start a job and change crontime based on what you want
 const job = new CronJob({
