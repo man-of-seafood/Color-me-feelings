@@ -1,3 +1,5 @@
+const db = require('../database');
+
 const ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
 const credentials = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
 const dictionary = require('../database/dictionary'); // stateCodeArr, stateNameArr, dictionary
@@ -63,8 +65,10 @@ const callWatsonForScores = (articlesArr, finalObj, state, cb) => {
 };
 
 const addTones = () => {
+  console.log('ADDTONES CALLED', StateTones.remove);
   // remove existing document from db
   StateTones.remove().then(() => {
+    console.log('STATETONES REMOVED');
     // loop thru states
     dictionary.stateCodeArr.forEach(state => {
       // find all articles about 'state' in db
@@ -87,7 +91,7 @@ const addTones = () => {
 
             // create document
             const stateTones = new StateTones({
-              state: state,
+              state,
               tones: {
                 anger: finalObj[state].anger,
                 disgust: finalObj[state].disgust,

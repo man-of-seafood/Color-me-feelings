@@ -15,9 +15,9 @@ app.get('/tones', (req, res) => {
 });
 
 // UNCOMMENT TO get new articles for database
-refill();
+// refill();
 // UNCOMMENT TO analyze articles in the database
-// analyze();
+analyze();
 
 //just require anywhere you want to start a job and change crontime based on what you want
 const job = new CronJob({
