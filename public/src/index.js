@@ -57,11 +57,18 @@ class App extends React.Component {
       map
     });
 
+
     map.on('load', () => {
       map.addSource('states', {
         'type': 'geojson',
         'data': 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_1_states_provinces.geojson'
       });
+
+      map.addLayer({
+        'id': 'states-layer',
+        'type': 'fill',
+        'source': 'states'
+      })
 
       // get data on tones once map loads
       fetch('/tones')
@@ -77,6 +84,15 @@ class App extends React.Component {
         });
     });
 
+    map.on('click', (e) => {
+      const features = map.queryRenderedFeatures(e.point, { layers: ['states-layer']});
+      if (!features.length) {
+        return;
+      } else {
+        const feature = features[0]; 
+        alert(`You just clicked on ${feature.properties.name}`);
+      }
+    });
 
   };
 
@@ -99,7 +115,6 @@ class App extends React.Component {
       }
     }
   }
-
 
   handleToneSelection(event) {
     const newlySelectedEmotion = event.target.value[0].toLowerCase() + event.target.value.slice(1);
