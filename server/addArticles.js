@@ -28,15 +28,14 @@ const getStateData = function(topic, countryCode, stateCode) {
   webhose
     .query('filterWebContent', {q: queryString})
     .then(result => {
-      //console.log(result);
-      const resultCount = result.data.totalResults;
+      const resultCount = result.posts.length;
       console.log(resultCount + ' articles rec\'d for ' + stateCode + ' in hose-response');
 
       resultCount
         ? clearStateData(stateCode)
         : console.log('ZERO NEW Articles for ' + stateCode + ', leaving STALE DATA as is.');
 
-      const articles = result.data.posts;
+      const articles = result.posts;
       articles.forEach(article => {
         const inbound = new Article({
           uuid: article.uuid,

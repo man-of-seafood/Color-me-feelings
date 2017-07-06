@@ -17,7 +17,7 @@ app.get('/tones', (req, res) => {
 });
 
 // UNCOMMENT TO get new articles for database
-//refill();
+// refill();
 // UNCOMMENT TO analyze articles in the database
 analyze();
 
