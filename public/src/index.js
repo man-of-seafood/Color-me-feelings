@@ -60,6 +60,19 @@ class App extends React.Component {
 
 
     map.on('load', () => {
+
+      /*~~~ COUNTRY ~~~*/
+      map.addSource('country', {
+        'type': 'geojson',
+        'data': 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_50m_admin_0_countries.geojson'
+      });
+
+      map.addLayer({
+        'id': 'country-layer',
+        'type': 'fill',
+        'source': 'country'
+      });
+
       /*~~~ STATE ~~~*/
       map.addSource('states', {
         'type': 'geojson',
@@ -70,12 +83,6 @@ class App extends React.Component {
         'id': 'states-layer',
         'type': 'fill',
         'source': 'states'
-      })
-
-      /*~~~ COUNTRY ~~~*/
-      map.addSource('country', {
-        'type': 'geojson',
-        'data': 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_50m_admin_0_countries.geojson'
       });
 
       let countryData = [];
@@ -109,7 +116,7 @@ class App extends React.Component {
     });
 
     map.on('click', (e) => {
-      const features = map.queryRenderedFeatures(e.point, { layers: ['states-layer']});
+      const features = map.queryRenderedFeatures(e.point, { layers: ['country-layer', 'states-layer']});
       if (!features.length) {
         return;
       } else {
