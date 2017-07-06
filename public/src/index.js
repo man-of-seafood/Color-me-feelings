@@ -69,6 +69,10 @@ class App extends React.Component {
 
       map.addLayer({
         'id': 'country-layer',
+        'type': 'fill',
+        'paint': {
+          'fill-opacity': 0
+        },
         'source': 'country'
       });
 
@@ -80,6 +84,10 @@ class App extends React.Component {
 
       map.addLayer({
         'id': 'states-layer',
+        'type': 'fill',
+        'paint': {
+          'fill-opacity': 0
+        },
         'source': 'state'
       });
 
