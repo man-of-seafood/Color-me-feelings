@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import Legend from './components/Legend';
 import EmotionDropdown from './components/EmotionDropdown';
+import NewsList from './components/NewsList'; 
 
 import mapboxgl from 'mapbox-gl';
 
@@ -15,6 +16,8 @@ class App extends React.Component {
     this.state = {
       data: [],
       currentEmotion: 'joy',
+      selectedState: 'California',
+      modalVisible: false,
       map: null,
       colors: {
         joy: ['hsl(300, 100%, 0%)', 'hsl(300, 100%, 25%)', 'hsl(300, 100%, 50%)', 'hsl(300, 100%, 75%)', 'hsl(300, 100%, 100%)'],
@@ -90,7 +93,11 @@ class App extends React.Component {
         return;
       } else {
         const feature = features[0]; 
-        alert(`You just clicked on ${feature.properties.name}`);
+        this.setState({
+          selectedState: feature.properties.name,
+          modalVisible: true
+        });
+        console.log(this.state);
       }
     });
 
@@ -116,6 +123,12 @@ class App extends React.Component {
     }
   }
 
+  hideModal() {
+    this.setState({
+      modalVisible: false
+    })
+  }
+
   handleToneSelection(event) {
     const newlySelectedEmotion = event.target.value[0].toLowerCase() + event.target.value.slice(1);
 
@@ -127,18 +140,53 @@ class App extends React.Component {
   }
 
   render() {
+
+    const appStyle = {
+      position: `absolute`,
+      zIndex: `1`,
+      pointerEvents: `none`,
+      top: `0`,
+      left: `0`,
+      width: `100vw`,
+      height: `100vh`,
+      overflow: `hidden`,
+    };
+
+    const titleStyle = {
+      color: `white`,
+      backgroundColor: '#aaaaaa',
+      opacity: `0.5`,
+      fontSize: `2em`,
+      paddingLeft: `2em`,
+    };
+
     return (
-      <div>
-        <p className='title'>News Mapper</p>
+      <div style={appStyle}>
+        <p style={titleStyle}>News Mapper</p>
         <EmotionDropdown handleEmotionChange={this.handleToneSelection.bind(this)} options={Object.keys(this.state.colors)} value={this.state.currentEmotion}/>
-        <div className='col-md-9 col-sm-9 col-lg-9'></div>
-        <div className='col-md-1 col-sm-1 col-lg-1'>
-          <Legend color={this.state.colors[this.state.currentEmotion]} emotion={this.state.currentEmotion}/>
-        </div>
+        <Legend color={this.state.colors[this.state.currentEmotion]} emotion={this.state.currentEmotion}/>
+        {
+          ( () => this.state.modalVisible 
+            ? (
+            <NewsList
+              state={this.state.selectedState}
+              onCloseClick={this.hideModal.bind(this)}
+              articles={[
+                {title: 'Suh', source: 'http://www.google.com'},
+                {title: 'Suh', source: 'http://www.google.com'},
+                {title: 'Suh', source: 'http://www.google.com'},
+                {title: 'Suh', source: 'http://www.google.com'},
+                {title: 'Suh', source: 'http://www.google.com'},
+              ]}/>
+            )
+            : '')()
+        }
       </div>
     );
+    
   }
-}
+
+};
 
 
 ReactDOM.render(<App />, document.getElementById('app'));
