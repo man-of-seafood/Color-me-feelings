@@ -135,7 +135,7 @@ class App extends React.Component {
       currentEmotion: newlySelectedEmotion
     });
 
-    this.refreshMap(this.state.data, newlySelectedEmotion);
+    this.refreshMap([[this.state.stateData, 'state'], [this.state.countryData, 'country']], newlySelectedEmotion);
   }
 
   render() {
