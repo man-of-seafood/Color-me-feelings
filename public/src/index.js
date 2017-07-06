@@ -108,7 +108,6 @@ class App extends React.Component {
       const data = scopeData[0];
       const dict = type === 'state' ? stateDict : countryDict;
       for (let i = 0; i < data.length; i++) {
-        console.log('MAPPING FOR:', dict[data[i][type]]);
         if (data[i].tones[currentEmotion] !== null) {
           let color = this.getColor(data[i].tones[currentEmotion], currentEmotion);
           this.state.map.addLayer({
