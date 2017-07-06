@@ -1,7 +1,6 @@
-// var Promise = require('bluebird');
 const mongoose = require('mongoose');
 const axios = require('axios');
-const dbIndex = require('../database-mongo/index');
+const dbIndex = require('../database/index');
 const dbDict = require('../reference/dictionary');
 const config = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
 

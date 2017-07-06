@@ -1,37 +1,36 @@
-var db = require('../database-mongo/index');
-var ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
-var secret = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
-var dictionary = require('../reference/dictionary'); // stateCodeArr, stateNameArr, dictionary
+const db = require('../database');
+const ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
+const credentials = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
+const dictionary = require('../reference/dictionary'); // stateDict, countryDict
 
 // create instance of Tone Analyzer service
-var toneAnalyzer = new ToneAnalyzerV3({
-  username: secret.WATSON_TA_USERNAME,
-  password: secret.WATSON_TA_PASSWORD,
+const toneAnalyzer = new ToneAnalyzerV3({
+  username: credentials.WATSON_TA_USERNAME,
+  password: credentials.WATSON_TA_PASSWORD,
   version_date: '2016-05-19'
 });
 
-var params = {
+const params = {
   // Get the text from the JSON file.
   text: require(__dirname + '/../apis/news-sample.json').text,
-  tones: 'emotion', // omit for all three, comma separated list
+  tones: 'emotion', // omit for all three, comma separated listtones: 'emotion', // omit for all three, comma separated list
   sentences: false
 };
 
 // stores state and tone data
 // format {az: {joy: 0, fear: 0, disgust: 0}, ca: {joy...}}
-var finalObj = {};
+const finalObj = {};
 
-
-var makeAvg = (obj, divisor) => {
-  for (var tone in obj) {
+const makeAvg = (obj, divisor) => {
+  for (const tone in obj) {
     obj[tone] = obj[tone] / divisor * 100;
   }
 };
 
-var callWatsonForScores = (articlesArr, finalObj, state, cb) => {
+const callWatsonForScores = (articlesArr, finalObj, state, cb) => {
   // only run cb if there are articles about that state - cb assures makeAvg and adding to db happens after watson data is returned
   // counter checks that all articles have been analyzed
-  var counter = 0;
+  let counter = 0;
 
   articlesArr.forEach( (article) => {
     params.text = article.text;
@@ -42,11 +41,11 @@ var callWatsonForScores = (articlesArr, finalObj, state, cb) => {
         counter++;
 
         // index of tone according to Watson response
-        var angerScore = res.document_tone.tone_categories[0].tones[0].score;
-        var disgustScore = res.document_tone.tone_categories[0].tones[1].score;
-        var fearScore = res.document_tone.tone_categories[0].tones[2].score;
-        var joyScore = res.document_tone.tone_categories[0].tones[3].score;
-        var sadnessScore = res.document_tone.tone_categories[0].tones[4].score;
+        const angerScore = res.document_tone.tone_categories[0].tones[0].score;
+        const disgustScore = res.document_tone.tone_categories[0].tones[1].score;
+        const fearScore = res.document_tone.tone_categories[0].tones[2].score;
+        const joyScore = res.document_tone.tone_categories[0].tones[3].score;
+        const sadnessScore = res.document_tone.tone_categories[0].tones[4].score;
         // sum az's scores
         finalObj[state].anger = finalObj[state].anger + angerScore;
         finalObj[state].disgust = finalObj[state].disgust + disgustScore;
@@ -109,7 +108,7 @@ var callWatsonForScores = (articlesArr, finalObj, state, cb) => {
 // };
 
 /*~~~ COUNTRY ~~~*/
-var addTones = () => {
+const addTones = () => {
 
   // remove existing document from db
   db.CountryTone.remove().then( () => {
@@ -159,13 +158,3 @@ var addTones = () => {
 };
 
 module.exports = addTones;
-
-
-
-
-
-
-
-
-
-

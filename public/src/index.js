@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from 'jquery';
-import Legend from './components/Legend.jsx';
-import Dropdown from './components/Dropdown.jsx';
-import mapboxgl from 'mapbox-gl';
-import { countryDict } from '../../reference/dictionary.js';
 
+import Legend from './components/Legend';
+import EmotionDropdown from './components/EmotionDropdown';
+
+import mapboxgl from 'mapbox-gl';
+import { stateDict, countryDict } from '../../reference/dictionary.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -17,44 +17,35 @@ class App extends React.Component {
       currentEmotion: 'joy',
       map: null,
       colors: {
-        //purple
         joy: ['hsl(300, 100%, 0%)', 'hsl(300, 100%, 25%)', 'hsl(300, 100%, 50%)', 'hsl(300, 100%, 75%)', 'hsl(300, 100%, 100%)'],
-        //yellow
         anger: ['hsl(60, 100%, 10%)', 'hsl(60, 100%, 25%)', 'hsl(60, 100%, 50%)', 'hsl(60, 100%, 75%)', 'hsl(60, 100%, 100%)'],
-        //blue
         disgust: ['hsl(250, 100%, 10%)', 'hsl(250, 100%, 25%)', 'hsl(250, 100%, 50%)', 'hsl(250, 100%, 75%)', 'hsl(250, 100%, 90%)'],
-        //green
         fear: ['hsl(120, 100%, 10%)', 'hsl(120, 100%, 25%)', 'hsl(120, 100%, 50%)', 'hsl(120, 100%, 75%)', 'hsl(120, 100%, 90%)'],
-        //red
         sadness: ['hsl(0, 50%, 10%)', 'hsl(0, 50%, 25%)', 'hsl(0, 50%, 50%)', 'hsl(0, 50%, 75%)', 'hsl(0, 50%, 90%)']
       }
     };
 
-    this.handleToneSelection = this.handleToneSelection.bind(this);
   }
 
 
   getColor(score, currentEmotion) {
-    if (currentEmotion === 'joy') {
-      return 'hsl(300, 100%, ' + score + '%)';
-    } else if (currentEmotion === 'anger') {
-      return 'hsl(60, 100%, ' + (score * 0.9 + 10) + '%)';
-    } else if (currentEmotion === 'disgust') {
-      return 'hsl(250, 100%, ' + (score * 0.8 + 10) + '%)';
-    } else if (currentEmotion === 'fear') {
-      return 'hsl(120, 100%, ' + (score * 0.8 + 10) + '%)';
-    } else {
-      return 'hsl(0, 50%, ' + (score * 0.8 + 10) + '%)';
-    }
+    const hues = {
+      joy: 300,
+      anger: 60,
+      disgust: 250,
+      fear: 120,
+      default: 0,
+    };
+    return `hsl(${hues[currentEmotion]}, 100%, ${score}%)`;
   }
 
 
   componentDidMount() {
     const data = this.state.data;
     const currentEmotion = this.state.currentEmotion;
-    const that = this;
 
     mapboxgl.accessToken = 'pk.eyJ1IjoiYmh1YW5nIiwiYSI6ImNqNDhxZWF6ZzBibjIycXBjaXN2Ymx3aHcifQ.MKQaPh3n3c94mcs0s2IfHw';
+
     const map = new mapboxgl.Map({
       container: 'map', // container id
       style: 'mapbox://styles/mapbox/dark-v9', //hosted style id
@@ -62,7 +53,10 @@ class App extends React.Component {
       zoom: 4 // starting zoom
     });
 
-    map.on('load', function () {
+    this.setState({ map });
+
+    map.on('load', () => {
+      /*~~~ STATE ~~~*/
       map.addSource('states', {
         'type': 'geojson',
         'data': 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_1_states_provinces.geojson'
@@ -75,32 +69,26 @@ class App extends React.Component {
       });
 
       // get data on tones once map loads
-      $.ajax({
-        type: 'GET',
-        url: '/tones?scope=country',
-        success: (data) => {
+      fetch('/tones?scope=country')
+        .then( res => res.json() )
+        .then( data => {
           const countryData = data;
-          that.setState({
+          this.setState(
             countryData: countryData
-          });
-
-          that.refreshMap(map, countryData, currentEmotion);
-        },
-        error: (err) => { console.log('Failed to get data from server ', err); }
-      });
-
-
+          );
+          this.refreshMap(countryData, currentEmotion);
+        })
+        .catch( err => {
+          console.log('Failed to get data from server ', err);
+        });
     });
 
-    // allows the map to be accessed throughout the app
-    this.setState({
-      map: map
-    });
-  }
 
+  };
 
   // adds a layer representing data on the currently selected tone
-  refreshMap(map, countryData, currentEmotion) {
+  refreshMap(countryData, currentEmotion) {
+    /*~~~ STATE ~~~*/
     // for (let i = 0; i < stateData.length; i++) {
     //   if (stateData[i].tones[currentEmotion] !== null) {
     //     let color = this.getColor(stateData[i].tones[currentEmotion], currentEmotion);
@@ -123,7 +111,7 @@ class App extends React.Component {
       console.log(countryData[i].country)
       if (countryData[i].tones[currentEmotion] !== null) {
         let color = this.getColor(countryData[i].tones[currentEmotion], currentEmotion);
-        map.addLayer({
+        this.state.map.addLayer({
           'id': countryData[i].country + '-fill',
           'type': 'fill',
           'source': 'countries',
@@ -139,7 +127,6 @@ class App extends React.Component {
   }
 
 
-  // when user selects tone
   handleToneSelection(event) {
     const newlySelectedEmotion = event.target.value[0].toLowerCase() + event.target.value.slice(1);
 
@@ -147,15 +134,14 @@ class App extends React.Component {
       currentEmotion: newlySelectedEmotion
     });
 
-    this.refreshMap(this.state.map, this.state.data, newlySelectedEmotion);
+    this.refreshMap(this.state.data, newlySelectedEmotion);
   }
-
 
   render() {
     return (
       <div>
         <p className='title'>News Mapper</p>
-        <Dropdown handleToneSelection={this.handleToneSelection} currentEmotion={this.state.currentEmotion}/>
+        <EmotionDropdown handleEmotionChange={this.handleToneSelection.bind(this)} options={Object.keys(this.state.colors)} value={this.state.currentEmotion}/>
         <div className='col-md-9 col-sm-9 col-lg-9'></div>
         <div className='col-md-1 col-sm-1 col-lg-1'>
           <Legend color={this.state.colors[this.state.currentEmotion]} emotion={this.state.currentEmotion}/>
