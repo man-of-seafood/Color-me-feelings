@@ -1,7 +1,7 @@
 var db = require('../database-mongo/index');
 var ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
 var secret = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
-var dictionary = require('../database-mongo/dictionary'); // stateCodeArr, stateNameArr, dictionary
+var dictionary = require('../reference/dictionary'); // stateCodeArr, stateNameArr, dictionary
 
 // create instance of Tone Analyzer service
 var toneAnalyzer = new ToneAnalyzerV3({
@@ -118,7 +118,7 @@ var addTones = () => {
     // dictionary.stateCodeArr.forEach( (state) => {
 
       // find all articles about 'state' in db
-      const country = 'CN';
+      const country = 'JP';
       db.Article.find({ countryCode: country }, (err, allArticles) => { 
         if (err) { 
           console.log(`Error getting ${country} articles in db`, err); 

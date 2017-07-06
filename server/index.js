@@ -21,20 +21,21 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 
 //*~~~ COUNTRY ~~~~*/
 app.get('/tones', function (req, res) {
-  db.CountryTone.find({}, function(err, countryTones) {
+  const collection = req.query.scope === 'state' ? 'StateTone' : 'CountryTone'; 
+  db[collection].find({}, function(err, result) {
     if (err) {
       res.sendStatus(500);
     } else {
-      res.json(countryTones);
+      res.json(result);
     }
   });
 });
 
 // UNCOMMENT TO get new articles for database
-refill('state');
-refill('country');
+// refill('state');
+// refill('country');
 // UNCOMMENT TO analyze articles in the database
-// analyze(); 
+analyze(); 
 
 //just require anywhere you want to start a job and change crontime based on what you want
 var job = new CronJob({

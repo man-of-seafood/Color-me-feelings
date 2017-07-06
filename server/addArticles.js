@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 const axios = require('axios');
 const dbIndex = require('../database-mongo/index');
-const dbDict = require('../database-mongo/dictionary');
+const dbDict = require('../reference/dictionary');
 const config = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
 
 const Article = dbIndex.Article;
@@ -75,7 +75,7 @@ const clearArticles = (code, type) => {
   const codeType = type === 'state' ? 'stateCode' : 'countryCode';
   console.log(codeType, 'CODETYPE');
   Article.find( { codeType: code } )
-         .remove(() => { console.log('Cleared', type, code, ' from DB'); });
+         .remove(() => { console.log('Cleared', type, code, 'from DB'); });
 }
 
 const articleRefresh = (type) => {
