@@ -1,20 +1,19 @@
 const mongoose = require('mongoose');
-const axios = require('axios');
+// const axios = require('axios');
 const WEBHOSE_API_KEY = require('../config/config').WEBHOSE_API_KEY; // PRIVATE FILE - DO NOT COMMIT!
 const webhose = require('webhoseio').config({ token: WEBHOSE_API_KEY });
 const Article = require('../database/models/Article');
 const dictionary = require('../database/dictionary').dictionary;
 const stateCodes = require('../database/dictionary').stateCodeArr;
 
-const getSearchStr = (topic, stateCode) => {
-  const stateName = dictionary[stateCode].replace(/\s/g, '%20');
-  const twoDaysAgo = Date.now() - 2 * 86400000; // 86400000ms in a day
-  return `'${topic}' language:english thread.country:US location:${stateName}`;
-  // return (
-  //   `http://webhose.io/filterWebContent?token=${WEBHOSE_API_KEY}&format=json&ts=${twoDaysAgo}` +
-  //   `&sort=published&q=is_first%3Atrue%20language%3Aenglish%20published%3A%3E${twoDaysAgo}` +
-  //   `%20site_type%3Anews%20thread.country%3AUS%20performance_score%3A%3E7%20location%3A%22${stateName}%22`
-  // );
+const getSearchStr = (topic, countryCode = 'US', stateCode) => {
+  const stateName = dictionary[stateCode];
+  const thirtyDaysAgo = Date.now() - 30 * 86400000; // 86400000ms in a day
+  return (
+    `thread.title:"${topic}" is_first:true crawled:>${thirtyDaysAgo} site_type:news` +
+    ` language:english thread.country:${countryCode}` +
+    (stateName ? ` location:${stateName}` : '')
+  );
 };
 
 const clearStateData = stateCode => {
@@ -23,12 +22,13 @@ const clearStateData = stateCode => {
   });
 };
 
-const getStateData = function(stateCode) {
-  const queryString = getSearchStr('war', stateCode); // todo: TOPIC
-
+const getStateData = function(topic, countryCode, stateCode) {
+  const queryString = getSearchStr(topic, countryCode, stateCode);
+  console.log('programatically generated query String', queryString);
   webhose
-    .query(queryString)
+    .query('filterWebContent', {q: queryString})
     .then(result => {
+      //console.log(result);
       const resultCount = result.data.totalResults;
       console.log(resultCount + ' articles rec\'d for ' + stateCode + ' in hose-response');
 
@@ -40,8 +40,10 @@ const getStateData = function(stateCode) {
       articles.forEach(article => {
         const inbound = new Article({
           uuid: article.uuid,
+          topic: topic,
+          countryCode: countryCode || 'US',
+          stateCode: stateCode || 'other country - no state provided',
           date: article.published,
-          stateCode: stateCode,
           text: article.text,
           title: article.title,
           url: article.url
@@ -57,14 +59,21 @@ const getStateData = function(stateCode) {
 };
 
 const dailyRefresh = () => {
-  // TO REQUEST DATA FOR ALL STATES - COMMENT OUT LINES 67-68, AND UN-COMMENT LINE 70
-  // const onlyFirstTenStates = stateCodes.slice(0,9);
-  const onlyFirstState = stateCodes.slice(0, 1); //testing with one state
+  const topics = ['war'];
+  // const topics = ['love', 'war', 'coffee'];
+  // const onlyFirstTenStates = stateCodes.slice(0, 9);
+  //
+  let queryCount = 0;
+  const onlyFirstTwoStates = stateCodes.slice(0, 1);
   // stateCodes.forEach( (stateCode,i) => {
-  onlyFirstState.forEach((stateCode, i) => {
-    setTimeout(() => {
-      getStateData(stateCode);
-    }, i * 1000);
+  onlyFirstTwoStates.forEach(stateCode => {
+    topics.forEach(topic => {
+      const countryCode = 'US';
+      queryCount++;
+      setTimeout(() => {
+        getStateData(topic, countryCode, stateCode);
+      }, queryCount * 1000);
+    });
   });
 };
 

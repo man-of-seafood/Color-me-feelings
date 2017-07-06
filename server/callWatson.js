@@ -63,10 +63,8 @@ const callWatsonForScores = (articlesArr, finalObj, state, cb) => {
 };
 
 const addTones = () => {
-  console.log('ADDTONES CALLED', StateTones.remove);
   // remove existing document from db
   StateTones.remove().then(() => {
-    console.log('STATETONES REMOVED');
     // loop thru states
     dictionary.stateCodeArr.forEach(state => {
       // find all articles about 'state' in db

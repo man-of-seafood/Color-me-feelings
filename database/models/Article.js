@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 
 const articleSchema = new Schema({
   uuid: { type: String, required: true },
-  date: { type: Date, default: Date.now },
+  topic: { type: String, required: true },
+  date: { type: Date, default: Date.now() },
   countryCode: { type: String, uppercase: true, minLength: 2, maxLength: 2 },
   stateCode: { type: String, uppercase: true, minlength: 2, maxlength: 2 },
   title: String,
