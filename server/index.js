@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const axios = require('axios');
 const CronJob = require('cron').CronJob;
+
+const db = require('../database'); // initializes db
 const StateTones = require('../database/models/StateTones');
 const refill = require('./addArticles');
 const analyze = require('./callWatson');
