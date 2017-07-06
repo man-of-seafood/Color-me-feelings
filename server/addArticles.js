@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const axios = require('axios');
 const dbIndex = require('../database/index');
-const dbDict = require('../database/dictionary');
+const dbDict = require('../data/dictionary');
 const config = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
 
 const Article = dbIndex.Article;
