@@ -1,30 +1,23 @@
 const mongoose = require('mongoose');
 const axios = require('axios');
 const Article = require('../database/models/Article');
-const dbDict = require('../database/dictionary');
+const dictionary = require('../database/dictionary').dictionary;
 const config = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
-const statesList = dbDict.stateCodeArr;
+const stateCodes = require('../database/dictionary').stateCodeArr;
 const WEBHOSE_API_KEY = config['WEBHOSE_API_KEY'];
 
 const getSearchStr = stateCode => {
-  const fullTextName = dbDict.dictionary[stateCode].replace(/\s/g, '%20');
-  const timeNow = new Date().getTime(); // time in Unix Epoch ms...
-  const twoDaysAgo = timeNow - 2 * 86400000; // 86400000ms in a day
+  const fullStateName = dictionary[stateCode].replace(/\s/g, '%20');
+  const twoDaysAgo = Date.now() - 2 * 86400000; // 86400000ms in a day
   return (
-    'http://webhose.io/filterWebContent?token=' +
-    WEBHOSE_API_KEY +
-    '&format=json&ts=' +
-    twoDaysAgo +
-    '&sort=published&q=is_first%3Atrue%20language%3Aenglish%20published%3A%3E' +
-    twoDaysAgo +
-    '%20site_type%3Anews%20thread.country%3AUS%20performance_score%3A%3E7%20location%3A%22' +
-    fullTextName +
-    '%22'
+    `http://webhose.io/filterWebContent?token=${WEBHOSE_API_KEY}&format=json&ts=${twoDaysAgo}` +
+    `&sort=published&q=is_first%3Atrue%20language%3Aenglish%20published%3A%3E${twoDaysAgo}` +
+    `%20site_type%3Anews%20thread.country%3AUS%20performance_score%3A%3E7%20location%3A%22${fullStateName}%22`
   );
 };
 
 const clearStateData = stateCode => {
-  Article.find({ stateCode: stateCode }).remove(() => {
+  Article.find({ stateCode }).remove(() => {
     console.log(stateCode + ' Cleared from DB');
   });
 };
@@ -55,10 +48,7 @@ const getStateData = function(stateCode) {
           url: articleObj.url
         });
         inbound.save(err => {
-          if (err) {
-            console.error(err);
-          } //otherwise...
-          console.log('saved uuid-', articleObj.uuid);
+          err ? console.error(err) : console.log('saved uuid-', articleObj.uuid);
         });
       });
     })
@@ -69,10 +59,10 @@ const getStateData = function(stateCode) {
 
 const dailyRefresh = () => {
   // TO REQUEST DATA FOR ALL STATES - COMMENT OUT LINES 67-68, AND UN-COMMENT LINE 70
-  // const onlyFirstTenStates = statesList.slice(0,9);
-  const onlyFirstState = statesList.slice(0, 1); //testing with one state
+  // const onlyFirstTenStates = stateCodes.slice(0,9);
+  const onlyFirstState = stateCodes.slice(0, 1); //testing with one state
   onlyFirstState.forEach((stateCode, i) => {
-    // statesList.forEach( (stateCode,i) => {
+    // stateCodes.forEach( (stateCode,i) => {
     setTimeout(() => {
       getStateData(stateCode);
     }, i * 1000);
