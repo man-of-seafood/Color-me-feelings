@@ -41,3 +41,28 @@
   margin: 0;
   color: blue;
 }
+
+.legend {
+  position: absolute;
+  right: 3em;
+  bottom: 3em;
+  background-color: #ffefd5;
+  padding: 10px;
+  border-radius: 10px;
+  font-family: arial;
+  width: 10em;
+}
+
+.legend-title {
+  color: #073642;
+}
+
+.color-key {
+  width: 1em;
+  height: 1em;
+  border-radius: 0.2em;
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 0.5em;
+  margin-bottom: 0.5em;
+}
