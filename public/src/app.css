@@ -13,12 +13,21 @@
   pointer-events: visible;
 }
 
-.app-title {
+.header.inverted {
+  padding-top: 1em;
+  margin-left: 3vw;
+  font-size: 4em !important;
+}
+
+.prompt {
+  margin-left: 3vw;
   color: white;
-  background-color: #aaaaaa;
-  opacity: 0.5;
-  font-size: 2em;
-  padding-left: 2em;
+  font-size: 1.5em;
+}
+
+.dropdown {
+  width: 8em;
+  margin-left: 0.5em;
 }
 
 .news-list {  

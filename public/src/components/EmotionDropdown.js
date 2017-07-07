@@ -20,8 +20,14 @@ const EmotionDropdown = ({ handleEmotionChange, value, options }) => {
   });
 
   return (
-    <Dropdown onChange={handleEmotionChange} value={value} fluid selection options={optionsObj}>
-    </Dropdown>
+    <span className="prompt">
+      Display level of
+      {' '}
+      <Dropdown inline
+        onChange={handleEmotionChange} 
+        value={value} 
+        options={optionsObj} />
+    </span>
   )
 }; 
 
