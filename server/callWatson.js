@@ -1,6 +1,6 @@
 const ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
 const credentials = require('../config/config');
-const { stateDict, countryDict } = require('../reference/dictionary');
+//const { stateDict, countryDict } = require('../reference/dictionary');
 const db = require('../database');
 //const topics = require('../reference/topics');
 const toneAnalyzer = new ToneAnalyzerV3({
@@ -26,9 +26,14 @@ const clearAllToneData = function () {
 
 const calculateAveragesTones = function() {
   const topics = ['war', 'coffee'];
+  const stateDict = { 'AL': 'Alabama', 'MD': 'Maryland' }; // for testing
+  const countryDict = { 'CN': 'China', 'JP': 'Japan' }; // for testing
+  let stateTopicCounter = 0;
+  let countryTopicCounter = 0;
   db.StateTones.find({}, (err, analyzedStateArticleTones) => {
     for (let stateCode in stateDict) {
       topics.forEach(topic => {
+        console.log('Calculating average for state', stateCode, 'on topic', topic, '. Iteration', stateTopicCounter++);
         //get all the articles with tagged with that state and topic
         const currentBatch = analyzedStateArticleTones.filter(article => article.state === stateCode && article.topic === topic);
         const averages = {
@@ -70,6 +75,7 @@ const calculateAveragesTones = function() {
   db.CountryTones.find({}, (err, analyzedCountryArticleTones) => {
     for (let countryCode in countryDict) {
       topics.forEach(topic => {
+        console.log('Calculating average for country', countryCode, 'on topic', topic, '. Iteration', countryTopicCounter++);
         //get all the articles with tagged with that state and topic
         const currentBatch = analyzedCountryArticleTones.filter(article => article.country === countryCode && article.topic === topic);
         const averages = {

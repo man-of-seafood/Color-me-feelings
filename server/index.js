@@ -24,10 +24,10 @@ app.get('/tones', function (req, res) {
 // setTimeout(() => { refill('country'); }, Object.keys(dict.stateDict).length * 1000); //grab country articles
 //wait for all states to run, though it's hardcoded for testing
 
-clearAllToneData();
+//clearAllToneData();
 
 // UNCOMMENT TO analyze articles in the database
-//analyze(); //analyze state tones
+analyze(); //analyze state tones
 //analyze('country'); //analyze country tones
 
 //just require anywhere you want to start a job and change crontime based on what you want
