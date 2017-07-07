@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Header } from 'semantic-ui-react';
 
 import Legend from './components/Legend';
 import EmotionDropdown from './components/EmotionDropdown';
@@ -102,7 +103,7 @@ class App extends React.Component {
           countryData = data; 
         })
         .catch( err => {
-          console.log('Failed to get country data from server ', err);
+          console.log('Failed to gmet country data from server ', err);
         })
         .then(
           fetch('/tones?scope=state')
@@ -174,7 +175,7 @@ class App extends React.Component {
   }
 
   handleToneSelection(event) {
-    const newlySelectedEmotion = event.target.value[0].toLowerCase() + event.target.value.slice(1);
+    const newlySelectedEmotion = event.target.textContent;
 
     this.setState({
       currentEmotion: newlySelectedEmotion
@@ -187,7 +188,7 @@ class App extends React.Component {
 
     return (
       <div className="app-root">
-        <p className="app-title">News Mapper</p>
+        <Header as="h1">News Mapper</Header>
         <EmotionDropdown handleEmotionChange={this.handleToneSelection.bind(this)} options={Object.keys(this.state.colors)} value={this.state.currentEmotion}/>
         <Legend color={this.state.colors[this.state.currentEmotion]} emotion={this.state.currentEmotion}/>
         {

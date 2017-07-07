@@ -9,6 +9,10 @@
   overflow: hidden;
 }
 
+.app-root * {
+  pointer-events: visible;
+}
+
 .app-title {
   color: white;
   background-color: #aaaaaa;

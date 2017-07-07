@@ -1,4 +1,5 @@
 import React from 'react';
+import { Dropdown } from 'semantic-ui-react';
 
 const style = {
   pointerEvents: `visible`,
@@ -10,14 +11,18 @@ const selectStyle = {
   height: `2em`,
 };
 
-const EmotionDropdown = (props) => (
-      <div style={style}>
-        <select onChange={props.handleEmotionChange} value={props.value} style={selectStyle}>
-          {props.options.map( (option, idx) => (
-            <option key={idx}>{option}</option>
-          ))}
-        </select>
-      </div>
-    ); 
+const EmotionDropdown = ({ handleEmotionChange, value, options }) => {
+  const optionsObj = options.map(option => {
+    return { 
+      text: option, 
+      value: option 
+    };
+  });
+
+  return (
+    <Dropdown onChange={handleEmotionChange} value={value} fluid selection options={optionsObj}>
+    </Dropdown>
+  )
+}; 
 
 export default EmotionDropdown;
