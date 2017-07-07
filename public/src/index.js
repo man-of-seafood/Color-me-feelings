@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Header } from 'semantic-ui-react';
 
 import Legend from './components/Legend';
 import EmotionDropdown from './components/EmotionDropdown';
@@ -19,7 +20,7 @@ class App extends React.Component {
       countryData: [],
       currentEmotion: 'joy',
       selectedState: 'California',
-      modalVisible: false,
+      modalOpen: false,
       map: null,
       colors: {
         joy: ['hsl(300, 100%, 0%)', 'hsl(300, 100%, 25%)', 'hsl(300, 100%, 50%)', 'hsl(300, 100%, 75%)', 'hsl(300, 100%, 100%)'],
@@ -31,7 +32,6 @@ class App extends React.Component {
     };
 
   }
-
 
   getColor(score, currentEmotion) {
     const hues = {
@@ -55,7 +55,7 @@ class App extends React.Component {
       container: 'map', // container id
       style: 'mapbox://styles/mapbox/dark-v9', //hosted style id
       center: [-95.38, 39], // starting position
-      zoom: 4 // starting zoom
+      zoom: 2 // starting zoom
     });
 
     this.setState({ map });
@@ -102,7 +102,7 @@ class App extends React.Component {
           countryData = data; 
         })
         .catch( err => {
-          console.log('Failed to get country data from server ', err);
+          console.log('Failed to gmet country data from server ', err);
         })
         .then(
           fetch('/tones?scope=state')
@@ -132,7 +132,7 @@ class App extends React.Component {
         const feature = features[0]; 
         this.setState({
           selectedState: feature.properties.name,
-          modalVisible: true
+          modalOpen: true
         });
         console.log(this.state);
       }
@@ -169,12 +169,12 @@ class App extends React.Component {
 
   hideModal() {
     this.setState({
-      modalVisible: false
+      modalOpen: false
     })
   }
 
-  handleToneSelection(event) {
-    const newlySelectedEmotion = event.target.value[0].toLowerCase() + event.target.value.slice(1);
+  handleToneSelection(event, data) {
+    const newlySelectedEmotion = data.value;
 
     this.setState({
       currentEmotion: newlySelectedEmotion
@@ -187,25 +187,21 @@ class App extends React.Component {
 
     return (
       <div className="app-root">
-        <p className="app-title">News Mapper</p>
+        <Header inverted>News Mapper</Header>
         <EmotionDropdown handleEmotionChange={this.handleToneSelection.bind(this)} options={Object.keys(this.state.colors)} value={this.state.currentEmotion}/>
         <Legend color={this.state.colors[this.state.currentEmotion]} emotion={this.state.currentEmotion}/>
-        {
-          ( () => this.state.modalVisible 
-            ? (
-            <NewsList
-              state={this.state.selectedState}
-              onCloseClick={this.hideModal.bind(this)}
-              articles={[
-                {title: 'Suh', source: 'http://www.google.com'},
-                {title: 'Suh', source: 'http://www.google.com'},
-                {title: 'Suh', source: 'http://www.google.com'},
-                {title: 'Suh', source: 'http://www.google.com'},
-                {title: 'Suh', source: 'http://www.google.com'},
-              ]}/>
-            )
-            : '')()
-        }
+        <NewsList
+          state={this.state.selectedState}
+          open={this.state.modalOpen}
+          onCloseClick={this.hideModal.bind(this)}
+          articles={[
+            {title: 'Suh', source: 'http://www.google.com'},
+            {title: 'Suh', source: 'http://www.google.com'},
+            {title: 'Suh', source: 'http://www.google.com'},
+            {title: 'Suh', source: 'http://www.google.com'},
+            {title: 'Suh', source: 'http://www.google.com'},
+          ]}
+        />
       </div>
     );
     

@@ -1,51 +1,16 @@
 import React from 'react';
+import { List } from 'semantic-ui-react';
 
-class NewsListEntry extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      hover: false,
-    };
-  } 
-
-  onMouseEnter() {
-    this.setState({
-      hover: true,
-    });
-  }
-  
-  onMouseLeave() {
-    this.setState({
-      hover: false,
-    });
-  }
-
-  onClick() {
-    window.open(this.props.article.source, '_blank');
-  }
-
-  render() {
-
-    const entryStyle = {
-      backgroundColor: this.state.hover
-        ? `black`
-        : `red`,
-    };
-
-    return (
-      <div style={entryStyle}
-        onMouseEnter={this.onMouseEnter.bind(this)}
-        onMouseLeave={this.onMouseLeave.bind(this)}
-        onClick={this.onClick.bind(this)}
-      >
-        <h3>{this.props.article.title}</h3>
-        <p>{this.props.article.source}</p>
-      </div>
-    );
-
-  }
-
-} 
+const NewsListEntry = ({ article }) => (
+  <List.Item
+    onClick={() => window.open(article.source, '_blank')}
+  >
+    <List.Header as="h3">{article.title}</List.Header>
+    <List.Description>
+      {article.source}
+      <List.Icon name="external" size="small"/>
+    </List.Description>
+  </List.Item>
+);
 
 export default NewsListEntry;

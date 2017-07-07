@@ -1,17 +1,18 @@
 import React from 'react';
+import { Header, Segment } from 'semantic-ui-react';
 
-const Legend = (props) => (
-  <div id='state-legend' className="legend">
-    <h3 className="legend-title">Level of {props.emotion[0].toUpperCase() + props.emotion.slice(1)}</h3>
+const Legend = ({ emotion, color }) => (
+  <Segment className="legend">
+    <Header as="h3">Level of {emotion[0].toUpperCase() + emotion.slice(1)}</Header>
     {
-      props.color.map( (color, idx) => (
-        <div>
-          <div style={colorStyle(color)} key={idx} className="color-key"/>
+      color.map((color, idx) => (
+        <div key={idx}>
+          <div style={colorStyle(color)} className="color-key"/>
           {idx * 25}
         </div>
       ))
     }
-  </div>
+  </Segment>
 );
 
 const colorStyle = (color) => ({
