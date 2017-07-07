@@ -12,11 +12,16 @@ app.use(express.static(__dirname + '/../public/dist'));
 
 //*~~~ COUNTRY AND STATE ~~~~*/
 app.get('/tones', function (req, res) {
-  const collection = req.query.scope === 'state' ? 'StateTone' : 'CountryTone';
-  db[collection].find({}, function(err, result) {
-    err ? res.sendState(500) : res.json(result);
+  let toneResults = [];
+  db.StateTopicToneAverages.find({}, (err, stateAverages) => {
+    err ? res.status(500).send('Failed to retrieve StateToneTopicAverages') : null;
+    db.CountryTopicToneAverages.find({}, (err, countryAverages) => {
+      err ? res.status(500).send('Failed to retrieve countryToneTopicAverages') : res.json(stateAverages.concat(countryAverages));
+    });
   });
 });
+
+
 
 // UNCOMMENT TO get new articles for database
 // refill('state'); //grab state articles
@@ -27,29 +32,34 @@ app.get('/tones', function (req, res) {
 //clearAllToneData();
 
 // UNCOMMENT TO analyze articles in the database
-analyze(); //analyze state tones
+//analyze(); //analyze state tones
 //analyze('country'); //analyze country tones
 
-//just require anywhere you want to start a job and change crontime based on what you want
-const job = new CronJob({
-  cronTime: '00 30 11 * * 1,5',
-  onTick: function() {
-    /* run whatever you want scheduled in here.
-     * Runs every weekday (Monday and Friday)
-     * at 11:30:00 AM.
-     */
-    // run news api call
-  },
-  function() {
-    //can remove, but runs when job is finished
 
-    // run watson + add tones to db
-    analyze();
-  },
-  start: false,
-  timeZone: 'America/Los_Angeles'
-});
-job.start();
+
+
+//just require anywhere you want to start a job and change crontime based on what you want
+// const job = new CronJob({
+//   cronTime: '00 30 11 * * 1,5',
+//   onTick: function() {
+//     /* run whatever you want scheduled in here.
+//      * Runs every weekday (Monday and Friday)
+//      * at 11:30:00 AM.
+//      */
+//     // run news api call
+//   },
+//   function() {
+//     //can remove, but runs when job is finished
+
+//     // run watson + add tones to db
+//     analyze();
+//   },
+//   start: false,
+//   timeZone: 'America/Los_Angeles'
+// });
+// job.start();
+
+
 /*~~~~~~~~~~~~~~~~~~~~~~~ STARTUP SERVER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 app.listen(3000, function() {
   console.log('listening on port 3000!');
