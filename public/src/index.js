@@ -5,6 +5,8 @@ import Legend from './components/Legend';
 import EmotionDropdown from './components/EmotionDropdown';
 import NewsList from './components/NewsList'; 
 
+import './app.css';
+
 import mapboxgl from 'mapbox-gl';
 import { stateDict, countryDict } from '../../reference/dictionary.js';
 
@@ -183,28 +185,9 @@ class App extends React.Component {
 
   render() {
 
-    const appStyle = {
-      position: `absolute`,
-      zIndex: `1`,
-      pointerEvents: `none`,
-      top: `0`,
-      left: `0`,
-      width: `100vw`,
-      height: `100vh`,
-      overflow: `hidden`,
-    };
-
-    const titleStyle = {
-      color: `white`,
-      backgroundColor: '#aaaaaa',
-      opacity: `0.5`,
-      fontSize: `2em`,
-      paddingLeft: `2em`,
-    };
-
     return (
-      <div style={appStyle}>
-        <p style={titleStyle}>News Mapper</p>
+      <div className="app-root">
+        <p className="app-title">News Mapper</p>
         <EmotionDropdown handleEmotionChange={this.handleToneSelection.bind(this)} options={Object.keys(this.state.colors)} value={this.state.currentEmotion}/>
         <Legend color={this.state.colors[this.state.currentEmotion]} emotion={this.state.currentEmotion}/>
         {

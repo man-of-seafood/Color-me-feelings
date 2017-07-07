@@ -1,0 +1,43 @@
+.app-root {
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.app-title {
+  color: white;
+  background-color: #aaaaaa;
+  opacity: 0.5;
+  font-size: 2em;
+  padding-left: 2em;
+}
+
+.news-list {  
+  pointer-events: visible;
+  z-index: 10;
+  vertical-align: middle;
+  margin: auto;
+  width: 40em;
+  background-color: white;
+  min-height: 30em;
+  border-radius: 1em;
+  padding: 1em;
+}
+
+.news-list-title {
+  display: inline-block;
+  margin: 0;
+  color: yellow;
+}
+
+.news-list-closebtn {
+  display: inline-block;
+  float: right;
+  margin: 0;
+  color: blue;
+}
