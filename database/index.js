@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-// const Promise = require('bluebird');
+const Article = require('./models/Article');
+const CountryTones = require('./models/CountryTones');
+const StateTones = require('./models/StateTones');
 mongoose.Promise = global.Promise;
 const Schema = mongoose.Schema;
 
@@ -9,4 +11,4 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'db connection error!'));
 db.once('open', () => { console.log('mongoose connected successfully'); });
 
-module.exports = db;
+module.exports = { Article, CountryTones, StateTones };
