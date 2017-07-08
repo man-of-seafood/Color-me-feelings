@@ -7,6 +7,7 @@ const stateTonesSchema = new Schema({
   topic: String,
   articleTitle: String,
   url: String,
+  date: { type: Date, default: Date.now() },
   tones: {
     anger: { type: Number, default: null },
     disgust: { type: Number, default: null },
