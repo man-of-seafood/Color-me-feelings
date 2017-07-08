@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Header } from 'semantic-ui-react';
 
 import Legend from './components/Legend';
-import EmotionDropdown from './components/EmotionDropdown';
+import Prompt from './components/Prompt';
 import NewsList from './components/NewsList'; 
 // import * as topicsObj from '../../reference/topics.js'; //figure this out but hardcoded for now on line 220
 
@@ -211,7 +211,7 @@ class App extends React.Component {
     return (
       <div className="app-root">
         <Header inverted>News Mapper</Header>
-        <EmotionDropdown 
+        <Prompt 
           handleEmotionChange={this.handleToneSelection.bind(this)} 
           emotions={Object.keys(this.state.colors)} 
           emotion={this.state.currentEmotion}
