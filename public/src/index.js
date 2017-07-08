@@ -6,6 +6,7 @@ import Legend from './components/Legend';
 import Prompt from './components/Prompt';
 import NewsList from './components/NewsList'; 
 // import * as topicsObj from '../../reference/topics.js'; //figure this out but hardcoded for now on line 220
+const topics = ['Donald Trump', 'immigration', 'war', 'coffee', 'obesity', 'education', 'marijuana', 'refugees', 'capitalism', 'global warming'];
 
 import './app.css';
 
@@ -216,7 +217,7 @@ class App extends React.Component {
           emotions={Object.keys(this.state.colors)} 
           emotion={this.state.currentEmotion}
           handleTopicChange={this.handleTopicSelection.bind(this)}
-          topics={['war', 'coffee']}
+          topics={topics}
           topic={this.state.currentTopic}/>
         <Legend color={this.state.colors[this.state.currentEmotion]} emotion={this.state.currentEmotion}/>
         <NewsList

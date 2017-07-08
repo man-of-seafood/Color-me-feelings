@@ -1,8 +1,8 @@
 const { stateDict, countryDict } = require('../reference/dictionary');
-//const topics = require('../reference/topics');
+const topics = require('../reference/topics');
 const Article = require('../database/models/Article');
 const ArticleAsync = require('bluebird').promisifyAll(Article);
-const webhose = require('webhoseio').config({ token: require('../config/config').WEBHOSE_API_KEY });
+const webhose = require('webhoseio').config({ token: require('../config/config').config.WEBHOSE_API_KEY });
 
 /*~~~ COUNTRY AND STATE ~~~*/
 const getQueryStr = (topic, code, type) => {
@@ -76,17 +76,18 @@ const getArticles = (topic, code, type) => {
 };
 
 const articleRefresh = type => {
+  // UNCOMMENT BELOW for testing with limited topics (and limited api calls)
+  // const topics = ['war', 'coffee']
   // UNCOMMENT next line to loop through all, currently limiting API calls
-  // const refObj = type === 'state' ? stateDict : countryDict;
+  const refObj = type === 'state' ? stateDict : countryDict;
   // then COMMENT out below line
-  const topics = ['war', 'coffee'];
-  const refObj =
-    type === 'state' ? { 'AL': 'Alabama', 'MD': 'Maryland' } : { 'CN': 'China', 'JP': 'Japan' };
+  // const refObj =
+  //   type === 'state' ? { 'AL': 'Alabama', 'MD': 'Maryland' } : { 'CN': 'China', 'JP': 'Japan' };
   let i = 0;
   const queries = [];
   for (let key in refObj) {
     topics.forEach(topic => {
-      i += 1000;
+      i += 1050;
       queries.push(getQueryStr(topic, key, type));
       setTimeout(() => {
         getArticles(topic, key, type);
