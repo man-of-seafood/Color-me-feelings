@@ -179,7 +179,8 @@ class App extends React.Component {
       const dict = type === 'state' ? stateDict : countryDict;
       for (let i = 0; i < data.length; i++) {
         if (data[i].toneAverages[currentEmotion] !== null) {
-          let color = this.getColor(data[i].toneAverages[currentEmotion], currentEmotion);
+          const opacity = data[i].toneAverages[currentEmotion] === 0 ? 0 : 0.3; //no fill if no articles found for that topic
+          const color = this.getColor(data[i].toneAverages[currentEmotion], currentEmotion);
           this.state.map.addLayer({
             'id': data[i][type] + '-fill',
             'type': 'fill',
@@ -187,7 +188,7 @@ class App extends React.Component {
             'layout': {},
             'paint': {
               'fill-color': color,
-              'fill-opacity': 0.3
+              'fill-opacity': opacity
             },
             'filter': ['==', 'name', dict[data[i][type]]]
           });
