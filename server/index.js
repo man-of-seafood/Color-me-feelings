@@ -24,7 +24,6 @@ app.get('/tones/countries', (req, res) => {
 });
 
 
-
 // UNCOMMENT TO get new articles for database
 // refill('state'); //grab state articles
 // setTimeout(() => { refill('country'); }, 4500); //grab country articles
