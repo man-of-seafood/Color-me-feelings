@@ -33,7 +33,8 @@ class App extends React.Component {
         disgust: ['hsl(250, 100%, 10%)', 'hsl(250, 100%, 25%)', 'hsl(250, 100%, 50%)', 'hsl(250, 100%, 75%)', 'hsl(250, 100%, 90%)'],
         fear: ['hsl(120, 100%, 10%)', 'hsl(120, 100%, 25%)', 'hsl(120, 100%, 50%)', 'hsl(120, 100%, 75%)', 'hsl(120, 100%, 90%)'],
         sadness: ['hsl(180, 50%, 10%)', 'hsl(180, 50%, 25%)', 'hsl(180, 50%, 50%)', 'hsl(180, 50%, 75%)', 'hsl(180, 50%, 90%)']
-      }
+      },
+      articles: []
     };
 
     this.emotionMap = {
@@ -146,10 +147,23 @@ class App extends React.Component {
         return;
       } else {
         const feature = features[0]; 
-        this.setState({
-          selectedState: feature.properties.name,
-          modalOpen: true
-        });
+        if (feature.properties.iso_a2 === 'US') {
+          this.setState({
+            selectedState: feature.properties.name,
+            articles: this.state.stateData.filter( data => {
+              return data.state === feature.properties.postal
+            }).concat({articles:[]})[0].articles,
+            modalOpen: true
+          });
+        } else {
+          this.setState({
+            selectedState: feature.properties.name,
+            articles: this.state.countryData.filter( data => {
+              return data.country === feature.properties.postal;
+            }).concat({articles:[]})[0].articles,
+            modalOpen: true
+          });
+        }
       }
     });
 
@@ -256,13 +270,7 @@ class App extends React.Component {
           state={this.state.selectedState}
           open={this.state.modalOpen}
           onCloseClick={this.hideModal.bind(this)}
-          articles={[
-            {title: 'Suh', source: 'http://www.google.com'},
-            {title: 'Suh', source: 'http://www.google.com'},
-            {title: 'Suh', source: 'http://www.google.com'},
-            {title: 'Suh', source: 'http://www.google.com'},
-            {title: 'Suh', source: 'http://www.google.com'},
-          ]}
+          articles={this.state.articles}
         />
       </div>
     );

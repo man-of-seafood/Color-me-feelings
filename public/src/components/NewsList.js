@@ -12,7 +12,7 @@ const NewsList = ({ state, open, onCloseClick, articles }) => (
           ? articles.map((article, idx) => (
             <NewsListEntry key={idx} article={article} />
           )) 
-          : <div>ERROR</div>
+          : <div>No articles found.</div>
         }
       </List>
     </Modal.Content>
