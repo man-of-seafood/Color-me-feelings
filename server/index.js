@@ -34,8 +34,8 @@ app.get('/tones/countries', (req, res) => {
 //clearAllToneData();
 
 // UNCOMMENT TO analyze articles in the database
-//analyze(); //analyze state tones
-//analyze('country'); //analyze country tones
+analyze(); //analyze all tones
+
 
 
 
