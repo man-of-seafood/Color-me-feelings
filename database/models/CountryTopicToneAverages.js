@@ -3,6 +3,7 @@ mongoose.Promise = global.Promise;
 const Schema = mongoose.Schema;
 
 const countryTopicToneAveragesSchema = new Schema({
+  period: String,
   country: String,
   topic: String,
   toneAverages: {
