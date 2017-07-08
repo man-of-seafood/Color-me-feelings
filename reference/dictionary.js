@@ -49,7 +49,7 @@ const stateDict = {
   'WV': 'West Virginia',
   'WI': 'Wisconsin',
   'WY': 'Wyoming'
-}
+};
 
 const stateReverseDict = {
   'Alabama': 'AL',
@@ -186,9 +186,9 @@ const countryReverseDict = {
   'Vietnam': 'VN'
 };
 
-module.exports = { 
-  stateDict: stateDict,
-  countryDict: countryDict,
-  stateReverseDict: stateReverseDict,
-  countryReverseDict: countryReverseDict,
+module.exports = {
+  stateDict,
+  countryDict,
+  stateReverseDict,
+  countryReverseDict
 };

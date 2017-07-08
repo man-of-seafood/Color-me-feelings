@@ -33,6 +33,7 @@
     "semantic-ui-react": "^0.70.0",
     "style-loader": "^0.18.2",
     "watson-developer-cloud": "^2.32.1",
+    "webhoseio": "^1.0.2",
     "yarn": "^0.24.5"
   }
 }

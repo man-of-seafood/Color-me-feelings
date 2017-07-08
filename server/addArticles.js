@@ -1,18 +1,14 @@
-const mongoose = require('mongoose');
-const axios = require('axios');
-const db = require('../database/index');
-const dict = require('../reference/dictionary');
-const config = require('../config/config'); // PRIVATE FILE - DO NOT COMMIT!
-
-const Article = db.Article;
-const stateDict = dict.stateDict;
-const countryDict = dict.countryDict;
-const WEBHOSE_API_KEY = config['WEBHOSE_API_KEY'];
+const { stateDict, countryDict } = require('../reference/dictionary');
+//const topics = require('../reference/topics');
+const Article = require('../database/models/Article');
+const ArticleAsync = require('bluebird').promisifyAll(Article);
+const webhose = require('webhoseio').config({ token: require('../config/config').WEBHOSE_API_KEY });
 
 /*~~~ COUNTRY AND STATE ~~~*/
-const getQueryStr = (code, type) => {
-  let refObj, countryCode;
-  if (type === 'state') { 
+const getQueryStr = (topic, code, type) => {
+  let refObj;
+  let countryCode;
+  if (type === 'state') {
     refObj = stateDict;
     countryCode = 'US';
   } else {
@@ -21,71 +17,83 @@ const getQueryStr = (code, type) => {
   }
   const locationStr = refObj[code];
   const timeNow = new Date().getTime(); // time in Unix Epoch ms...
-  const twoDaysAgo = timeNow - 86400000 - 86400000; // 86400000ms in a day
+  const thirtyDaysAgo = timeNow - 30 * 86400000; // 86400000ms in a day
 
-  return 'http://webhose.io/filterWebContent?token='+
-          WEBHOSE_API_KEY +
-          '&format=json&ts=' +
-          twoDaysAgo +
-          '&sort=published&q=is_first:true language:english published:>' +
-          twoDaysAgo +
-          ' site_type:news thread.country:' +
-          countryCode +
-          ' performance_score:>7 location:"' +
-          locationStr +
-          '"';
-}
-
-const getArticles = (code, type) => {
-  const queryString = getQueryStr(code, type);
-
-  axios.get(queryString)
-  .then(result => {
-    const totalResults = result.data.totalResults;
-    console.log(totalResults, 'articles rec\'d for', type, code, 'in hose-response');
-
-    if ( totalResults > 0 ){
-      clearArticles(code, type);
-    } else {
-      console.log('ZERO NEW Articles for', type, code, ', leaving STALE DATA as is.');
-    }
-
-    const arrOfArticleObj = result.data.posts;
-    arrOfArticleObj.forEach(articleObj => {
-      const inbound = new Article({
-        uuid: articleObj.uuid,
-        date: articleObj.published,
-        text: articleObj.text,
-        title: articleObj.title,
-        url: articleObj.url
-      });
-      const codeType = type === 'state' ? 'stateCode' : 'countryCode';
-      inbound[codeType] = code;
-      inbound.save(err => {
-        if (err) { console.error(err); }  //otherwise...
-        console.log('saved uuid-', articleObj.uuid);
-      });
-    });
-  })
-  .catch(error => { console.error('ERROR!!! For', type, code, '-->', error); });
+  return (
+    `thread.title:"${topic}" is_first:true crawled:>${thirtyDaysAgo} site_type:news` +
+    ` language:english thread.country:${countryCode} location:${locationStr}`
+  );
 };
 
-const clearArticles = (code, type) => {
-  const codeObj = type === 'state' ? { 'stateCode': code } : { 'countryCode': code };
-  Article.find(codeObj)
-         .remove(() => { console.log('Cleared', type, code, 'from DB'); });
-}
+const clearArticles = (topic, code, type) => {
+  const codeObj = type === 'state' ? { stateCode: code, topic: topic } : { countryCode: code, topic: topic };
+  Article.find(codeObj).remove(() => {
+    console.log('Cleared', type, code, 'from DB');
+  });
+};
 
-const articleRefresh = (type) => {
+const getArticles = (topic, code, type) => {
+  const queryString = getQueryStr(topic, code, type);
+  console.log(queryString);
+
+  webhose
+    .query('filterWebContent', { q: queryString })
+    .then(result => {
+      const totalResults = result.posts.length;
+      console.log(totalResults, 'articles rec\'d for', type, code, topic, 'in hose-response');
+
+      if (totalResults > 0) {
+        clearArticles(topic, code, type);
+      } else {
+        console.log('ZERO NEW Articles for', type, code, topic, ', leaving STALE DATA as is.');
+      }
+
+      const arrOfArticleObj = result.posts;
+      arrOfArticleObj.forEach(articleObj => {
+        const inbound = new Article({
+          topic,  
+          stateCode: type === 'state' ? code : 'Out of the motherland',
+          countryCode: type === 'country' ? code : 'US',
+          uuid: articleObj.uuid,
+          date: articleObj.published,
+          text: articleObj.text,
+          title: articleObj.title,
+          url: articleObj.url
+        });
+        const codeType = type === 'state' ? 'stateCode' : 'countryCode';
+        inbound[codeType] = code;
+        inbound.save(err => {
+          if (err) {
+            console.error(err);
+          } //otherwise...
+          console.log('saved uuid-', articleObj.uuid);
+        });
+      });
+    })
+    .catch(error => {
+      console.error('ERROR!!! For', type, code, '-->', error);
+    });
+};
+
+const articleRefresh = type => {
   // UNCOMMENT next line to loop through all, currently limiting API calls
   // const refObj = type === 'state' ? stateDict : countryDict;
   // then COMMENT out below line
-  const refObj = type === 'state' ? { 'AL': 'Alabama', 'MD': 'Maryland' } : { 'CN': 'China', 'JP': 'Japan' };
+  const topics = ['war', 'coffee'];
+  const refObj =
+    type === 'state' ? { 'AL': 'Alabama', 'MD': 'Maryland' } : { 'CN': 'China', 'JP': 'Japan' };
   let i = 0;
+  const queries = [];
   for (let key in refObj) {
-    i += 1000;
-    setTimeout(() => { getArticles(key, type) }, i);
+    topics.forEach(topic => {
+      i += 1000;
+      queries.push(getQueryStr(topic, key, type));
+      setTimeout(() => {
+        getArticles(topic, key, type);
+      }, i);
+    });
   }
+  //console.log('num of query strings', queries.length);
 };
 
 module.exports = articleRefresh;
