@@ -32,33 +32,7 @@ app.get('/tones/countries', (req, res) => {
 //clearAllToneData();
 
 // UNCOMMENT TO analyze articles in the database
-analyze(); //analyze all tones
-
-
-
-
-
-//just require anywhere you want to start a job and change crontime based on what you want
-// const job = new CronJob({
-//   cronTime: '00 30 11 * * 1,5',
-//   onTick: function() {
-//     /* run whatever you want scheduled in here.
-//      * Runs every weekday (Monday and Friday)
-//      * at 11:30:00 AM.
-//      */
-//     // run news api call
-//   },
-//   function() {
-//     //can remove, but runs when job is finished
-
-//     // run watson + add tones to db
-//     analyze();
-//   },
-//   start: false,
-//   timeZone: 'America/Los_Angeles'
-// });
-// job.start();
-
+//analyze(); //analyze all tones
 
 /*~~~~~~~~~~~~~~~~~~~~~~~ STARTUP SERVER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 app.listen(3000, function() {

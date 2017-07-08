@@ -93,7 +93,6 @@ const articleRefresh = type => {
       }, i);
     });
   }
-  //console.log('num of query strings', queries.length);
 };
 
 module.exports = articleRefresh;
