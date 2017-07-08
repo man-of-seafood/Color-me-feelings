@@ -36,6 +36,18 @@ class App extends React.Component {
       }
     };
 
+    this.emotionMap = {
+      joyful: 'joy',
+      angry: 'anger',
+      disgusted: 'disgust',
+      fearful: 'fear',
+      sad: 'sadness',
+      joy: 'joyful',
+      anger: 'angry',
+      disgust: 'disgusted',
+      fear: 'fearful',
+      sadness: 'sad'
+    }
   }
 
   getColor(score, currentEmotion) {
@@ -191,7 +203,7 @@ class App extends React.Component {
   }
 
   handleToneSelection(event, data) {
-    const newlySelectedEmotion = data.value;
+    const newlySelectedEmotion = this.emotionMap[data.value];
 
     this.setState({
       currentEmotion: newlySelectedEmotion
@@ -224,7 +236,7 @@ class App extends React.Component {
 
     return (
       <div className="app-root">
-        <Header inverted>News Mapper</Header>
+        <Header inverted className="title">News Mapper</Header>
         <PeriodPrompt 
           handlePeriodChange={this.handlePeriodSelection.bind(this)} 
           periods={['month', 'week', 'day']}
@@ -232,8 +244,8 @@ class App extends React.Component {
         />
         <EmotionPrompt 
           handleToneChange={this.handleToneSelection.bind(this)} 
-          emotions={Object.keys(this.state.colors)} 
-          emotion={this.state.currentEmotion}
+          emotions={['joyful', 'angry', 'disgusted', 'fearful', 'sad']} 
+          emotion={this.emotionMap[this.state.currentEmotion]}
         />
         <TopicPrompt
           handleTopicChange={this.handleTopicSelection.bind(this)}

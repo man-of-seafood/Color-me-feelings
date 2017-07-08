@@ -16,12 +16,13 @@ const EmotionPrompt = ({ handleToneChange, emotion, emotions }) => {
 
   return (
     <div className="prompt">
-      the world felt
+      here is how 
       {' '}
-      <Dropdown inline
+      <Dropdown compact inline
         onChange={handleToneChange} 
         value={emotion} 
         options={emotionsObj} />
+      the world
     </div>
   )
 }; 

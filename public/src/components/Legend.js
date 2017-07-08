@@ -3,7 +3,7 @@ import { Header, Segment } from 'semantic-ui-react';
 
 const Legend = ({ emotion, color }) => (
   <Segment className="legend">
-    <Header as="h3">Level of {emotion[0].toUpperCase() + emotion.slice(1)}</Header>
+    <Header inverted as="h3">Level</Header>
     {
       color.map((color, idx) => (
         <div key={idx}>

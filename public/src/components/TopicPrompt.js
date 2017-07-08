@@ -16,9 +16,9 @@ const TopicPrompt = ({ handleTopicChange, topic, topics }) => {
 
   return (
     <div className="prompt">
-      regarding
+      felt regarding
       {' '}
-      <Dropdown inline
+      <Dropdown inline compact
         onChange={handleTopicChange} 
         value={topic} 
         options={topicsObj} />
