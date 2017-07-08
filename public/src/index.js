@@ -60,7 +60,6 @@ class App extends React.Component {
 
     this.setState({ map });
 
-
     map.on('load', () => {
 
       /*~~~ COUNTRY ~~~*/
@@ -134,7 +133,6 @@ class App extends React.Component {
           selectedState: feature.properties.name,
           modalOpen: true
         });
-        console.log(this.state);
       }
     });
 
