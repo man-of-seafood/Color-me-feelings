@@ -30,87 +30,92 @@ const calculateAveragesTones = function() {
   const countryDict = { 'CN': 'China', 'JP': 'Japan' }; // for testing
   let stateTopicCounter = 0;
   let countryTopicCounter = 0;
-  db.StateTones.find({}, (err, analyzedStateArticleTones) => {
-    for (let stateCode in stateDict) {
-      topics.forEach(topic => {
-        console.log('Calculating average for state', stateCode, 'on topic', topic, '. Iteration', stateTopicCounter++);
-        //get all the articles with tagged with that state and topic
-        const currentBatch = analyzedStateArticleTones.filter(article => article.state === stateCode && article.topic === topic);
-        const averages = {
-          anger: 0,
-          disgust: 0,
-          fear: 0,
-          sadness: 0,
-          joy: 0
-        };
-        currentBatch.forEach(article => {
-          const { anger, disgust, fear, sadness, joy } = article.tones;
-          averages.anger += anger;
-          averages.disgust += disgust;
-          averages.fear += fear;
-          averages.sadness += sadness;
-          averages.joy += joy;
-        });
-        //now divide each score by the number of articles
-        if (currentBatch.length) {
-          for (let tone in averages) {
-            averages[tone] /= currentBatch.length;
+
+  db.StateTopicToneAverages.remove().then(() => {
+    db.StateTones.find({}, (err, analyzedStateArticleTones) => {
+      for (let stateCode in stateDict) {
+        topics.forEach(topic => {
+          console.log('Calculating average for state', stateCode, 'on topic', topic, '. Iteration', stateTopicCounter++);
+          //get all the articles with tagged with that state and topic
+          const currentBatch = analyzedStateArticleTones.filter(article => article.state === stateCode && article.topic === topic);
+          const averages = {
+            anger: 0,
+            disgust: 0,
+            fear: 0,
+            sadness: 0,
+            joy: 0
+          };
+          currentBatch.forEach(article => {
+            const { anger, disgust, fear, sadness, joy } = article.tones;
+            averages.anger += anger;
+            averages.disgust += disgust;
+            averages.fear += fear;
+            averages.sadness += sadness;
+            averages.joy += joy;
+          });
+          //now divide each score by the number of articles
+          if (currentBatch.length) {
+            for (let tone in averages) {
+              averages[tone] /= currentBatch.length;
+            }
           }
-        }
-        //store the averages 
-        const stateTopicAverages = new db.StateTopicToneAverages({
-          state: stateCode,
-          topic: topic,
-          toneAverages: averages
+          //store the averages 
+          const stateTopicAverages = new db.StateTopicToneAverages({
+            state: stateCode,
+            topic: topic,
+            toneAverages: averages
+          });
+          //save it
+          stateTopicAverages.save((err, success) => {
+            err ? console.log('ERROR saving:', err) : null;
+          });
         });
-        //save it
-        stateTopicAverages.save((err, success) => {
-          err ? console.log('ERROR saving:', err) : null;
-        });
-      });
-    } // end of stateDictForEach
+      } // end of stateDictForEach
+    });
   });
 
   // repeat for country tones 
-  db.CountryTones.find({}, (err, analyzedCountryArticleTones) => {
-    for (let countryCode in countryDict) {
-      topics.forEach(topic => {
-        console.log('Calculating average for country', countryCode, 'on topic', topic, '. Iteration', countryTopicCounter++);
-        //get all the articles with tagged with that state and topic
-        const currentBatch = analyzedCountryArticleTones.filter(article => article.country === countryCode && article.topic === topic);
-        const averages = {
-          anger: 0,
-          disgust: 0,
-          fear: 0,
-          sadness: 0,
-          joy: 0
-        };
-        currentBatch.forEach(article => {
-          const { anger, disgust, fear, sadness, joy } = article.tones;
-          averages.anger += anger;
-          averages.disgust += disgust;
-          averages.fear += fear;
-          averages.sadness += sadness;
-          averages.joy += joy;
-        });
-        //now divide each score by the number of articles
-        if (currentBatch.length) {
-          for (let tone in averages) {
-            averages[tone] /= currentBatch.length;
+  db.CountryTopicToneAverages.remove().then(() => {
+    db.CountryTones.find({}, (err, analyzedCountryArticleTones) => {
+      for (let countryCode in countryDict) {
+        topics.forEach(topic => {
+          console.log('Calculating average for country', countryCode, 'on topic', topic, '. Iteration', countryTopicCounter++);
+          //get all the articles with tagged with that state and topic
+          const currentBatch = analyzedCountryArticleTones.filter(article => article.country === countryCode && article.topic === topic);
+          const averages = {
+            anger: 0,
+            disgust: 0,
+            fear: 0,
+            sadness: 0,
+            joy: 0
+          };
+          currentBatch.forEach(article => {
+            const { anger, disgust, fear, sadness, joy } = article.tones;
+            averages.anger += anger;
+            averages.disgust += disgust;
+            averages.fear += fear;
+            averages.sadness += sadness;
+            averages.joy += joy;
+          });
+          //now divide each score by the number of articles
+          if (currentBatch.length) {
+            for (let tone in averages) {
+              averages[tone] /= currentBatch.length;
+            }
           }
-        }
-        //store the averages 
-        const countryTopicAverages = new db.CountryTopicToneAverages({
-          country: countryCode,
-          topic: topic,
-          toneAverages: averages
+          //store the averages 
+          const countryTopicAverages = new db.CountryTopicToneAverages({
+            country: countryCode,
+            topic: topic,
+            toneAverages: averages
+          });
+          //save it
+          countryTopicAverages.save((err, success) => {
+            err ? console.log('ERROR saving:', err) : null;
+          });
         });
-        //save it
-        countryTopicAverages.save((err, success) => {
-          err ? console.log('ERROR saving:', err) : null;
-        });
-      });
-    } // end of countryDict forEach
+      } // end of countryDict forEach
+    });
   });
 };
 

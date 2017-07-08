@@ -11,22 +11,36 @@ const selectStyle = {
   height: `2em`,
 };
 
-const EmotionDropdown = ({ handleEmotionChange, value, options }) => {
-  const optionsObj = options.map(option => {
+const EmotionDropdown = ({ handleEmotionChange, handleTopicChange, emotion, topic, emotions, topics }) => {
+  const emotionsObj = emotions.map(emotion => {
     return { 
-      text: option, 
-      value: option 
+      text: emotion, 
+      value: emotion 
+    };
+  });
+
+  const topicsObj = topics.map(topic => {
+    return { 
+      text: topic, 
+      value: topic 
     };
   });
 
   return (
     <span className="prompt">
-      Display level of
+      Who feels
       {' '}
       <Dropdown inline
         onChange={handleEmotionChange} 
-        value={value} 
-        options={optionsObj} />
+        value={emotion} 
+        options={emotionsObj} />
+      regarding
+      {' '}
+      <Dropdown inline
+        onChange={handleTopicChange} 
+        value={topic} 
+        options={topicsObj} />
+      ?
     </span>
   )
 }; 
