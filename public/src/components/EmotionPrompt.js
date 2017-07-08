@@ -16,7 +16,7 @@ const EmotionPrompt = ({ handleToneChange, emotion, emotions }) => {
 
   return (
     <div className="prompt">
-      I felt
+      the world felt
       {' '}
       <Dropdown inline
         onChange={handleToneChange} 

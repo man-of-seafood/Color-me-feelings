@@ -32,7 +32,7 @@ class App extends React.Component {
         anger: ['hsl(60, 100%, 10%)', 'hsl(60, 100%, 25%)', 'hsl(60, 100%, 50%)', 'hsl(60, 100%, 75%)', 'hsl(60, 100%, 100%)'],
         disgust: ['hsl(250, 100%, 10%)', 'hsl(250, 100%, 25%)', 'hsl(250, 100%, 50%)', 'hsl(250, 100%, 75%)', 'hsl(250, 100%, 90%)'],
         fear: ['hsl(120, 100%, 10%)', 'hsl(120, 100%, 25%)', 'hsl(120, 100%, 50%)', 'hsl(120, 100%, 75%)', 'hsl(120, 100%, 90%)'],
-        sadness: ['hsl(0, 50%, 10%)', 'hsl(0, 50%, 25%)', 'hsl(0, 50%, 50%)', 'hsl(0, 50%, 75%)', 'hsl(0, 50%, 90%)']
+        sadness: ['hsl(180, 50%, 10%)', 'hsl(180, 50%, 25%)', 'hsl(180, 50%, 50%)', 'hsl(180, 50%, 75%)', 'hsl(180, 50%, 90%)']
       }
     };
 
@@ -44,7 +44,7 @@ class App extends React.Component {
       anger: 60,
       disgust: 250,
       fear: 120,
-      default: 0,
+      sadness: 180,
     };
     return `hsl(${hues[currentEmotion]}, 100%, ${score * 100}%)`;
   }
