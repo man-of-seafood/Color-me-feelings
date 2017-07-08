@@ -36,6 +36,7 @@
 }
 
 .segment.legend {
+  pointer-events: none;
   background: none;
   color: white;
   position: absolute;
