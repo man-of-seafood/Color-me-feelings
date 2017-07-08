@@ -33,7 +33,7 @@ app.get('/tones/countries', (req, res) => {
 //clearAllToneData();
 
 // UNCOMMENT TO analyze articles in the database
-analyze(); //analyze all tones
+//analyze(); //analyze all tones
 
 
 
