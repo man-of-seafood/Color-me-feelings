@@ -5,6 +5,8 @@ const Schema = mongoose.Schema;
 const countryTonesSchema = new Schema({
   country: String,
   topic: String,
+  articleTitle: String,
+  url: String,
   tones: {
     anger: {type: Number, default: null},
     disgust: {type: Number, default: null},

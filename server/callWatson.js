@@ -45,6 +45,7 @@ const calculateAveragesTones = function() {
             sadness: 0,
             joy: 0
           };
+          const titleUrlTuple = [];
           currentBatch.forEach(article => {
             const { anger, disgust, fear, sadness, joy } = article.tones;
             averages.anger += anger;
@@ -52,6 +53,9 @@ const calculateAveragesTones = function() {
             averages.fear += fear;
             averages.sadness += sadness;
             averages.joy += joy;
+            if (titleUrlTuple.length < 5) {
+              titleUrlTuple.push([article.articleTitle, article.url]);
+            }
           });
           //now divide each score by the number of articles
           if (currentBatch.length) {
@@ -63,17 +67,18 @@ const calculateAveragesTones = function() {
           const stateTopicAverages = new db.StateTopicToneAverages({
             state: stateCode,
             topic: topic,
-            toneAverages: averages
+            toneAverages: averages,
+            articles: titleUrlTuple
           });
           //save it
           stateTopicAverages.save((err, success) => {
             err ? console.log('ERROR saving:', err) : null;
           });
-        });
-      } // end of stateDictForEach
+        }); // end of stateDictForEach
+      }
     });
   });
-
+  
   // repeat for country tones 
   db.CountryTopicToneAverages.remove().then(() => {
     db.CountryTones.find({}, (err, analyzedCountryArticleTones) => {
@@ -89,6 +94,7 @@ const calculateAveragesTones = function() {
             sadness: 0,
             joy: 0
           };
+          const titleUrlTuple = [];
           currentBatch.forEach(article => {
             const { anger, disgust, fear, sadness, joy } = article.tones;
             averages.anger += anger;
@@ -96,6 +102,9 @@ const calculateAveragesTones = function() {
             averages.fear += fear;
             averages.sadness += sadness;
             averages.joy += joy;
+            if (titleUrlTuple.length < 5) {
+              titleUrlTuple.push([article.articleTitle, article.url]);
+            }
           });
           //now divide each score by the number of articles
           if (currentBatch.length) {
@@ -107,14 +116,15 @@ const calculateAveragesTones = function() {
           const countryTopicAverages = new db.CountryTopicToneAverages({
             country: countryCode,
             topic: topic,
-            toneAverages: averages
+            toneAverages: averages,
+            articles: titleUrlTuple
           });
           //save it
           countryTopicAverages.save((err, success) => {
             err ? console.log('ERROR saving:', err) : null;
           });
-        });
-      } // end of countryDict forEach
+        }); // end of countryDict forEach
+      }
     });
   });
 };
@@ -152,18 +162,21 @@ const addTones = () => {
             sadness,
             joy
           };
-
           if (countryCode === 'US') {
             analyzedArticleTones = new db.StateTones({
               state: stateCode,
               topic,
-              tones
+              tones,
+              articleTitle: article.title,
+              url: article.url
             });
           } else {
             analyzedArticleTones = new db.CountryTones({
               country: countryCode,
               topic,
-              tones
+              tones,
+              articleTitle: article.title,
+              url: article.url
             });
           }
 

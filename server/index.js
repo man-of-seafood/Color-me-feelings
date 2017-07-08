@@ -27,7 +27,7 @@ setTimeout(() => { refill('country'); }, 4500); //grab country articles, hardcod
 //clearAllToneData();
 
 // UNCOMMENT TO analyze articles in the database
-analyze(); //analyze all tones
+//analyze(); //analyze all tones
 
 
 

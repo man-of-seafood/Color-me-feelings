@@ -11,7 +11,8 @@ const countryTopicToneAveragesSchema = new Schema({
     fear: { type: Number, default: null },
     sadness: { type: Number, default: null },
     joy: { type: Number, default: null }
-  }
+  },
+  articles: Array
 });
 
 module.exports = mongoose.model('CountryTopicToneAverages', countryTopicToneAveragesSchema);

@@ -11,7 +11,17 @@ const stateTopicToneAveragesSchema = new Schema({
     fear: { type: Number, default: null },
     sadness: { type: Number, default: null },
     joy: { type: Number, default: null }
-  }
+  },
+  articles: Array
 });
 
 module.exports = mongoose.model('StateTopicToneAverages', stateTopicToneAveragesSchema);
+
+
+// const asdf = mongoose.model('StateTopicToneAverages', stateTopicToneAveragesSchema);
+
+// console.log(new asdf({
+//   state: 'CA',
+//   topic: 'blah',
+//   articles: [['title', 'http://bbc.com']]
+// }));d
