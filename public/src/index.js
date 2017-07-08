@@ -1,8 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Header } from 'semantic-ui-react';
 
 import Legend from './components/Legend';
 import EmotionDropdown from './components/EmotionDropdown';
+import NewsList from './components/NewsList'; 
+
+import './app.css';
 
 import mapboxgl from 'mapbox-gl';
 import { stateDict, countryDict } from '../../reference/dictionary.js';
@@ -15,6 +19,8 @@ class App extends React.Component {
       stateData: [],
       countryData: [],
       currentEmotion: 'joy',
+      selectedState: 'California',
+      modalOpen: false,
       map: null,
       colors: {
         joy: ['hsl(300, 100%, 0%)', 'hsl(300, 100%, 25%)', 'hsl(300, 100%, 50%)', 'hsl(300, 100%, 75%)', 'hsl(300, 100%, 100%)'],
@@ -26,7 +32,6 @@ class App extends React.Component {
     };
 
   }
-
 
   getColor(score, currentEmotion) {
     const hues = {
@@ -50,22 +55,42 @@ class App extends React.Component {
       container: 'map', // container id
       style: 'mapbox://styles/mapbox/dark-v9', //hosted style id
       center: [-95.38, 39], // starting position
-      zoom: 4 // starting zoom
+      zoom: 2 // starting zoom
     });
 
     this.setState({ map });
 
+
     map.on('load', () => {
+
+      /*~~~ COUNTRY ~~~*/
+      map.addSource('country', {
+        'type': 'geojson',
+        'data': 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_50m_admin_0_countries.geojson'
+      });
+
+      map.addLayer({
+        'id': 'country-layer',
+        'type': 'fill',
+        'paint': {
+          'fill-opacity': 0
+        },
+        'source': 'country'
+      });
+
       /*~~~ STATE ~~~*/
       map.addSource('state', {
         'type': 'geojson',
         'data': 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_1_states_provinces.geojson'
       });
 
-      /*~~~ COUNTRY ~~~*/
-      map.addSource('country', {
-        'type': 'geojson',
-        'data': 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_50m_admin_0_countries.geojson'
+      map.addLayer({
+        'id': 'states-layer',
+        'type': 'fill',
+        'paint': {
+          'fill-opacity': 0
+        },
+        'source': 'state'
       });
 
       let countryData = [];
@@ -77,13 +102,14 @@ class App extends React.Component {
           countryData = data; 
         })
         .catch( err => {
-          console.log('Failed to get country data from server ', err);
+          console.log('Failed to gmet country data from server ', err);
         })
         .then(
           fetch('/tones?scope=state')
             .then( res => res.json() )
             .then( data => {
               stateData = data;
+              console.log(stateData, countryData);
               this.setState({
                 countryData,
                 stateData
@@ -97,6 +123,21 @@ class App extends React.Component {
             })
         )
     });
+
+    map.on('click', (e) => {
+      const features = map.queryRenderedFeatures(e.point, { layers: ['country-layer', 'states-layer']});
+      if (!features.length) {
+        return;
+      } else {
+        const feature = features[0]; 
+        this.setState({
+          selectedState: feature.properties.name,
+          modalOpen: true
+        });
+        console.log(this.state);
+      }
+    });
+
   };
 
   // adds a layer representing data on the currently selected tone
@@ -126,9 +167,14 @@ class App extends React.Component {
     })
   }
 
+  hideModal() {
+    this.setState({
+      modalOpen: false
+    })
+  }
 
-  handleToneSelection(event) {
-    const newlySelectedEmotion = event.target.value[0].toLowerCase() + event.target.value.slice(1);
+  handleToneSelection(event, data) {
+    const newlySelectedEmotion = data.value;
 
     this.setState({
       currentEmotion: newlySelectedEmotion
@@ -138,18 +184,30 @@ class App extends React.Component {
   }
 
   render() {
+
     return (
-      <div>
-        <p className='title'>News Mapper</p>
+      <div className="app-root">
+        <Header inverted>News Mapper</Header>
         <EmotionDropdown handleEmotionChange={this.handleToneSelection.bind(this)} options={Object.keys(this.state.colors)} value={this.state.currentEmotion}/>
-        <div className='col-md-9 col-sm-9 col-lg-9'></div>
-        <div className='col-md-1 col-sm-1 col-lg-1'>
-          <Legend color={this.state.colors[this.state.currentEmotion]} emotion={this.state.currentEmotion}/>
-        </div>
+        <Legend color={this.state.colors[this.state.currentEmotion]} emotion={this.state.currentEmotion}/>
+        <NewsList
+          state={this.state.selectedState}
+          open={this.state.modalOpen}
+          onCloseClick={this.hideModal.bind(this)}
+          articles={[
+            {title: 'Suh', source: 'http://www.google.com'},
+            {title: 'Suh', source: 'http://www.google.com'},
+            {title: 'Suh', source: 'http://www.google.com'},
+            {title: 'Suh', source: 'http://www.google.com'},
+            {title: 'Suh', source: 'http://www.google.com'},
+          ]}
+        />
       </div>
     );
+    
   }
-}
+
+};
 
 
 ReactDOM.render(<App />, document.getElementById('app'));

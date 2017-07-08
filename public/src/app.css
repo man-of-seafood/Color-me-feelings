@@ -1,0 +1,50 @@
+.app-root {
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.app-root * {
+  pointer-events: visible;
+}
+
+.header.inverted {
+  padding-top: 1em;
+  margin-left: 3vw;
+  font-size: 4em !important;
+}
+
+.prompt {
+  margin-left: 3vw;
+  color: white;
+  font-size: 1.5em;
+}
+
+.dropdown {
+  width: 8em;
+  margin-left: 0.5em;
+}
+
+.segment.legend {
+  position: absolute;
+  right: 3vw;
+  bottom: 5vw;
+  padding: 20px;
+  border-radius: 5px;
+  width: 15em;
+}
+
+.color-key {
+  width: 1em;
+  height: 1em;
+  border-radius: 0.2em;
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 0.5em;
+  margin-bottom: 0.5em;
+}
