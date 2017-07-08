@@ -11,13 +11,15 @@ const dict = require('../reference/dictionary.js');
 app.use(express.static(__dirname + '/../public/dist'));
 
 //*~~~ COUNTRY AND STATE ~~~~*/
-app.get('/tones', function (req, res) {
-  let toneResults = [];
+app.get('/tones/states', (req, res) => {
   db.StateTopicToneAverages.find({}, (err, stateAverages) => {
-    err ? res.status(500).send('Failed to retrieve StateToneTopicAverages') : null;
-    db.CountryTopicToneAverages.find({}, (err, countryAverages) => {
-      err ? res.status(500).send('Failed to retrieve countryToneTopicAverages') : res.json(stateAverages.concat(countryAverages));
-    });
+    err ? res.status(500).send('Failed to retrieve StateToneTopicAverages') : res.json(stateAverages);
+  });
+});
+
+app.get('/tones/countries', (req, res) => {
+  db.CountryTopicToneAverages.find({}, (err, countryAverages) => {
+    err ? res.status(500).send('Failed to retrieve countryToneTopicAverages') : res.json(countryAverages);
   });
 });
 
