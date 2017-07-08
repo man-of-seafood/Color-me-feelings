@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom';
 import { Header } from 'semantic-ui-react';
 
 import Legend from './components/Legend';
-import Prompt from './components/Prompt';
+import EmotionPrompt from './components/EmotionPrompt';
+import TopicPrompt from './components/TopicPrompt';
+import PeriodPrompt from './components/PeriodPrompt';
 import NewsList from './components/NewsList'; 
 // import topicsObj from '../../reference/topics.js'; //currently hardcoded on line 219. change to topics={topicsObj}
 
@@ -21,6 +23,7 @@ class App extends React.Component {
       countryData: [],
       currentEmotion: 'joy',
       currentTopic: 'war',
+      currentPeriod: 'month',
       selectedState: 'California',
       modalOpen: false,
       map: null,
@@ -51,6 +54,7 @@ class App extends React.Component {
     const data = this.state.data;
     const currentEmotion = this.state.currentEmotion;
     const currentTopic = this.state.currentTopic;
+    const currentPeriod = this.state.currentPeriod;
 
     mapboxgl.accessToken = 'pk.eyJ1IjoiYmh1YW5nIiwiYSI6ImNqNDhxZWF6ZzBibjIycXBjaXN2Ymx3aHcifQ.MKQaPh3n3c94mcs0s2IfHw';
 
@@ -116,7 +120,7 @@ class App extends React.Component {
                 countryData,
                 stateData
               });
-              this.refreshMap([[stateData, 'state'], [countryData, 'country']], currentEmotion, currentTopic);
+              this.refreshMap([[stateData, 'state'], [countryData, 'country']], currentEmotion, currentTopic, currentPeriod);
 
             })
             .catch( err => {
@@ -142,13 +146,13 @@ class App extends React.Component {
   };
 
   // adds a layer representing data on the currently selected tone
-  refreshMap(dataArr, currentEmotion, currentTopic) {
+  refreshMap(dataArr, currentEmotion, currentTopic, currentPeriod) {
     //filter all country and state data by topic
     let filteredArr = [['data', 'state'], ['data', 'country']];
     dataArr.forEach((scopeData, idx) => {
       const tempArr = [];
       scopeData[0].forEach(data => {
-        if (data.topic === currentTopic) {
+        if (data.topic === currentTopic && data.period === currentPeriod) {
           tempArr.push(data);
         }; 
       });
@@ -193,7 +197,7 @@ class App extends React.Component {
       currentEmotion: newlySelectedEmotion
     });
 
-    this.refreshMap([[this.state.stateData, 'state'], [this.state.countryData, 'country']], newlySelectedEmotion, this.state.currentTopic);
+    this.refreshMap([[this.state.stateData, 'state'], [this.state.countryData, 'country']], newlySelectedEmotion, this.state.currentTopic, this.state.currentPeriod);
   }
 
   handleTopicSelection(event, data) {
@@ -203,7 +207,17 @@ class App extends React.Component {
       currentTopic: newlySelectedTopic
     });
 
-    this.refreshMap([[this.state.stateData, 'state'], [this.state.countryData, 'country']], this.state.currentEmotion, newlySelectedTopic);
+    this.refreshMap([[this.state.stateData, 'state'], [this.state.countryData, 'country']], this.state.currentEmotion, newlySelectedTopic, this.state.currentPeriod);
+  }
+
+  handlePeriodSelection(event, data) {
+    const newlySelectedPeriod = data.value;
+
+    this.setState({
+      currentPeriod: newlySelectedPeriod
+    });
+
+    this.refreshMap([[this.state.stateData, 'state'], [this.state.countryData, 'country']], this.state.currentEmotion, this.state.currentTopic, newlySelectedPeriod);
   }
 
   render() {
@@ -211,13 +225,21 @@ class App extends React.Component {
     return (
       <div className="app-root">
         <Header inverted>News Mapper</Header>
-        <Prompt 
-          handleEmotionChange={this.handleToneSelection.bind(this)} 
+        <PeriodPrompt 
+          handlePeriodChange={this.handlePeriodSelection.bind(this)} 
+          periods={['month', 'week', 'day']}
+          period={this.state.currentPeriod}
+        />
+        <EmotionPrompt 
+          handleToneChange={this.handleToneSelection.bind(this)} 
           emotions={Object.keys(this.state.colors)} 
           emotion={this.state.currentEmotion}
+        />
+        <TopicPrompt
           handleTopicChange={this.handleTopicSelection.bind(this)}
           topics={['war', 'coffee']}
-          topic={this.state.currentTopic}/>
+          topic={this.state.currentTopic}
+        />
         <Legend color={this.state.colors[this.state.currentEmotion]} emotion={this.state.currentEmotion}/>
         <NewsList
           state={this.state.selectedState}
