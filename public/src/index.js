@@ -5,7 +5,7 @@ import { Header } from 'semantic-ui-react';
 import Legend from './components/Legend';
 import Prompt from './components/Prompt';
 import NewsList from './components/NewsList'; 
-// import * as topicsObj from '../../reference/topics.js'; //figure this out but hardcoded for now on line 220
+// import topicsObj from '../../reference/topics.js'; //currently hardcoded on line 219. change to topics={topicsObj}
 
 import './app.css';
 
