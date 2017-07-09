@@ -18,12 +18,6 @@ app.get('/tones', function (req, res) {
   });
 });
 
-app.get('/tones/countries', (req, res) => {
-  db.CountryTopicToneAverages.find({}, (err, countryAverages) => {
-    err ? res.status(500).send('Failed to retrieve countryToneTopicAverages') : res.json(countryAverages);
-  });
-});
-
 // UNCOMMENT TO get new articles for database
 // refill('state'); //grab state articles
 // setTimeout(() => { refill('country'); }, 4500); //grab country articles, hardcoded for working with 2 states at 2 topics each

@@ -8,8 +8,7 @@ import TopicPrompt from './components/TopicPrompt';
 import PeriodPrompt from './components/PeriodPrompt';
 import NewsList from './components/NewsList'; 
 
-//import * as topicsObj from '../../reference/topics.js'; //figure this out but hardcoded for now on line 220
-const topicsObj = require('../../reference/topics.js');
+import topicsObj from '../../reference/topics.js'; 
 //const topics = ['Donald Trump', 'immigration', 'war', 'coffee', 'obesity', 'education', 'marijuana', 'refugees', 'capitalism', 'global warming'];
 
 import './app.css';
@@ -51,7 +50,7 @@ class App extends React.Component {
       disgust: 'disgusted',
       fear: 'fearful',
       sadness: 'sad'
-    }
+    };
   }
 
   getColor(score, currentEmotion) {
@@ -141,7 +140,7 @@ class App extends React.Component {
             .catch( err => {
               console.log('Failed to get state data from server ', err);
             })
-        )
+        );
     });
 
     map.on('click', (e) => {
@@ -154,8 +153,8 @@ class App extends React.Component {
           this.setState({
             selectedState: feature.properties.name,
             articles: this.state.stateData.filter( data => {
-              return data.state === feature.properties.postal
-            }).concat({articles:[]})[0].articles,
+              return data.state === feature.properties.postal;
+            }).concat({ articles: [] })[0].articles,
             modalOpen: true
           });
         } else {
@@ -163,14 +162,13 @@ class App extends React.Component {
             selectedState: feature.properties.name,
             articles: this.state.countryData.filter( data => {
               return data.country === feature.properties.postal;
-            }).concat({articles:[]})[0].articles,
+            }).concat({ articles: [] })[0].articles,
             modalOpen: true
           });
         }
       }
     });
-
-  };
+  }
 
   // adds a layer representing data on the currently selected tone
   refreshMap(dataArr, currentEmotion, currentTopic, currentPeriod) {
@@ -181,7 +179,7 @@ class App extends React.Component {
       scopeData[0].forEach(data => {
         if (data.topic === currentTopic && data.period === currentPeriod) {
           tempArr.push(data);
-        }; 
+        }
       });
       filteredArr[idx][0] = tempArr; 
     });
@@ -197,7 +195,7 @@ class App extends React.Component {
           const opacity = data[i].toneAverages[currentEmotion] === 0 ? 0 : 0.3; //no fill if no articles found for that topic
           const color = this.getColor(data[i].toneAverages[currentEmotion], currentEmotion);
           this.state.map.addLayer({
-            'id': data[i][type] + '-fill',
+            'id': data[i][type] + type + '-fill',
             'type': 'fill',
             'source': type,
             'layout': {},
@@ -209,13 +207,13 @@ class App extends React.Component {
           });
         }
       }
-    })
+    });
   }
 
   hideModal() {
     this.setState({
       modalOpen: false
-    })
+    });
   }
 
   handleToneSelection(event, data) {
@@ -278,8 +276,7 @@ class App extends React.Component {
     );
     
   }
-
-};
+}
 
 
 ReactDOM.render(<App />, document.getElementById('app'));
