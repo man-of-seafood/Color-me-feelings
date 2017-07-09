@@ -78,9 +78,9 @@ const getArticles = (topic, code, type) => {
 const articleRefresh = type => {
   // UNCOMMENT BELOW for testing with limited topics (and limited api calls)
   // const topics = ['war', 'coffee']
-  // UNCOMMENT next line to loop through all, currently limiting API calls
+
   const refObj = type === 'state' ? stateDict : countryDict;
-  // then COMMENT out below line
+  // UNCOMMENT BELOW line and COMMENT above for testing
   // const refObj =
   //   type === 'state' ? { 'AL': 'Alabama', 'MD': 'Maryland' } : { 'CN': 'China', 'JP': 'Japan' };
   let i = 0;
