@@ -157,148 +157,95 @@ const addTones = () => {
     articlesAnalyzedUnderJosh: 0
   };
   let currentCounterKey = 'articlesAnalyzedUnderMason';
-  db.Article.find({}, (err, articles) => {
-    if (err) {
-      console.log('error occurred finding articles', err);
-    } else {
-      let problemOccurred = false;
-      for (let article of articles) {
-        counters[currentCounterKey]++;
-        if (counters['articlesAnalyzedUnderMason'] >= 2100) {
-          toneAnalyzer = new ToneAnalyzerV3({
-            username: joshWatsonCredentials.WATSON_TA_USERNAME,
-            password: joshWatsonCredentials.WATSON_TA_PASSWORD,
-            version_date: '2016-05-19'
-          });
-          currentCounterKey = 'articlesAnalyzedUnderJosh';
-        }
-        let { text, topic, stateCode, countryCode } = article;
-        if (!text) {
-          // some articles seem to have no text and this creates a problem with Watson -- default text set here. 
-          text = 'This is neutral text';
-        } 
-        
-        const params = {
-          text,
-          tones: 'emotion',
-          setences: false
-        };
-        setTimeout(() => {
-          toneAnalyzer.tone(params, (err, res) => {
-            if (err) {
-              console.log('ERROR analyzing tones:', err, 'article uuid:', article.uuid);
-              problemOccurred = true;
-              return;
-            }
-            console.log('analyzing article #', counter);
-            const scores = res.document_tone.tone_categories[0].tones;
-            const anger = scores[0].score;
-            const disgust = scores[1].score;
-            const fear = scores[2].score;
-            const joy = scores[3].score;
-            const sadness = scores[4].score;
-  
-            let analyzedArticleTones;
-            const tones = {
-              anger,
-              disgust,
-              fear,
-              sadness,
-              joy
-            };
-            if (countryCode === 'US') {
-              analyzedArticleTones = new db.StateTones({
-                state: stateCode,
-                topic,
-                tones,
-                articleTitle: article.title,
-                url: article.url
-              });
-            } else {
-              analyzedArticleTones = new db.CountryTones({
-                country: countryCode,
-                topic,
-                tones,
-                articleTitle: article.title,
-                url: article.url
-              });
-            }
-// ======= Uncomment the block below, grab a minimum of two (2) api keys, and integrate the above code 
-// (mainly the credential switching bits) to re-analyze the 4200 or so articles that will be stored
-// after calling refill()
 
-//   //clear StateTones and CountryTones
-//   db.StateTones.remove().then(() => {
-//     return db.CountryTones.remove();
-//   }).then(() => {
-//     db.Article.find({}, (err, articles) => {
-//       if (err) {
-//         console.log(err);
-//       } else {
-//         articles.forEach(article => {
-//           const { text, topic, stateCode, countryCode } = article;
-//           const params = {
-//             text,
-//             tones: 'emotion',
-//             setences: false
-//           };
-//           toneAnalyzer.tone(params, (err, res) => {
-//             if (err) {
-//               console.log('ERROR analyzing tones:', err);
-//               return;
-//             }
-//             const scores = res.document_tone.tone_categories[0].tones;
-//             const anger = scores[0].score;
-//             const disgust = scores[1].score;
-//             const fear = scores[2].score;
-//             const joy = scores[3].score;
-//             const sadness = scores[4].score;
-
-//             let analyzedArticleTones;
-//             const tones = {
-//               anger,
-//               disgust,
-//               fear,
-//               sadness,
-//               joy
-//             };
-//             if (countryCode === 'US') {
-//               analyzedArticleTones = new db.StateTones({
-//                 state: stateCode,
-//                 topic,
-//                 tones,
-//                 articleTitle: article.title,
-//                 url: article.url,
-//                 date: article.date
-//               });
-//             } else {
-//               analyzedArticleTones = new db.CountryTones({
-//                 country: countryCode,
-//                 topic,
-//                 tones,
-//                 articleTitle: article.title,
-//                 url: article.url,
-//                 date: article.date
-//               });
-//             }
-
-// >>>>>>> 396ecca34bce77c151a5f20cc731f53df50811f3
-
-            analyzedArticleTones.save((err, success) => {
-              err ? console.log('ERROR saving:', err) : counter++;
-              if (counter === articles.length) {
-                //calculate the averages
-                calculateAveragesTones();
-              }
+  //clear StateTones and CountryTones
+  db.StateTones.remove().then(() => {
+    return db.CountryTones.remove();
+  }).then(() => {
+    db.Article.find({}, (err, articles) => {
+      if (err) {
+        console.log('error occurred finding articles', err);
+      } else {
+        let problemOccurred = false;
+        for (let article of articles) {
+          counters[currentCounterKey]++;
+          if (counters['articlesAnalyzedUnderMason'] >= 2100) {
+            toneAnalyzer = new ToneAnalyzerV3({
+              username: joshWatsonCredentials.WATSON_TA_USERNAME,
+              password: joshWatsonCredentials.WATSON_TA_PASSWORD,
+              version_date: '2016-05-19'
             });
-          });
-        }, 300 * (counters['articlesAnalyzedUnderMason'] + counters['articlesAnalyzedUnderJosh']));
-        if (problemOccurred) {
-          console.log('breaking out of loop because of an error analyzing tones. see somewhere above for article uuid of article that broke the TA');
-          break;
+            currentCounterKey = 'articlesAnalyzedUnderJosh';
+          }
+          let { text, topic, stateCode, countryCode } = article;
+          if (!text) {
+            // some articles seem to have no text and this creates a problem with Watson -- default text set here. 
+            text = 'This is neutral text';
+          } 
+          
+          const params = {
+            text,
+            tones: 'emotion',
+            setences: false
+          };
+          setTimeout(() => {
+            toneAnalyzer.tone(params, (err, res) => {
+              if (err) {
+                console.log('ERROR analyzing tones:', err, 'article uuid:', article.uuid);
+                problemOccurred = true;
+                return;
+              }
+              console.log('analyzing article #', counter);
+              const scores = res.document_tone.tone_categories[0].tones;
+              const anger = scores[0].score;
+              const disgust = scores[1].score;
+              const fear = scores[2].score;
+              const joy = scores[3].score;
+              const sadness = scores[4].score;
+
+              let analyzedArticleTones;
+              const tones = {
+                anger,
+                disgust,
+                fear,
+                sadness,
+                joy
+              };
+              if (countryCode === 'US') {
+                analyzedArticleTones = new db.StateTones({
+                  state: stateCode,
+                  topic,
+                  tones,
+                  articleTitle: article.title,
+                  url: article.url,
+                  date: article.date
+                });
+              } else {
+                analyzedArticleTones = new db.CountryTones({
+                  country: countryCode,
+                  topic,
+                  tones,
+                  articleTitle: article.title,
+                  url: article.url,
+                  date: article.date
+                });
+              }
+              analyzedArticleTones.save((err, success) => {
+                err ? console.log('ERROR saving:', err) : counter++;
+                if (counter === articles.length) {
+                  //calculate the averages
+                  calculateAveragesTones();
+                }
+              });
+            });
+          }, 300 * (counters['articlesAnalyzedUnderMason'] + counters['articlesAnalyzedUnderJosh']));
+          if (problemOccurred) {
+            console.log('breaking out of loop because of an error analyzing tones. see somewhere above for article uuid of article that broke the TA');
+            break;
+          }
         }
       }
-    }
+    });
   });
 };
 
