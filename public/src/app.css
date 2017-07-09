@@ -17,7 +17,7 @@
   pointer-events: none;
   margin-top: 15vh !important;
   margin-left: 3vw;
-  margin-bottom: 1.5vw;
+  margin-bottom: 1.5rem;
   font-size: 4.2rem !important;
 
 }
@@ -25,7 +25,7 @@
 .prompt {
   pointer-events: none;
   margin-left: 3vw;
-  margin-bottom: 1.5vw;
+  margin-bottom: 1rem;
   color: white;
   font-size: 1.7em;
 }
