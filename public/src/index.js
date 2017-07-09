@@ -7,7 +7,10 @@ import EmotionPrompt from './components/EmotionPrompt';
 import TopicPrompt from './components/TopicPrompt';
 import PeriodPrompt from './components/PeriodPrompt';
 import NewsList from './components/NewsList'; 
-// import topicsObj from '../../reference/topics.js'; //currently hardcoded on line 219. change to topics={topicsObj}
+
+//import * as topicsObj from '../../reference/topics.js'; //figure this out but hardcoded for now on line 220
+const topicsObj = require('../../reference/topics.js');
+//const topics = ['Donald Trump', 'immigration', 'war', 'coffee', 'obesity', 'education', 'marijuana', 'refugees', 'capitalism', 'global warming'];
 
 import './app.css';
 
@@ -262,9 +265,8 @@ class App extends React.Component {
         />
         <TopicPrompt
           handleTopicChange={this.handleTopicSelection.bind(this)}
-          topics={['war', 'coffee']}
-          topic={this.state.currentTopic}
-        />
+          topics={topicsObj}
+          topic={this.state.currentTopic}/>
         <Legend color={this.state.colors[this.state.currentEmotion]} emotion={this.state.currentEmotion}/>
         <NewsList
           state={this.state.selectedState}
