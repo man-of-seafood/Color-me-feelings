@@ -20,20 +20,15 @@ app.get('/tones', function (req, res) {
 
 // UNCOMMENT TO get new articles for database
 // refill('state'); //grab state articles
-// setTimeout(() => { refill('country'); }, 4500); //grab country articles, hardcoded
-// setTimeout(() => { refill('country'); }, Object.keys(dict.stateDict).length * 1000); //grab country articles
-//wait for all states to run, though it's hardcoded for testing
-
-//clearAllToneData();
+// setTimeout(() => { refill('country'); }, 4500); //grab country articles, hardcoded for working with 2 states at 2 topics each
+// setTimeout(() => { refill('country'); }, Object.keys(dict.stateDict).length * 1060 * 10); // real timeout working with 50 states and 10 topics 
 
 // UNCOMMENT TO analyze articles in the database
-analyze(); //analyze all tones
+// analyze(); //analyze all tones - NEVER RUN THIS UNLESS YOU'RE PAYING
 
 
+// just require anywhere you want to start a job and change crontime based on what you want
 
-
-
-//just require anywhere you want to start a job and change crontime based on what you want
 // const job = new CronJob({
 //   cronTime: '00 30 11 * * 1,5',
 //   onTick: function() {
