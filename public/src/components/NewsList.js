@@ -8,9 +8,12 @@ const NewsList = ({ state, open, onCloseClick, articles }) => (
     <Modal.Header as="h2">Articles from {state}</Modal.Header>
     <Modal.Content>
       <List selection relaxed verticalAlign="middle">
-        {articles.map((article, idx) => (
-          <NewsListEntry key={idx} article={article} />
-        ))}
+        { articles.length
+          ? articles.map((article, idx) => (
+            <NewsListEntry key={idx} article={article} />
+          )) 
+          : <div>No articles found.</div>
+        }
       </List>
     </Modal.Content>
   </Modal>

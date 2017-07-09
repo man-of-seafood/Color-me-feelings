@@ -1,5 +1,6 @@
 *.DS_Store
 config/config.js
+config/config.js.bk
 yarn.lock
 # Logs
 logs

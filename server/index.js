@@ -18,6 +18,12 @@ app.get('/tones', function (req, res) {
   });
 });
 
+app.get('/tones/countries', (req, res) => {
+  db.CountryTopicToneAverages.find({}, (err, countryAverages) => {
+    err ? res.status(500).send('Failed to retrieve countryToneTopicAverages') : res.json(countryAverages);
+  });
+});
+
 // UNCOMMENT TO get new articles for database
 // refill('state'); //grab state articles
 // setTimeout(() => { refill('country'); }, 4500); //grab country articles, hardcoded for working with 2 states at 2 topics each
@@ -25,30 +31,6 @@ app.get('/tones', function (req, res) {
 
 // UNCOMMENT TO analyze articles in the database
 // analyze(); //analyze all tones - NEVER RUN THIS UNLESS YOU'RE PAYING
-
-
-// just require anywhere you want to start a job and change crontime based on what you want
-
-// const job = new CronJob({
-//   cronTime: '00 30 11 * * 1,5',
-//   onTick: function() {
-//     /* run whatever you want scheduled in here.
-//      * Runs every weekday (Monday and Friday)
-//      * at 11:30:00 AM.
-//      */
-//     // run news api call
-//   },
-//   function() {
-//     //can remove, but runs when job is finished
-
-//     // run watson + add tones to db
-//     analyze();
-//   },
-//   start: false,
-//   timeZone: 'America/Los_Angeles'
-// });
-// job.start();
-
 
 /*~~~~~~~~~~~~~~~~~~~~~~~ STARTUP SERVER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 app.listen(3000, function() {
