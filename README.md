@@ -1,13 +1,13 @@
-# News Mapper
+# Color Me Feelings
 
-> Map display of top news articles' tone by state
+> Map sentiment of the states 
 
 ## Team
 
-  - Bryant
-  - Rich
-  - Jake
-  - Andrea
+  - Mason Raasch (@man-of-seafood)
+  - Jennifer Wang (@jenniferwg)
+  - Brian Wong
+  - Josh Broberg (@guyinjeans)
 
 ## Table of Contents
 
